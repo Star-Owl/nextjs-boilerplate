@@ -9,7 +9,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({}) => {
         <React.Fragment>
             <NextSeo
                 titleTemplate='%s'
-                title='Next.js starter template'
+                title='Home | StarOwl'
                 description='Ready-to-go Next.js starter template using the battle-tested pages router.'
                 canonical='https://nextjs-starter.nordcom.io/'
                 additionalMetaTags={[

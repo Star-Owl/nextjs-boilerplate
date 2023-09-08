@@ -1,14 +1,19 @@
 import type { FunctionComponent } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
 import { Skeleton } from '@/components/ui/skeleton'
+import { AnimatedNumber } from './ui/animated-number'
+import { Counter } from './ui/animated-counter'
 
 interface HeroProps {}
 const Hero: FunctionComponent<HeroProps> = ({}) => {
+    let [value, setValue] = useState(1000)
+    let [count, setCount] = useState(0)
+
     return (
         <main className='container mx-auto flex flex-col gap-6 py-12'>
             <Typography variant='h4' component='h2'>
@@ -117,6 +122,26 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
                         </div>
                     </section>
                 </section>
+            </section>
+            <section className='flex gap-6 justify-center items-center'>
+                <Button
+                    onClick={() => {
+                        setValue(value - 100), setCount(value - 100)
+                    }}
+                >
+                    -100
+                </Button>
+
+                <AnimatedNumber value={value} />
+                {/* <Counter value={count} /> */}
+
+                <Button
+                    onClick={() => {
+                        setValue(value + 100), setCount(value + 100)
+                    }}
+                >
+                    +100
+                </Button>
             </section>
         </main>
     )

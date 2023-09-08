@@ -25,9 +25,11 @@
     "clsx": "^2.0.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
+    "framer-motion": "^10.16.4",
     "lucide-react": "^0.274.0",
     "next": "13.4.19",
     "next-seo": "^6.1.0",
+    "numeral": "^2.0.6",
     "postcss": "8.4.28",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -35,5 +37,8 @@
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/numeral": "^2.0.2"
   }
 }
