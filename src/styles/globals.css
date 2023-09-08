@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@450;600;700&display=swap');
+
+@layer base {
+    :root {
+        --accent: 223deg 74% 58%;
+        --accent-darker: 223deg 74% 48%;
+    }
+}
+
+/* :root {
+	--font-mona-sans: 'Mona Sans';
+} */
+
+:root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
+}
+
+/* body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+} */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* html {
+    font-size: 16px;
+    line-height: 100%;
+} */
+
+body {
+    font-family: Rubik, sans-serif;
+    font-weight: 450;
+}
+
+.icon {
+    position: relative;
+}
+
+.icon::before {
+    position: absolute;
+    content: '';
+    height: 2.25rem;
+    width: 2.25rem;
+    background-color: currentColor;
+    opacity: 0;
+    border-radius: calc(2.25rem / 4);
+    transform: translateX(-18%) scale(0);
+    transition: transform 0.175s ease-in-out;
+}
+
+.icon:hover::before {
+    opacity: 0.12;
+    transform: translateX(-18%) scale(1);
+}
+
+img.emoji {
+    height: 1em;
+    width: 1em;
+    margin: 0 0.1em 0 0.25em;
+    vertical-align: -0.1em;
+    display: inline-block;
+    row-gap: 4px;
+}
+
+img.emoji ~ img.emoji {
+    margin: 0 0.125em 0 0.1em;
+}
+
+img.emoji:not(:last-of-type) {
+    margin: 0 0.125em 0 0.1em;
+}
