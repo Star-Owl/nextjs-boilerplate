@@ -10,6 +10,8 @@ import { AnimatedNumber } from './ui/animated-number'
 import { Counter } from './ui/animated-counter'
 import { Overview } from './ui/overview'
 import { Chart } from './ui/overview-v2'
+import { ArrowBack, OutlineMessage, FillMessage } from 'src/icons/Icons'
+import { HoverCardDemo } from './hover-card'
 
 interface HeroProps {}
 const Hero: FunctionComponent<HeroProps> = ({}) => {
@@ -33,8 +35,15 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
                 Hello
             </Typography>
             <section className='flex flex-col flex-wrap gap-6 md:flex-row'>
-                <Button variant={'default'}>default</Button>
-                <Button variant={'secondary'}>secondary</Button>
+                <Button variant={'default'}>
+                    <FillMessage className='h-6' /> default
+                </Button>
+                <Button icon variant={'default'} size={'default'}>
+                    <FillMessage className='h-6' />
+                </Button>
+                <Button variant={'secondary'}>
+                    secondary <OutlineMessage className='h-6' />
+                </Button>
                 <Button variant={'outline'}>outline</Button>
                 <Button variant={'ghost'}>ghost</Button>
                 <Button variant={'link'}>link</Button>
@@ -69,17 +78,7 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
                 </Button>
             </section>
             <section className='flex gap-6'>
-                <HoverCard>
-                    <HoverCardTrigger>
-                        <Avatar size='sm' rounded='sm'>
-                            <AvatarImage src='https://cdn.discordapp.com/avatars/569975072417251378/7eb3ee1c0ddc5280d5c9aa9afc26e848.webp?size=128' />
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                    </HoverCardTrigger>
-                    <HoverCardContent align='start'>
-                        The React Framework – created and maintained by @vercel.
-                    </HoverCardContent>
-                </HoverCard>
+                <HoverCardDemo />
                 <Avatar rounded='default'>
                     <AvatarImage src='https://cdn.discordapp.com/avatars/569975072417251378/7eb3ee1c0ddc5280d5c9aa9afc26e848.webp?size=128' />
                     <AvatarFallback>CN</AvatarFallback>
@@ -191,13 +190,13 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
                 <Overview />
             </section>
             <div className='grid grid-cols-2 gap-x-4 gap-y-12 p-4'>
-                <div className='col-span-2 h-60'>
+                <div className='col-span-2 h-80'>
                     <Chart data={data} />
                 </div>
-                <div className='h-40'>
+                <div className='h-80'>
                     <Chart data={data} />
                 </div>
-                <div className='h-40'>
+                <div className='h-80'>
                     <Chart data={data} />
                 </div>
             </div>

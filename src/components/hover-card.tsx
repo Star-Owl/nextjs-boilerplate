@@ -8,15 +8,18 @@ export function HoverCardDemo() {
     return (
         <HoverCard>
             <HoverCardTrigger asChild>
-                <Button variant='link'>@nextjs</Button>
+                <Avatar size='sm' rounded='sm'>
+                    <AvatarImage src='https://cdn.discordapp.com/avatars/569975072417251378/7eb3ee1c0ddc5280d5c9aa9afc26e848.webp?size=128' />
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
             </HoverCardTrigger>
-            <HoverCardContent className='w-80'>
+            <HoverCardContent className='w-80 bg-primary-lighter border-none'>
                 <div className='flex justify-between space-x-4'>
-                    <Avatar>
+                    <Avatar rounded='default'>
                         <AvatarImage src='https://github.com/vercel.png' />
                         <AvatarFallback>VC</AvatarFallback>
                     </Avatar>
-                    <div className='space-y-1'>
+                    <div className='space-y-3'>
                         <h4 className='text-sm font-semibold'>@nextjs</h4>
                         <p className='text-sm'>The React Framework – created and maintained by @vercel.</p>
                         <div className='flex items-center pt-2'>

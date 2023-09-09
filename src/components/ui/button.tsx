@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'src/lib/utils'
 
 const buttonVariants = cva(
-    'inline-flex items-center justify-center font-base gap-[0.625rem] leading-normal font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
+    'inline-flex items-center justify-center font-base gap-[0.75rem] leading-normal font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
     {
         variants: {
             variant: {
@@ -26,10 +26,12 @@ const buttonVariants = cva(
                 true: '!rounded-full',
             },
             size: {
-                default: 'px-[2.250rem] py-[1.125rem] rounded-[0.875rem]',
                 sm: 'h-9 rounded-md px-3',
+                default: 'px-[2.250rem] py-[1.125rem] rounded-[0.875rem]',
                 lg: 'h-11 rounded-md px-8',
-                icon: 'h-10 w-10',
+                'sm-icon': 'h-8 w-8',
+                'default-icon': 'px-[1.125rem] py-[1.125rem] rounded-[0.875rem]',
+                'lg-icon': 'h-12 w-12',
             },
         },
         defaultVariants: {
@@ -43,14 +45,20 @@ export interface ButtonProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement>,
         VariantProps<typeof buttonVariants> {
     asChild?: boolean
+    icon?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant, rounded, size, asChild = false, ...props }, ref) => {
+    ({ className, variant, rounded, size, asChild = false, icon = false, ...props }, ref) => {
+        if (icon) {
+            size = `${size}-icon` as 'default' | 'sm' | 'lg'
+        }
+
         const Comp = asChild ? Slot : 'button'
         return <Comp className={cn(buttonVariants({ variant, rounded, size, className }))} ref={ref} {...props} />
     }
 )
+
 Button.displayName = 'Button'
 
 export { Button, buttonVariants }
