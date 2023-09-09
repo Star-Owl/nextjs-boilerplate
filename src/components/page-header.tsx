@@ -189,14 +189,14 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
                 <Overview />
                 <Overview />
             </section>
-            <div className='grid grid-cols-2 gap-x-4 gap-y-12 p-4'>
+            <div className='grid grid-cols-2 gap-x-4 gap-y-12'>
                 <div className='col-span-2 h-80'>
                     <Chart data={data} />
                 </div>
-                <div className='h-80'>
+                <div className='h-80 col-span-2 md:col-span-1'>
                     <Chart data={data} />
                 </div>
-                <div className='h-80'>
+                <div className='h-80 col-span-2 md:col-span-1'>
                     <Chart data={data} />
                 </div>
             </div>
