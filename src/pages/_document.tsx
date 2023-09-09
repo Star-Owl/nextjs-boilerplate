@@ -8,7 +8,7 @@ class AppDocument extends Document {
                     <meta name='format-detection' content='telephone=no, date=no, email=no, address=no' />
                 </Head>
 
-                <body className='bg-primary-dark text-color-text leading-none px-8'>
+                <body className='bg-primary-dark text-white-50 leading-none px-8'>
                     <Main />
                     <NextScript />
                 </body>
