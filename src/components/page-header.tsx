@@ -32,7 +32,7 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
             <Typography variant='h4' component='h2'>
                 Hello
             </Typography>
-            <section className='flex flex-col gap-6 md:flex-row'>
+            <section className='flex flex-col flex-wrap gap-6 md:flex-row'>
                 <Button variant={'default'}>default</Button>
                 <Button variant={'secondary'}>secondary</Button>
                 <Button variant={'outline'}>outline</Button>
@@ -42,7 +42,7 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
                 <Button variant={'warning'}>warning</Button>
                 <Button variant={'success'}>success</Button>
             </section>
-            <section className='flex flex-col gap-6 md:flex-row'>
+            <section className='flex flex-col flex-wrap gap-6 md:flex-row'>
                 <Button rounded variant={'default'}>
                     default
                 </Button>
@@ -93,7 +93,7 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
             </section>
-            <section className='flex flex-col gap-6'>
+            <section id='skeletons' className='flex flex-col gap-6'>
                 <section className='flex gap-6'>
                     <section className='flex w-full gap-6'>
                         <Skeleton className='w-12 h-12 rounded-full' />
@@ -164,7 +164,7 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
                     </section>
                 </section>
             </section>
-            <section className='flex gap-6 justify-center items-center'>
+            <section id='counters' className='flex gap-6 justify-center items-center'>
                 <Button
                     variant={'danger'}
                     onClick={() => {
@@ -186,7 +186,7 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
                     +100
                 </Button>
             </section>
-            <section className='grid gap-4 grid-cols-2'>
+            <section className='flex flex-col lg:flex-row'>
                 <Overview />
                 <Overview />
             </section>
