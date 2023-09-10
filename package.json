@@ -43,6 +43,8 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "@types/numeral": "^2.0.2"
+    "@types/numeral": "^2.0.2",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.4"
   }
 }
