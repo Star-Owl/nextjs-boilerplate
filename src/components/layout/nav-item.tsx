@@ -34,7 +34,7 @@ const LinksStyle = cva(
 			},
 			active: {
 				true: 'opacity-100 md:bg-accent-600/[.12] md:text-accent-600',
-				false: 'group-hover:bg-white/[.06] group-hover:opacity-100 opacity-50',
+				false: 'md:group-hover:bg-white/[.06] group-hover:opacity-100 opacity-50',
 			},
 		},
 		defaultVariants: {
