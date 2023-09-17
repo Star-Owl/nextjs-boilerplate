@@ -43,10 +43,11 @@ const HomePage: FunctionComponent<HomePageProps> = ({}) => {
 				]}
 			/>
 			<div className='flex xl:justify-center xl:gap-10'>
-				{isMobile ? <NavMobile /> : <Nav />}
+				<Nav />
 				<Main />
 				<Aside />
 			</div>
+			{isMobile ? <NavMobile /> : ''}
 			{/* <Hero /> */}
 		</React.Fragment>
 	)
