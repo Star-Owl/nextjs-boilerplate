@@ -194,7 +194,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 					{isSmallScreen ? <OutlineUser size={28} /> : 'Hoot'}
 				</Button>
 			</section>
-			<section className='flex w-fit items-center justify-center gap-4 rounded-[1rem] bg-primary-lighter p-4 xl:w-full xl:justify-start xl:p-5'>
+			<section className='flex w-fit items-center justify-center gap-4 rounded-2xl bg-primary-lighter p-4 xl:w-full xl:justify-start xl:p-5'>
 				<React.Fragment>
 					<Badge
 						content=''
