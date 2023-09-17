@@ -1,7 +1,14 @@
 'use client'
 
 import Typography from '@mui/material/Typography'
-import { Avatar, Badge, Chip, Code, extendVariants } from '@nextui-org/react'
+import {
+	Avatar,
+	Badge,
+	Chip,
+	Code,
+	extendVariants,
+	user,
+} from '@nextui-org/react'
 import React, { FunctionComponent, ReactNode, useEffect, useState } from 'react'
 import { Button, buttonVariants } from 'src/components/ui/button'
 
@@ -212,6 +219,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 							// color='base'
 							name='Hasira'
 							src='https://cdn.discordapp.com/avatars/569975072417251378/2113775a498da6818a3bdf75af82f40c.webp?size=128'
+							showFallback
 							fallback={
 								<OutlineUser
 									className={`${

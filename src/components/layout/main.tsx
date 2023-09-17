@@ -2,6 +2,7 @@
 
 import { Avatar, AvatarGroup } from '@nextui-org/react'
 import { FunctionComponent } from 'react'
+import { FillUser, OutlineUser } from 'src/icons/Icons'
 import { uuid } from 'uuidv4'
 
 interface Props {}
@@ -9,6 +10,8 @@ interface Props {}
 const availableColors: Array<
 	'primary' | 'warning' | 'success' | 'default' | 'secondary' | 'danger'
 > = ['primary', 'warning', 'success', 'default', 'secondary', 'danger']
+
+const availableRadius: Array<'full' | 'md'> = ['full', 'md']
 
 function generateSections(count: number, constantAvatarSrc: string) {
 	return Array.from({ length: count }).map((_, index) => ({
@@ -18,31 +21,37 @@ function generateSections(count: number, constantAvatarSrc: string) {
 				id: uuid(),
 				color: availableColors[index % availableColors.length],
 				src: constantAvatarSrc,
+				radius: availableRadius[index % availableRadius.length],
 			},
 			{
 				id: uuid(),
 				color: availableColors[index % availableColors.length],
 				src: `https://i.pravatar.cc/150?u=${uuid()}`,
+				radius: availableRadius[index % availableRadius.length],
 			},
 			{
 				id: uuid(),
 				color: availableColors[index % availableColors.length],
 				src: `https://i.pravatar.cc/150?u=${uuid()}`,
+				radius: availableRadius[index % availableRadius.length],
 			},
 			{
 				id: uuid(),
 				color: availableColors[index % availableColors.length],
 				src: `https://i.pravatar.cc/150?u=${uuid()}`,
+				radius: availableRadius[index % availableRadius.length],
 			},
 			{
 				id: uuid(),
 				color: availableColors[index % availableColors.length],
 				src: `https://i.pravatar.cc/150?u=${uuid()}`,
+				radius: availableRadius[index % availableRadius.length],
 			},
 			{
 				id: uuid(),
 				color: availableColors[index % availableColors.length],
 				src: `https://i.pravatar.cc/150?u=${uuid()}`,
+				radius: availableRadius[index % availableRadius.length],
 			},
 			// ... Możesz dodać więcej avatara tutaj
 		],
@@ -74,6 +83,14 @@ const Main: FunctionComponent<Props> = ({}) => {
 									key={avatar.id}
 									color={avatar.color}
 									src={avatar.src}
+									showFallback
+									radius={avatar.radius}
+									fallback={
+										<FillUser
+											className={`h-6 w-6 text-white`}
+											fill='currentColor'
+										/>
+									}
 								/>
 							))}
 						</AvatarGroup>

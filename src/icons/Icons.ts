@@ -37,6 +37,7 @@ export { OutlinePin } from './assets/OutlinePin'
 export { OutlineEye } from './assets/OutlineEye'
 export { OutlineEyeOff } from './assets/OutlineEyeOff'
 
+export { FillUser } from './assets/FillUser'
 export { OutlineUser } from './assets/OutlineUser'
 
 export { ArrowBack } from './assets/ArrowBack'
