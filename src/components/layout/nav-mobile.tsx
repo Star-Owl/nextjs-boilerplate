@@ -104,7 +104,7 @@ const inactiveIcons = {
 interface Props {}
 const NavMobile: FunctionComponent<Props> = ({}) => {
 	return (
-		<nav className='fixed bottom-0 flex w-full flex-1 bg-primary-badge/[.80] py-4 backdrop-blur-md'>
+		<nav className='fixed bottom-0 z-100 flex w-full flex-1 rounded-t-2xl bg-primary-badge/[.80] py-4 backdrop-blur-md'>
 			<ul className='flex flex-1 justify-around gap-2 px-5'>
 				{items.map(({ active, href, text, isLogout }, i) => (
 					<React.Fragment key={`header-${i}`}>
