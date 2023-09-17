@@ -156,7 +156,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 	}, [])
 
 	return (
-		<nav className='h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end py-[2.5rem] pl-10 pr-6 md:flex xl:ml-0 xl:max-w-xs xl:items-start xl:px-0'>
+		<nav className='h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end py-[2.5rem] pl-10 pr-6 md:flex  xl:ml-0 xl:max-w-xs xl:items-start xl:px-0'>
 			<section className='flex w-full flex-1 flex-col gap-6'>
 				<ul className='flex flex-col items-end gap-2 xl:px-0'>
 					{items.map(({ active, href, text, isLogout }, i) => (
