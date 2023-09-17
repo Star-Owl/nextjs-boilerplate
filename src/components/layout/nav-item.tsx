@@ -33,7 +33,7 @@ const LinksStyle = cva(
 				default: 'rounded-[.875rem] p-[1.125rem] lg:pr-6 lg:pl-4',
 			},
 			active: {
-				true: 'bg-accent-600/[.12] text-accent-600 opacity-100',
+				true: 'opacity-100 md:bg-accent-600/[.12] md:text-accent-600',
 				false: 'group-hover:bg-white/[.06] group-hover:opacity-100 opacity-50',
 			},
 		},
