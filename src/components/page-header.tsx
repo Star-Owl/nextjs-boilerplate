@@ -3,13 +3,13 @@ import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+//import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
 	HoverCard,
 	HoverCardContent,
 	HoverCardTrigger,
 } from '@/components/ui/hover-card'
-import { Skeleton } from '@/components/ui/skeleton'
+//import { Skeleton } from '@/components/ui/skeleton'
 import { AnimatedNumber } from './ui/animated-number'
 import { Counter } from './ui/animated-counter'
 import { Overview } from './ui/overview'
@@ -18,18 +18,99 @@ import { ArrowBack, OutlineMessage, FillMessage } from 'src/icons/Icons'
 import { HoverCardDemo } from './hover-card'
 import {
 	Table,
-	TableBody,
-	TableCaption,
-	TableCell,
-	TableHead,
 	TableHeader,
+	TableBody,
+	TableColumn,
 	TableRow,
-} from '@/components/ui/table'
+	TableCell,
+} from '@nextui-org/table'
+
+import {
+	extendVariants,
+	Code,
+	Avatar,
+	AvatarGroup,
+	Badge,
+	Image,
+	Skeleton,
+	Spinner,
+} from '@nextui-org/react'
+
+import { useInfiniteScroll } from '@nextui-org/use-infinite-scroll'
+import { useAsyncList } from '@react-stately/data'
+
+export const MyCode = extendVariants(Code, {
+	variants: {
+		// <- modify/add variants
+		// color: {
+		// 	olive: 'text-[#000] bg-[#84cc16]',
+		// 	orange: 'bg-[#ff8c00] text-[#fff]',
+		// 	violet: 'bg-[#8b5cf6] text-[#fff]',
+		// },
+		// isDisabled: {
+		// 	true: 'bg-[#eaeaea] text-[#000] opacity-50 cursor-not-allowed',
+		// },
+		size: {
+			sm: 'px-2 py-1 text-base',
+			md: 'px-4 text-sm',
+			xl: 'px-8 text-base',
+		},
+	},
+	defaultVariants: {
+		// <- modify/add default variants
+		//color: 'olive',
+		size: 'sm',
+	},
+	compoundVariants: [
+		// <- modify/add compound variants
+		{
+			//isDisabled: true,
+			//color: 'olive',
+			//class: 'bg-[#84cc16]/80 opacity-100',
+		},
+	],
+})
 
 interface HeroProps {}
 const Hero: FunctionComponent<HeroProps> = ({}) => {
 	let [value, setValue] = useState(1000)
 	let [count, setCount] = useState(0)
+
+	const [isLoading, setIsLoading] = React.useState(true)
+	const [hasMore, setHasMore] = React.useState(false)
+
+	interface LoadParams {
+		signal: AbortSignal
+		cursor?: string
+	}
+
+	let list = useAsyncList({
+		async load({ signal, cursor }: LoadParams) {
+			if (cursor) {
+				setIsLoading(false)
+			}
+
+			// If no cursor is available, then we're loading the first page.
+			// Otherwise, the cursor is the next URL to load, as returned from the previous page.
+			const res = await fetch(
+				cursor || 'https://swapi.py4e.com/api/people/?search=',
+				{ signal },
+			)
+			let json = await res.json()
+
+			setHasMore(json.next !== null)
+
+			return {
+				items: json.results,
+				cursor: json.next,
+			}
+		},
+	})
+
+	const [loaderRef, scrollerRef] = useInfiniteScroll({
+		hasMore,
+		onLoadMore: list.loadMore,
+	})
 
 	let sales = [
 		{ date: '2023-04-30T12:00:00.00+00:00', value: 4 },
@@ -50,6 +131,7 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
 			>
 				Hello
 			</Typography>
+			<MyCode className='inline w-fit'>@userID</MyCode>
 			<section className='inline-grid grid-cols-6 gap-4'>
 				<Button
 					className='w-fit'
@@ -140,25 +222,93 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
 				</Button>
 			</section>
 			<section className='flex gap-6'>
-				<HoverCardDemo />
-				<Avatar rounded='default'>
-					<AvatarImage src='https://cdn.discordapp.com/avatars/569975072417251378/7eb3ee1c0ddc5280d5c9aa9afc26e848.webp?size=128' />
-					<AvatarFallback>CN</AvatarFallback>
-				</Avatar>
-				<Avatar
-					size='lg'
-					rounded='lg'
+				{/* <HoverCardDemo /> */}
+				<Badge
+					size='md'
+					content=''
+					color='success'
+					shape='circle'
+					placement='bottom-right'
 				>
-					<AvatarImage src='https://cdn.discordapp.com/avatars/569975072417251378/7eb3ee1c0ddc5280d5c9aa9afc26e848.webp?size=128' />
-					<AvatarFallback>CN</AvatarFallback>
-				</Avatar>
-				<Avatar
-					size='lg'
-					rounded='full'
+					<Avatar
+						//isBordered
+						size='md'
+						radius='md'
+						color='default'
+						src='https://cdn.discordapp.com/avatars/569975072417251378/7eb3ee1c0ddc5280d5c9aa9afc26e848.webp?size=128'
+					/>
+				</Badge>
+				<AvatarGroup
+					className='cursor-pointer'
+					isBordered
+					max={3}
 				>
-					<AvatarImage src='https://cdn.discordapp.com/avatars/569975072417251378/7eb3ee1c0ddc5280d5c9aa9afc26e848.webp?size=128' />
-					<AvatarFallback>CN</AvatarFallback>
-				</Avatar>
+					<Avatar
+						color='primary'
+						src='https://cdn.discordapp.com/avatars/569975072417251378/7eb3ee1c0ddc5280d5c9aa9afc26e848.webp?size=128'
+					/>
+					<Avatar
+						color='warning'
+						src='https://i.pravatar.cc/150?u=a04258a2462d826712d'
+					/>
+					<Avatar
+						color='success'
+						src='https://i.pravatar.cc/150?u=a042581f4e29026704d'
+					/>
+					<Avatar src='https://i.pravatar.cc/150?u=a04258114e29026302d' />
+					<Avatar src='https://i.pravatar.cc/150?u=a04258114e29026702d' />
+					<Avatar src='https://i.pravatar.cc/150?u=a04258114e29026708c' />
+				</AvatarGroup>
+			</section>
+			<section>
+				<Image
+					width='w-fit'
+					alt='NextUI hero Image'
+					src='https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg'
+				/>
+			</section>
+			<section>
+				<Table
+					isHeaderSticky
+					aria-label='Example table with infinite pagination'
+					baseRef={scrollerRef}
+					bottomContent={
+						hasMore ? (
+							<div className='flex w-full justify-center'>
+								<Spinner
+									ref={loaderRef}
+									color='white'
+								/>
+							</div>
+						) : null
+					}
+					classNames={{
+						base: 'max-h-[520px] overflow-scroll',
+						table: 'min-h-[400px]',
+					}}
+				>
+					<TableHeader>
+						<TableColumn key='name'>Name</TableColumn>
+						<TableColumn key='height'>Height</TableColumn>
+						<TableColumn key='mass'>Mass</TableColumn>
+						<TableColumn key='birth_year'>Birth year</TableColumn>
+					</TableHeader>
+					<TableBody
+						isLoading={isLoading}
+						items={list.items}
+						loadingContent={<Spinner color='white' />}
+					>
+						{/* {(item) => (
+							<TableRow key={item.name}>
+								{(columnKey) => (
+									<TableCell>
+										{getKeyValue(item, columnKey)}
+									</TableCell>
+								)}
+							</TableRow>
+						)} */}
+					</TableBody>
+				</Table>
 			</section>
 			<section
 				id='skeletons'

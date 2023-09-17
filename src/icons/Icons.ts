@@ -37,8 +37,10 @@ export { OutlinePin } from './assets/OutlinePin'
 export { OutlineEye } from './assets/OutlineEye'
 export { OutlineEyeOff } from './assets/OutlineEyeOff'
 
-export { Views } from './assets/Views'
-export { BookmarkCheck } from './assets/BookmarkCheck'
-export { Share } from './assets/Share'
+export { OutlineUser } from './assets/OutlineUser'
+
 export { ArrowBack } from './assets/ArrowBack'
+export { BookmarkCheck } from './assets/BookmarkCheck'
 export { Close } from './assets/Close'
+export { Share } from './assets/Share'
+export { Views } from './assets/Views'

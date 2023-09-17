@@ -2,6 +2,9 @@ import type { FunctionComponent } from 'react'
 import { NextSeo } from 'next-seo'
 import React from 'react'
 import Hero from '@/components/page-header'
+import Nav from '@/components/layout/nav'
+import Main from '@/components/layout/main'
+import Aside from '@/components/layout/aside'
 
 interface HomePageProps {}
 const HomePage: FunctionComponent<HomePageProps> = ({}) => {
@@ -25,7 +28,12 @@ const HomePage: FunctionComponent<HomePageProps> = ({}) => {
 					},
 				]}
 			/>
-			<Hero />
+			<div className='container mx-auto flex lg:gap-[2.5rem]'>
+				<Nav />
+				<Main />
+				<Aside />
+			</div>
+			{/* <Hero /> */}
 		</React.Fragment>
 	)
 }

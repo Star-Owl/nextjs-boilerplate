@@ -1,7 +1,11 @@
 import type { Config } from 'tailwindcss'
+const { nextui } = require('@nextui-org/react')
 
 const config: Config = {
-	content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+	content: [
+		'./src/**/*.{js,ts,jsx,tsx,mdx}',
+		'./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
+	],
 	theme: {
 		extend: {
 			colors: {
@@ -97,19 +101,19 @@ const config: Config = {
 			zIndex: {
 				100: '100',
 			},
-			// container: {
-			//     center: true,
-			//     padding: {
-			//         DEFAULT: '1rem',
-			//         sm: '2rem',
-			//         lg: '4rem',
-			//         xl: '5rem',
-			//         '2xl': '6rem',
-			//     },
-			//     screens: {
-			//         '2xl': '1300px',
-			//     },
-			// },
+			container: {
+				center: true,
+				// padding: {
+				// 	DEFAULT: '1rem',
+				// 	sm: '2rem',
+				// 	lg: '4rem',
+				// 	xl: '5rem',
+				// 	'2xl': '6rem',
+				// },
+				screens: {
+					'2xl': '1500px',
+				},
+			},
 			extend: {
 				keyframes: {
 					'accordion-down': {
@@ -127,6 +131,12 @@ const config: Config = {
 					'accordion-down': 'accordion-down 0.2s ease-out',
 					'accordion-up': 'accordion-up 0.2s ease-out',
 				},
+				minHeight: {
+					'min-h-device': '100dvh',
+				},
+				height: {
+					device: '100dvh',
+				},
 			},
 		},
 	},
@@ -136,6 +146,19 @@ const config: Config = {
 	plugins: [
 		require('@tailwindcss/typography'),
 		require('@tailwindcss/aspect-ratio'),
+		nextui({
+			layout: {}, // common layout options
+			themes: {
+				light: {
+					layout: {}, // light theme layout options
+					// ...
+				},
+				dark: {
+					layout: {}, // dark theme layout options
+					// ...
+				},
+			},
+		}),
 	],
 }
 

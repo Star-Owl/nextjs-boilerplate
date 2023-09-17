@@ -10,6 +10,11 @@
 	box-sizing: border-box;
 }
 
+.h-device {
+	height: 100vh;
+	height: 100dvh;
+}
+
 /* html {
 	font-size: 1em;
 	line-height: 150%;

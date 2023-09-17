@@ -11,7 +11,7 @@ class AppDocument extends Document {
 					/>
 				</Head>
 
-				<body className='bg-primary-dark px-6 leading-none text-white-50'>
+				<body className='min-h-screen bg-primary-dark leading-none text-white-50 dark'>
 					<Main />
 					<NextScript />
 				</body>
