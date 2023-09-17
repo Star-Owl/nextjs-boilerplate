@@ -157,35 +157,6 @@ const Nav: FunctionComponent<Props> = ({}) => {
 
 	return (
 		<nav className='h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end py-[2.5rem] pl-10 pr-6 md:flex lg:ml-0 lg:max-w-xs lg:items-start lg:px-0'>
-			{isSmallScreen ? (
-				''
-			) : (
-				<React.Fragment>
-					<div className='flex h-full flex-col justify-around overflow-hidden'>
-						<Typography
-							variant='body2'
-							component='p'
-							className='cursor-pointer overflow-hidden text-ellipsis whitespace-pre !font-semibold hover:underline'
-						>
-							Display Name Long Name
-						</Typography>
-						<Chip
-							radius='sm'
-							classNames={{
-								base: 'group bg-white/[.06] !py-[.281rem] !px-[.562rem] !h-auto rounded-[.375rem] cursor-pointer text-xs transition-colors hover:bg-white/[.12]',
-								content:
-									'text-white/[.60] p-0 group-hover:text-white overflow-hidden text-ellipsis whitespace-pre leading-tight',
-							}}
-						>
-							@starowl.social
-						</Chip>
-					</div>
-					<OutlineMore
-						className='cursor-pointer transition-colors hover:text-accent-600'
-						size={28}
-					/>
-				</React.Fragment>
-			)}
 			<section className='flex w-full flex-1 flex-col gap-6'>
 				<ul className='flex flex-col items-end gap-2 lg:px-0'>
 					{items.map(({ active, href, text, isLogout }, i) => (
