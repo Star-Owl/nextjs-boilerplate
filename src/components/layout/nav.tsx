@@ -204,7 +204,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 						className={`${
 							isSmallScreen
 								? 'h-[1.125rem] w-[1.125rem]'
-								: 'h-6 w-6'
+								: 'h-5 w-5'
 						} pointer-events-none border-4 border-primary-lighter`}
 					>
 						<Avatar
