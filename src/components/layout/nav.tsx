@@ -107,17 +107,17 @@ const items: NavLinkItem[] = [
 		text: 'Tweak',
 		icon: null,
 	},
-	...(currentUser
-		? [
-				{
-					active: false,
-					href: '',
-					text: 'Logout',
-					icon: null,
-					isLogout: true,
-				},
-		  ]
-		: []),
+	// ...(currentUser
+	// 	? [
+	// 			{
+	// 				active: false,
+	// 				href: '',
+	// 				text: 'Logout',
+	// 				icon: null,
+	// 				isLogout: true,
+	// 			},
+	// 	  ]
+	// 	: []),
 ]
 
 const activeIcons = {
@@ -144,10 +144,10 @@ const Nav: FunctionComponent<Props> = ({}) => {
 	let [isSmallScreen, setIsSmallScreen] = useState(false)
 
 	useEffect(() => {
-		setIsSmallScreen(window.innerWidth < 1024)
+		setIsSmallScreen(window.innerWidth < 1280)
 
 		const handleResize = () => {
-			setIsSmallScreen(window.innerWidth < 1024)
+			setIsSmallScreen(window.innerWidth < 1280)
 		}
 
 		window.addEventListener('resize', handleResize)
@@ -156,9 +156,9 @@ const Nav: FunctionComponent<Props> = ({}) => {
 	}, [])
 
 	return (
-		<nav className='h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end py-[2.5rem] pl-10 pr-6 md:flex lg:ml-0 lg:max-w-xs lg:items-start lg:px-0'>
+		<nav className='h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end py-[2.5rem] pl-10 pr-6 md:flex xl:ml-0 xl:max-w-xs xl:items-start xl:px-0'>
 			<section className='flex w-full flex-1 flex-col gap-6'>
-				<ul className='flex flex-col items-end gap-2 lg:px-0'>
+				<ul className='flex flex-col items-end gap-2 xl:px-0'>
 					{items.map(({ active, href, text, isLogout }, i) => (
 						<React.Fragment key={`header-${i}`}>
 							<NavItem
@@ -194,7 +194,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 					{isSmallScreen ? <OutlineUser size={28} /> : 'Hoot'}
 				</Button>
 			</section>
-			<section className='flex w-fit items-center justify-center gap-4 rounded-[1rem] bg-primary-lighter p-4 lg:w-full lg:justify-start lg:p-5'>
+			<section className='flex w-fit items-center justify-center gap-4 rounded-[1rem] bg-primary-lighter p-4 xl:w-full xl:justify-start xl:p-5'>
 				<React.Fragment>
 					<Badge
 						content=''

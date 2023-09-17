@@ -30,7 +30,8 @@ const LinksStyle = cva(
 				inline: 'max-w-fit', // max-w-fit Twitter not full width effect
 			},
 			size: {
-				default: 'rounded-[.875rem] p-[1.125rem] lg:pr-6 lg:pl-4',
+				default:
+					'rounded-[.875rem] p-[1.125rem] xl:py-[.875rem] xl:pr-6 lg:pl-4',
 			},
 			active: {
 				true: 'opacity-100 md:bg-accent-600/[.12] md:text-accent-600',
