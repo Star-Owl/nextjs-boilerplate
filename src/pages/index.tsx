@@ -42,7 +42,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({}) => {
 					},
 				]}
 			/>
-			<div className='container mx-auto flex lg:gap-[2.5rem]'>
+			<div className='flex justify-center lg:gap-[2.5rem]'>
 				{isMobile ? <NavMobile /> : <Nav />}
 				<Main />
 				<Aside />
