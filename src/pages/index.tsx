@@ -1,13 +1,27 @@
 import type { FunctionComponent } from 'react'
 import { NextSeo } from 'next-seo'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Hero from '@/components/page-header'
 import Nav from '@/components/layout/nav'
 import Main from '@/components/layout/main'
 import Aside from '@/components/layout/aside'
+import NavMobile from '@/components/layout/nav-mobile'
 
 interface HomePageProps {}
 const HomePage: FunctionComponent<HomePageProps> = ({}) => {
+	let [isMobile, setIsMobile] = useState(false)
+
+	useEffect(() => {
+		setIsMobile(window.innerWidth < 640)
+
+		const handleResize = () => {
+			setIsMobile(window.innerWidth < 640)
+		}
+
+		window.addEventListener('resize', handleResize)
+
+		return () => window.removeEventListener('resize', handleResize)
+	}, [])
 	return (
 		<React.Fragment>
 			<NextSeo
@@ -29,7 +43,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({}) => {
 				]}
 			/>
 			<div className='container mx-auto flex lg:gap-[2.5rem]'>
-				<Nav />
+				{isMobile ? <NavMobile /> : <Nav />}
 				<Main />
 				<Aside />
 			</div>

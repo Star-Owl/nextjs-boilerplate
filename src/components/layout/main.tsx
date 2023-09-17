@@ -6,7 +6,7 @@ import { FunctionComponent } from 'react'
 interface Props {}
 const Main: FunctionComponent<Props> = ({}) => {
 	return (
-		<main className='flex h-[2000px] flex-1 flex-col items-start gap-4 bg-primary-lighter px-6 py-[2.5rem] leading-none text-white-50 dark md:max-w-xl'>
+		<main className='h-device flex flex-1 flex-col items-start gap-4 bg-primary-lighter px-6 py-[2.5rem] leading-none text-white-50 dark md:h-[2000px] md:max-w-xl'>
 			Main
 			<AvatarGroup
 				className='cursor-pointer'

@@ -24,38 +24,6 @@ import {
 } from 'src/icons/Icons'
 import NavItem from './nav-item'
 
-export const MyCode = extendVariants(Code, {
-	variants: {
-		// <- modify/add variants
-		// color: {
-		// 	olive: 'text-[#000] bg-[#84cc16]',
-		// 	orange: 'bg-[#ff8c00] text-[#fff]',
-		// 	violet: 'bg-[#8b5cf6] text-[#fff]',
-		// },
-		// isDisabled: {
-		// 	true: 'bg-[#eaeaea] text-[#000] opacity-50 cursor-not-allowed',
-		// },
-		size: {
-			sm: 'px-2 py-1 text-base',
-			md: 'px-4 text-sm',
-			xl: 'px-8 text-base',
-		},
-	},
-	defaultVariants: {
-		// <- modify/add default variants
-		//color: 'olive',
-		size: 'sm',
-	},
-	compoundVariants: [
-		// <- modify/add compound variants
-		{
-			//isDisabled: true,
-			//color: 'olive',
-			//class: 'bg-[#84cc16]/80 opacity-100',
-		},
-	],
-})
-
 const currentUser = true
 
 interface NavLinkItem {
@@ -83,20 +51,14 @@ const items: NavLinkItem[] = [
 		? [
 				{
 					active: false,
-					href: '/notifications',
-					text: 'Echoes',
-					icon: null,
-				},
-				{
-					active: false,
 					href: '/messages',
 					text: 'Chatter',
 					icon: null,
 				},
 				{
 					active: false,
-					href: '/bookmarks',
-					text: 'StarMark',
+					href: '/notifications',
+					text: 'Echoes',
 					icon: null,
 				},
 		  ]
@@ -107,17 +69,17 @@ const items: NavLinkItem[] = [
 		text: 'Tweak',
 		icon: null,
 	},
-	...(currentUser
-		? [
-				{
-					active: false,
-					href: '',
-					text: 'Logout',
-					icon: null,
-					isLogout: true,
-				},
-		  ]
-		: []),
+	// ...(currentUser
+	// 	? [
+	// 			{
+	// 				active: false,
+	// 				href: '',
+	// 				text: 'Logout',
+	// 				icon: null,
+	// 				isLogout: true,
+	// 			},
+	// 	  ]
+	// 	: []),
 ]
 
 const activeIcons = {
@@ -140,90 +102,45 @@ const inactiveIcons = {
 }
 
 interface Props {}
-const Nav: FunctionComponent<Props> = ({}) => {
-	let [isSmallScreen, setIsSmallScreen] = useState(false)
-
-	useEffect(() => {
-		setIsSmallScreen(window.innerWidth < 1024)
-
-		const handleResize = () => {
-			setIsSmallScreen(window.innerWidth < 1024)
-		}
-
-		window.addEventListener('resize', handleResize)
-
-		return () => window.removeEventListener('resize', handleResize)
-	}, [])
-
+const NavMobile: FunctionComponent<Props> = ({}) => {
 	return (
-		<nav className='h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end py-[2.5rem] pl-10 pr-6 md:flex lg:ml-0 lg:max-w-xs lg:items-start lg:px-0'>
-			{isSmallScreen ? (
-				''
-			) : (
-				<React.Fragment>
-					<div className='flex h-full flex-col justify-around overflow-hidden'>
-						<Typography
-							variant='body2'
-							component='p'
-							className='cursor-pointer overflow-hidden text-ellipsis whitespace-pre !font-semibold hover:underline'
+		<nav className='fixed bottom-0 flex w-full flex-1 bg-primary-badge/[.80] py-[2.5rem] backdrop-blur-md'>
+			<ul className='flex flex-1 justify-around gap-2 px-5'>
+				{items.map(({ active, href, text, isLogout }, i) => (
+					<React.Fragment key={`header-${i}`}>
+						<NavItem
+							active={active}
+							href={href}
+							width='inline'
+							size='default'
+							onClick={isLogout ? () => undefined : undefined}
 						>
-							Display Name Long Name
-						</Typography>
-						<Chip
-							radius='sm'
-							classNames={{
-								base: 'group bg-white/[.06] !py-[.281rem] !px-[.562rem] !h-auto rounded-[.375rem] cursor-pointer text-xs transition-colors hover:bg-white/[.12]',
-								content:
-									'text-white/[.60] p-0 group-hover:text-white overflow-hidden text-ellipsis whitespace-pre leading-tight',
-							}}
-						>
-							@starowl.social
-						</Chip>
-					</div>
-					<OutlineMore
-						className='cursor-pointer transition-colors hover:text-accent-600'
-						size={28}
-					/>
-				</React.Fragment>
-			)}
-			<section className='flex w-full flex-1 flex-col gap-6'>
-				<ul className='flex flex-col items-end gap-2 lg:px-0'>
-					{items.map(({ active, href, text, isLogout }, i) => (
-						<React.Fragment key={`header-${i}`}>
-							<NavItem
-								active={active}
-								href={href}
-								width='inline'
-								size='default'
-								onClick={isLogout ? () => undefined : undefined}
-							>
-								{active
-									? activeIcons[
-											href as keyof typeof activeIcons
-									  ]
-									: inactiveIcons[
-											href as keyof typeof inactiveIcons
-									  ]}
-								<span
-									className={`
+							{active
+								? activeIcons[href as keyof typeof activeIcons]
+								: inactiveIcons[
+										href as keyof typeof inactiveIcons
+								  ]}
+							<span
+								className={`
 										hidden
 										flex-none
 										text-lg
 										xl:inline-flex
 										${active ? 'font-bold' : 'font-medium'}
 									`}
-								>
-									{text}
-								</span>
-							</NavItem>
-						</React.Fragment>
-					))}
-				</ul>
+							>
+								{text}
+							</span>
+						</NavItem>
+					</React.Fragment>
+				))}
+			</ul>
+			{/* <section className='flex w-full flex-1 gap-6'>
 				<Button size={isSmallScreen ? 'default-icon' : 'default'}>
 					{isSmallScreen ? <OutlineUser size={28} /> : 'Hoot'}
 				</Button>
-			</section>
-			<section className='flex w-fit items-center justify-center gap-4 rounded-[1rem] bg-primary-lighter p-4 lg:w-full lg:justify-start lg:p-5'>
+			</section> */}
+			{/* <section className='flex w-fit items-center justify-center gap-4 rounded-[1rem] bg-primary-lighter p-4 lg:w-full lg:justify-start lg:p-5'>
 				<React.Fragment>
 					<Badge
 						content=''
@@ -284,9 +201,9 @@ const Nav: FunctionComponent<Props> = ({}) => {
 						/>
 					</React.Fragment>
 				)}
-			</section>
+			</section> */}
 		</nav>
 	)
 }
 
-export default Nav
+export default NavMobile
