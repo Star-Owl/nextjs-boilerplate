@@ -65,7 +65,7 @@ const sections = generateSections(
 
 const Main: FunctionComponent<Props> = ({}) => {
 	return (
-		<main className='pb-safe-bottom flex w-full flex-col gap-6 py-[2.5rem] leading-none dark md:max-w-xl'>
+		<main className='flex w-full flex-col gap-6 py-[2.5rem] leading-none dark md:max-w-xl'>
 			{sections.map((section) => (
 				<section
 					key={section.id}
