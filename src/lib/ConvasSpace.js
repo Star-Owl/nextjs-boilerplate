@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import * as PIXI from 'pixi.js'
+import { GlowFilter } from '@pixi/filter-glow'
 import { DropShadowFilter } from '@pixi/filter-drop-shadow'
 
 export function random(min, max) {
@@ -14,7 +15,6 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 			width: window.innerWidth,
 			height: window.innerHeight,
 			backgroundColor: 0x000000,
-			resolution: window.devicePixelRatio || 1,
 			antialias: true,
 		})
 		appRef.current.appendChild(app.view)
@@ -92,11 +92,11 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 			constructor(x, y) {
 				super(x, y)
 				this.size *= 1.5
-				this.speedX *= 3
-				this.speedY *= 3
+				this.speedX *= random(3, 10)
+				this.speedY *= random(3, 10)
 				this.trail = new PIXI.Graphics()
 				this.positions = []
-				this.maxTrailLength = 50
+				this.maxTrailLength = random(25, 75)
 
 				app.stage.addChild(this.trail)
 

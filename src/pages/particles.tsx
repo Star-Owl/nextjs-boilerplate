@@ -9,7 +9,7 @@ const Particles: FunctionComponent<Props> = ({}) => {
 		<CanvasSpace
 			count={500}
 			speed={0.5}
-			size={1}
+			size={1.33}
 			color='white'
 		/>
 	)
