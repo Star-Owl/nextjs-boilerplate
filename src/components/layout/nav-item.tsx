@@ -19,15 +19,14 @@ const LinksStyle = cva(
 		gap-4
 		transition
 		items-center
-		justify-center
 		disabled:opacity-50
 		disabled:cursor-not-allowed
 	`,
 	{
 		variants: {
 			width: {
-				full: 'w-full',
-				inline: 'max-w-fit', // max-w-fit Twitter not full width effect
+				full: 'w-full justify-start',
+				inline: 'max-w-fit justify-center', // max-w-fit Twitter not full width effect
 			},
 			size: {
 				default:

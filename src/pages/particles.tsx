@@ -1,13 +1,14 @@
 import { FunctionComponent } from 'react'
 
-import CosmicNoiseCanvas from '@/lib/CosmicNoiseCanvas'
+import CanvasSpace from '@/lib/ConvasSpace'
 
 interface Props {}
 const Particles: FunctionComponent<Props> = ({}) => {
 	return (
-		<CosmicNoiseCanvas
-			count={100}
-			speedFactor={1}
+		<CanvasSpace
+			count={500}
+			speed={0.5}
+			size={1}
 			color='white'
 		/>
 	)

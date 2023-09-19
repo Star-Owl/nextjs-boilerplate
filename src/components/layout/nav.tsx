@@ -163,8 +163,9 @@ const Nav: FunctionComponent<Props> = ({}) => {
 	}, [])
 
 	return (
-		<nav className='h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end py-[2.5rem] pl-10 pr-6 md:flex  xl:ml-0 xl:max-w-[16rem] xl:items-start xl:px-0'>
-			<section className='flex w-full flex-1 flex-col gap-6'>
+		<nav className='h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end justify-between py-[2.5rem] pl-10 pr-6  md:flex xl:ml-0 xl:max-w-[16rem] xl:items-start xl:px-0'>
+			<section className='rounded-2x flex w-full flex-col gap-6'>
+				{/* bg-primary-lighter p-4 */}
 				<ul className='flex flex-col items-end gap-2 xl:px-0'>
 					{items.map(({ active, href, text, isLogout }, i) => (
 						<React.Fragment key={`header-${i}`}>

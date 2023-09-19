@@ -72,7 +72,7 @@ const Main: FunctionComponent<Props> = ({}) => {
 					className='rounded-2xl bg-primary-lighter p-6'
 				>
 					<article className='flex w-full flex-col items-start gap-4'>
-						{section.id}
+						article {section.id}
 						<AvatarGroup
 							className='cursor-pointer'
 							isBordered
