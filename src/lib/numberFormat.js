@@ -1,6 +1,6 @@
 import numeral from 'numeral'
 
-export function FormatNumber(value: number) {
+export function FormatNumber(value) {
 	if (value >= 1000 && value < 10000) {
 		return numeral(value).format('0,0')
 	}
