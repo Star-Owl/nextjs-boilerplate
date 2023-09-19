@@ -14,6 +14,8 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 			width: window.innerWidth,
 			height: window.innerHeight,
 			backgroundColor: 0x000000,
+			resolution: window.devicePixelRatio || 1,
+			antialias: true,
 		})
 		appRef.current.appendChild(app.view)
 
