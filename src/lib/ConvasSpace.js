@@ -17,6 +17,10 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 		})
 		appRef.current.appendChild(app.view)
 
+		window.addEventListener('resize', () => {
+			app.renderer.resize(window.innerWidth, window.innerHeight)
+		})
+
 		class Particle extends PIXI.Graphics {
 			constructor(x, y) {
 				super()

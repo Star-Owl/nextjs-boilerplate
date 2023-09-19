@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react'
 
 import CanvasSpace from '@/lib/ConvasSpace'
+import React from 'react'
 
 interface Props {}
 const Particles: FunctionComponent<Props> = ({}) => {
