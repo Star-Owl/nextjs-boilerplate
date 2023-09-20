@@ -4,6 +4,8 @@ import { Avatar, AvatarGroup } from '@nextui-org/react'
 import { FunctionComponent } from 'react'
 import { FillUser, OutlineUser } from 'src/icons/Icons'
 import { uuid } from 'uuidv4'
+import PostHeader from './post/header'
+import Typography from '@mui/material/Typography'
 
 interface Props {}
 
@@ -71,8 +73,25 @@ const Main: FunctionComponent<Props> = ({}) => {
 					key={section.id}
 					className='rounded-2xl bg-primary-lighter p-6'
 				>
-					<article className='flex w-full flex-col items-start gap-4'>
-						article {section.id}
+					<article className='head flex w-full flex-col items-start gap-4 leading-tight'>
+						<PostHeader />
+						{/* article {section.id} */}
+						<Typography
+							variant='body2'
+							component='p'
+							className=''
+						>
+							Lorem ipsum dolor sit amet, consectetur adipiscing
+							elit. Praesent vel ante at leo rhoncus commodo. Sed
+							eget facilisis est, a interdum justo. Quisque non
+							diam nec neque viverra imperdiet nec non velit.
+							Vivamus vulputate, mauris eu accumsan pulvinar,
+							lorem nisi facilisis velit, in cursus turpis sapien
+							id ligula. Etiam ultrices, metus id mollis
+							facilisis, odio arcu tempus ante, a dignissim magna
+							purus sed libero. Maecenas at efficitur libero, eu
+							viverra mi.
+						</Typography>
 						<AvatarGroup
 							className='cursor-pointer'
 							isBordered

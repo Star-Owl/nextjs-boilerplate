@@ -30,6 +30,7 @@ import {
 	OutlineUser,
 } from 'src/icons/Icons'
 import NavItem from './nav-item'
+import UserInfo from '../ui/user/UserInfo'
 
 export const MyCode = extendVariants(Code, {
 	variants: {
@@ -202,7 +203,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 					{isSmallScreen ? <OutlineUser size={28} /> : 'Hoot'}
 				</Button>
 			</section>
-			<section className='flex w-fit items-center justify-center gap-4 rounded-2xl bg-primary-lighter p-4 xl:w-full xl:justify-start'>
+			<section className='flex w-fit items-center justify-center gap-4 overflow-hidden rounded-2xl bg-primary-lighter p-4 xl:w-full xl:justify-start'>
 				<React.Fragment>
 					<Badge
 						content=''
@@ -239,28 +240,12 @@ const Nav: FunctionComponent<Props> = ({}) => {
 					''
 				) : (
 					<React.Fragment>
-						<div className='flex h-full flex-col justify-around overflow-hidden'>
-							<Typography
-								variant='body2'
-								component='p'
-								className='cursor-pointer overflow-hidden text-ellipsis whitespace-pre !font-semibold hover:underline'
-							>
-								Display Name Long Name
-							</Typography>
-							<Chip
-								radius='sm'
-								classNames={{
-									base: 'group bg-white/[.06] !py-[.281rem] !px-[.562rem] !h-auto rounded-[.375rem] cursor-pointer text-xs transition-colors hover:bg-white/[.12]',
-									content:
-										'text-white/[.60] p-0 group-hover:text-white overflow-hidden text-ellipsis whitespace-pre leading-tight',
-								}}
-							>
-								@starowl.social
-							</Chip>
+						<div className='flex h-full flex-1 flex-col justify-around overflow-hidden'>
+							<UserInfo />
 						</div>
 						<OutlineMore
 							className='cursor-pointer transition-colors hover:text-accent-600'
-							size={28}
+							size={24}
 						/>
 					</React.Fragment>
 				)}

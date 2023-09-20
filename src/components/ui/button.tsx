@@ -10,22 +10,18 @@ const buttonVariants = cva(
 		variants: {
 			variant: {
 				default:
-					'text-accent-50 bg-accent-500 hover:bg-accent-600 active:bg-accent-700 disabled:bg-accent-500 focus:outline focus:outline-2 outline-offset-4  outline-accent-50',
-				default_hover: 'text-accent-50 bg-accent-600',
-				default_active: 'text-accent-50 bg-accent-700',
-				default_focus:
-					'text-accent-50 bg-accent-700 outline outline-offset-4 outline-2 outline-accent-50',
+					'text-accent-50 bg-accent-600 hover:bg-accent-700 active:bg-accent-800 disabled:bg-accent-600 focus:outline focus:outline-2 outline-offset-4  outline-accent-50',
 				secondary:
 					'text-accent-300 bg-transparent ring-2 ring-inset ring-accent-300 hover:bg-accent-950 active:bg-accent-900 disabled:bg-transparent',
 				outline:
 					'bg-transparent ring-2 ring-inset ring-white-50 hover:text-white-300 hover:ring-white-300 hover:bg-white-50/[.06] active:bg-white-50/[.12] disabled:bg-transparent',
 				ghost: 'hover:text-white-300 hover:bg-white-50/[.06] active:bg-white-50/[.12] disabled:bg-transparent',
 				link: 'underline-offset-4 hover:underline',
-				danger: 'text-danger-50 bg-danger-500 hover:bg-danger-600 active:bg-danger-700 disabled:bg-danger-500',
+				danger: 'text-danger-50 bg-danger-600 hover:bg-danger-700 active:bg-danger-800 disabled:bg-danger-600',
 				warning:
-					'text-warning-50 bg-warning-500 hover:bg-warning-600 active:bg-warning-700 disabled:bg-warning-500',
+					'text-warning-50 bg-warning-600 hover:bg-warning-700 active:bg-warning-800 disabled:bg-warning-600',
 				success:
-					'text-success-50 bg-success-500 hover:bg-success-600 active:bg-success-700 disabled:bg-success-500',
+					'text-success-50 bg-success-600 hover:bg-success-700 active:bg-success-800 disabled:bg-success-600',
 			},
 			rounded: {
 				true: '!rounded-full',
