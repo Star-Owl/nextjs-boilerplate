@@ -132,7 +132,7 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
 				Hello
 			</Typography>
 			<MyCode className='inline w-fit'>@userID</MyCode>
-			<section className='inline-grid grid-cols-6 gap-4'>
+			{/* <section className='inline-grid grid-cols-6 gap-4'>
 				<Button
 					className='w-fit'
 					variant={'default'}
@@ -170,7 +170,7 @@ const Hero: FunctionComponent<HeroProps> = ({}) => {
 				>
 					Disabled
 				</Button>
-			</section>
+			</section> */}
 			<section className='flex flex-col flex-wrap gap-6 md:flex-row'>
 				<Button
 					rounded
