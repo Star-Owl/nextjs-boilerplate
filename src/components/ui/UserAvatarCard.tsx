@@ -53,7 +53,7 @@ const UserAvatarCard: FunctionComponent<Props> = ({
 							fill='currentColor'
 						/>
 					}
-					className='h-10 w-10 cursor-pointer bg-white/[.06] text-sm transition-opacity hover:opacity-60'
+					className='h-12 w-12 cursor-pointer bg-white/[.06] text-sm transition-opacity hover:opacity-60'
 				/>
 			) : null}
 			<div className='flex flex-1 gap-4 overflow-hidden'>
