@@ -6,6 +6,8 @@ import { FillUser, OutlineUser } from 'src/icons/Icons'
 import { uuid } from 'uuidv4'
 import PostHeader from './post/header'
 import Typography from '@mui/material/Typography'
+import { Button } from '../ui/button'
+import { Stack } from '@mui/material'
 
 interface Props {}
 
@@ -55,6 +57,12 @@ function generateSections(count: number, constantAvatarSrc: string) {
 				src: `https://i.pravatar.cc/150?u=${uuid()}`,
 				radius: availableRadius[index % availableRadius.length],
 			},
+			{
+				id: uuid(),
+				color: availableColors[index % availableColors.length],
+				src: `https://i.pravatar.cc/150?u=${uuid()}`,
+				radius: availableRadius[index % availableRadius.length],
+			},
 			// ... Możesz dodać więcej avatara tutaj
 		],
 	}))
@@ -67,7 +75,7 @@ const sections = generateSections(
 
 const Main: FunctionComponent<Props> = ({}) => {
 	return (
-		<main className='flex w-full flex-col gap-6 py-[2.5rem] leading-none dark md:max-w-xl'>
+		<main className='flex w-full flex-col gap-6 py-[2.5rem] leading-none dark md:max-w-xl lg:max-w-lg xl:max-w-2xl'>
 			{sections.map((section) => (
 				<section
 					key={section.id}
@@ -92,27 +100,43 @@ const Main: FunctionComponent<Props> = ({}) => {
 							purus sed libero. Maecenas at efficitur libero, eu
 							viverra mi.
 						</Typography>
-						<AvatarGroup
-							className='cursor-pointer'
-							isBordered
-							max={3}
-						>
-							{section.avatars.map((avatar) => (
-								<Avatar
-									key={avatar.id}
-									color={avatar.color}
-									src={avatar.src}
-									showFallback
-									radius={avatar.radius}
-									fallback={
-										<FillUser
-											className={`h-6 w-6 text-white`}
-											fill='currentColor'
-										/>
-									}
-								/>
-							))}
-						</AvatarGroup>
+						<div className='flex w-full justify-between'>
+							<AvatarGroup
+								className='cursor-pointer'
+								isBordered
+								max={3}
+								renderCount={(count) => (
+									// <Avatar
+									// 	fallback={
+									// 		<p className='text-base'>+{count}</p>
+									// 	}
+									// ></Avatar>
+									<p className='ml-4 text-small font-medium text-foreground'>
+										+{count} others
+									</p>
+								)}
+							>
+								{section.avatars.map((avatar) => (
+									<Avatar
+										key={avatar.id}
+										color={avatar.color}
+										src={avatar.src}
+										showFallback
+										radius={avatar.radius}
+										fallback={
+											<FillUser
+												className={`h-6 w-6 text-white`}
+												fill='currentColor'
+											/>
+										}
+									/>
+								))}
+							</AvatarGroup>
+							<Button size={'sm-icon'}>
+								Button
+								<FillUser size={24} />
+							</Button>
+						</div>
 					</article>
 				</section>
 			))}
