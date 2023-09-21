@@ -19,6 +19,7 @@ import {
 	FillMessage,
 	FillSearch,
 	FillSettings,
+	FillUser,
 	OutlineBell,
 	OutlineBookmark,
 	OutlineHome,
@@ -200,7 +201,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 					))}
 				</ul>
 				<Button size={isSmallScreen ? 'default-icon' : 'default'}>
-					{isSmallScreen ? <OutlineUser size={28} /> : 'Hoot'}
+					{isSmallScreen ? <FillUser size={28} /> : 'Hoot'}
 				</Button>
 			</section>
 			<section className='flex w-fit items-center justify-center gap-4 overflow-hidden rounded-2xl bg-primary-lighter p-4 xl:w-full xl:justify-start'>
