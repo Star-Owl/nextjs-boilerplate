@@ -200,7 +200,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 						</React.Fragment>
 					))}
 				</ul>
-				<Button size={isSmallScreen ? 'default-icon' : 'default'}>
+				<Button size={isSmallScreen ? 'lg-icon' : 'lg'}>
 					{isSmallScreen ? <FillUser size={28} /> : 'Hoot'}
 				</Button>
 			</section>
