@@ -1,16 +1,20 @@
-import '@/styles/globals.css'
-
-import type { AppProps, NextWebVitalsMetric } from 'next/app'
-import { Analytics } from '@vercel/analytics/react'
-
-import { DefaultSeo } from 'next-seo'
-import Head from 'next/head'
-import SEO from 'nextseo.config'
 import { useRouter } from 'next/router'
 import React from 'react'
+import Head from 'next/head'
+import { DefaultSeo } from 'next-seo'
+import SEO from 'nextseo.config'
 import { NextUIProvider } from '@nextui-org/react'
+import { Analytics } from '@vercel/analytics/react'
 
-const App = ({ Component, pageProps }: AppProps) => {
+import '@/styles/globals.css'
+import { NextWebVitalsMetric } from 'next/app'
+
+interface Props {
+	Component: React.ComponentType<any>
+	pageProps: any
+}
+
+const App: React.FC<Props> = ({ Component, pageProps }) => {
 	const router = useRouter()
 
 	return (
@@ -48,8 +52,6 @@ const App = ({ Component, pageProps }: AppProps) => {
 				/>
 			</Head>
 			<DefaultSeo {...SEO} />
-
-			{/* Page */}
 			<NextUIProvider>
 				<Component
 					key={router.asPath}
@@ -73,14 +75,7 @@ export function reportWebVitals({
 		event_category:
 			label === 'web-vital' ? 'Web Vitals' : 'Next.js custom metric',
 		event_action: name,
-		// Google Analytics metrics must be integers, so the value is rounded.
-		// For CLS the value is first multiplied by 1000 for greater precision
-		// (note: increase the multiplier for greater precision if needed).
 		event_value: Math.round(name === 'CLS' ? value * 1000 : value),
-		// The 'id' value will be unique to the current page load. When sending
-		// multiple values from the same page (e.g. for CLS), Google Analytics can
-		// compute a total by grouping on this ID (note: requires `eventLabel` to
-		// be a dimension in your report).
 		event_label: id,
 	})
 }

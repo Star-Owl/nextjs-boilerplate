@@ -11,11 +11,7 @@ interface Props {
 const UserInfo: FunctionComponent<Props> = ({}) => {
 	return (
 		<React.Fragment>
-			<Twemoji
-				noWrapper
-				options={{ className: 'emoji' }}
-			>
-				{''}
+			<Twemoji options={{ className: 'emoji' }}>
 				<Typography
 					variant='body2'
 					component='p'
