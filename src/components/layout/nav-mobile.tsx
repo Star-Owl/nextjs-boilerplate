@@ -104,7 +104,7 @@ const inactiveIcons = {
 interface Props {}
 const NavMobile: FunctionComponent<Props> = ({}) => {
 	return (
-		<nav className='sticky bottom-0 z-100 flex w-full rounded-t-2xl bg-primary-badge/[.80] py-4 backdrop-blur-md'>
+		<nav className='fixed bottom-0 z-100 flex w-full rounded-t-2xl bg-primary-badge/[.80] py-4 backdrop-blur-md'>
 			<ul className='flex flex-1 justify-around gap-2 px-5'>
 				{items.map(({ active, href, text, isLogout }, i) => (
 					<React.Fragment key={`header-${i}`}>
@@ -121,13 +121,9 @@ const NavMobile: FunctionComponent<Props> = ({}) => {
 										href as keyof typeof inactiveIcons
 								  ]}
 							<span
-								className={`
-										hidden
-										flex-none
-										text-lg
-										xl:inline-flex
-										${active ? 'font-bold' : 'font-medium'}
-									`}
+								className={`hidden flex-none text-lg xl:inline-flex ${
+									active ? 'font-bold' : 'font-medium'
+								}`}
 							>
 								{text}
 							</span>
@@ -135,73 +131,6 @@ const NavMobile: FunctionComponent<Props> = ({}) => {
 					</React.Fragment>
 				))}
 			</ul>
-			{/* <section className='flex w-full flex-1 gap-6'>
-				<Button size={isSmallScreen ? 'default-icon' : 'default'}>
-					{isSmallScreen ? <OutlineUser size={28} /> : 'Hoot'}
-				</Button>
-			</section> */}
-			{/* <section className='flex w-fit items-center justify-center gap-4 rounded-[1rem] bg-primary-lighter p-4 lg:w-full lg:justify-start lg:p-5'>
-				<React.Fragment>
-					<Badge
-						content=''
-						color='success'
-						shape='circle'
-						placement='bottom-right'
-						className={`${
-							isSmallScreen
-								? 'h-[1.125rem] w-[1.125rem]'
-								: 'h-5 w-5'
-						} pointer-events-none border-4 border-primary-lighter`}
-					>
-						<Avatar
-							//isBordered
-							// color='base'
-							name='Hasira'
-							src='https://cdn.discordapp.com/avatars/569975072417251378/2113775a498da6818a3bdf75af82f40c.webp?size=128'
-							fallback={
-								<OutlineUser
-									className={`${
-										isSmallScreen ? 'h-4 w-4' : 'h-6 w-6'
-									} text-default-500`}
-									fill='currentColor'
-								/>
-							}
-							className={`${
-								isSmallScreen ? 'h-8 w-8' : 'h-12 w-12'
-							} cursor-pointer bg-white/[.06] text-sm transition-opacity hover:opacity-60`}
-						/>
-					</Badge>
-				</React.Fragment>
-				{isSmallScreen ? (
-					''
-				) : (
-					<React.Fragment>
-						<div className='flex h-full flex-col justify-around overflow-hidden'>
-							<Typography
-								variant='body2'
-								component='p'
-								className='cursor-pointer overflow-hidden text-ellipsis whitespace-pre !font-semibold hover:underline'
-							>
-								Display Name Long Name
-							</Typography>
-							<Chip
-								radius='sm'
-								classNames={{
-									base: 'group bg-white/[.06] !py-[.281rem] !px-[.562rem] !h-auto rounded-[.375rem] cursor-pointer text-xs transition-colors hover:bg-white/[.12]',
-									content:
-										'text-white/[.60] p-0 group-hover:text-white overflow-hidden text-ellipsis whitespace-pre leading-tight',
-								}}
-							>
-								@starowl.social
-							</Chip>
-						</div>
-						<OutlineMore
-							className='cursor-pointer transition-colors hover:text-accent-600'
-							size={28}
-						/>
-					</React.Fragment>
-				)}
-			</section> */}
 		</nav>
 	)
 }

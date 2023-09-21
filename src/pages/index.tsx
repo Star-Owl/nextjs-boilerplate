@@ -42,12 +42,16 @@ const HomePage: FunctionComponent<HomePageProps> = ({}) => {
 					},
 				]}
 			/>
-			<div className='flex xl:justify-center xl:gap-10'>
+			<div
+				className={`flex xl:justify-center xl:gap-10 ${
+					isMobile ? 'pb-24' : ''
+				}`}
+			>
 				<Nav />
 				<Main />
 				<Aside />
+				{isMobile ? <NavMobile /> : ''}
 			</div>
-			{isMobile ? <NavMobile /> : ''}
 			{/* <Hero /> */}
 		</React.Fragment>
 	)
