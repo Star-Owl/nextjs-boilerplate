@@ -47,7 +47,7 @@ const Post: React.FC<Props> = ({ text, detailsUrl, maxTextLength = 150 }) => {
 	const [showMore, setShowMore] = useState(false)
 
 	const handleShowMoreClick = () => {
-		setShowMore(true)
+		showMore ? setShowMore(false) : setShowMore(true)
 	}
 
 	const GoToPost = () => {
@@ -86,7 +86,16 @@ const Post: React.FC<Props> = ({ text, detailsUrl, maxTextLength = 150 }) => {
 							Show more
 						</Button>
 					)}
-					{showMore && <Button onClick={GoToPost}>Read more</Button>}
+					{showMore && (
+						<Button
+							onClick={handleShowMoreClick}
+							size={'link'}
+							variant={'link'}
+							className='ml-2'
+						>
+							Show Less
+						</Button>
+					)}
 				</React.Fragment>
 			) : (
 				<p>This post is empty.</p>
