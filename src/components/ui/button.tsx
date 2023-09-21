@@ -16,7 +16,7 @@ const buttonVariants = cva(
 				outline:
 					'bg-transparent ring-2 ring-inset ring-white-50 hover:text-white-300 hover:ring-white-300 hover:bg-white-50/[.06] active:bg-white-50/[.12] disabled:bg-transparent',
 				ghost: 'hover:text-white-300 hover:bg-white-50/[.06] active:bg-white-50/[.12] disabled:bg-transparent',
-				link: 'underline-offset-4 hover:underline',
+				link: 'text-accent-600 underline-offset-4 hover:underline',
 				danger: 'text-danger-50 bg-danger-600 hover:bg-danger-700 active:bg-danger-800 disabled:bg-danger-600',
 				warning:
 					'text-warning-50 bg-warning-600 hover:bg-warning-700 active:bg-warning-800 disabled:bg-warning-600',
@@ -27,6 +27,7 @@ const buttonVariants = cva(
 				true: '!rounded-full',
 			},
 			size: {
+				link: 'p-0',
 				xs: 'rounded-[0.5rem] px-[1rem] py-[.5rem]',
 				sm: 'rounded-[0.625rem] px-[1.5rem] py-[.75rem]',
 				default: 'rounded-[0.875rem] px-[2rem] py-[1rem]',

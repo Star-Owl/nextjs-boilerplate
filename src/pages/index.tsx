@@ -3,12 +3,28 @@ import { NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
 import Hero from '@/components/page-header'
 import Nav from '@/components/layout/nav'
-import Main from '@/components/layout/main'
+import Main, { generateSections } from '@/components/layout/main'
 import Aside from '@/components/layout/aside'
 import NavMobile from '@/components/layout/nav-mobile'
 
-interface HomePageProps {}
-const HomePage: FunctionComponent<HomePageProps> = ({}) => {
+export async function getServerSideProps() {
+	const posts = generateSections(
+		20,
+		'https://cdn.discordapp.com/avatars/569975072417251378/2113775a498da6818a3bdf75af82f40c.webp?size=128',
+	)
+
+	console.log(posts)
+
+	return {
+		props: { posts },
+	}
+}
+
+interface HomePageProps {
+	posts: any[]
+}
+
+const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 	let [isMobile, setIsMobile] = useState(false)
 
 	useEffect(() => {
@@ -48,7 +64,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({}) => {
 				}`}
 			>
 				<Nav />
-				<Main />
+				<Main posts={posts} />
 				<Aside />
 				{isMobile ? <NavMobile /> : ''}
 			</div>
