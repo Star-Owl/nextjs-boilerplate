@@ -6,7 +6,7 @@ import { FunctionComponent } from 'react'
 interface Props {}
 const Aside: FunctionComponent<Props> = ({}) => {
 	return (
-		<aside className='h-device sticky top-0 hidden max-w-sm flex-1 py-[2.5rem] lg:flex'>
+		<aside className='h-device sticky top-0 hidden max-w-sm flex-1 py-[2.5rem] lg:mx-6 lg:flex xl:mx-0'>
 			<ul className='h-fit w-full rounded-2xl bg-primary-lighter p-6'>
 				<li>
 					<Link href='/'>Aside</Link>
