@@ -1,4 +1,5 @@
 import UserAvatarCard from '@/components/ui/UserAvatarCard'
+import { Button } from '@/components/ui/button'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { FunctionComponent } from 'react'
@@ -21,10 +22,16 @@ const PostHeader: FunctionComponent<Props> = ({}) => {
 				>
 					N time ago
 				</Typography>
-				<OutlineMore
+				<Button
+					variant={'ghost'}
+					size={'xs-icon'}
+				>
+					<OutlineMore size={24} />
+				</Button>
+				{/* <OutlineMore
 					className='cursor-pointer transition-colors hover:text-accent-600'
 					size={24}
-				/>
+				/> */}
 			</Stack>
 		</header>
 	)

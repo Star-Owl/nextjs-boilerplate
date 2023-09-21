@@ -244,10 +244,16 @@ const Nav: FunctionComponent<Props> = ({}) => {
 						<div className='flex h-full flex-1 flex-col justify-around overflow-hidden'>
 							<UserInfo />
 						</div>
-						<OutlineMore
+						<Button
+							variant={'ghost'}
+							size={'xs-icon'}
+						>
+							<OutlineMore size={24} />
+						</Button>
+						{/* <OutlineMore
 							className='cursor-pointer transition-colors hover:text-accent-600'
 							size={24}
-						/>
+						/> */}
 					</React.Fragment>
 				)}
 			</section>

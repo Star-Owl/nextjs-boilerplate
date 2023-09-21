@@ -132,9 +132,11 @@ const Main: FunctionComponent<Props> = ({}) => {
 									/>
 								))}
 							</AvatarGroup>
-							<Button size={'sm-icon'}>
-								Button
-								<FillUser size={24} />
+							<Button
+								variant={'ghost'}
+								size={'xs-icon'}
+							>
+								<OutlineUser size={24} />
 							</Button>
 						</div>
 					</article>
