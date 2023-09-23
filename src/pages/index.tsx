@@ -1,19 +1,18 @@
 import type { FunctionComponent } from 'react'
 import { NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
-import Hero from '@/components/page-header'
 import Nav from '@/components/layout/nav'
-import Main, { generateSections } from '@/components/layout/main'
+import Main from '@/components/layout/main'
 import Aside from '@/components/layout/aside'
 import NavMobile from '@/components/layout/nav-mobile'
+import { generateSections } from '@/lib/post/generateSections'
+import useDeviceAndBrowser from '@/lib/useDeviceAndBrowser'
 
 export async function getServerSideProps() {
 	const posts = generateSections(
-		20,
+		5,
 		'https://cdn.discordapp.com/avatars/569975072417251378/2113775a498da6818a3bdf75af82f40c.webp?size=128',
 	)
-
-	console.log(posts)
 
 	return {
 		props: { posts },
@@ -25,19 +24,8 @@ interface HomePageProps {
 }
 
 const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
-	let [isMobile, setIsMobile] = useState(false)
-
-	useEffect(() => {
-		setIsMobile(window.innerWidth < 640)
-
-		const handleResize = () => {
-			setIsMobile(window.innerWidth < 640)
-		}
-
-		window.addEventListener('resize', handleResize)
-
-		return () => window.removeEventListener('resize', handleResize)
-	}, [])
+	const { deviceType, os, browser } = useDeviceAndBrowser()
+	console.log(deviceType, os, browser)
 	return (
 		<React.Fragment>
 			<NextSeo
@@ -60,13 +48,13 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 			/>
 			<div
 				className={`flex xl:justify-center xl:gap-6 ${
-					isMobile ? 'pb-24' : ''
+					deviceType === 'mobile' ? 'pb-24' : ''
 				}`}
 			>
 				<Nav />
 				<Main posts={posts} />
 				<Aside />
-				{isMobile ? <NavMobile /> : ''}
+				{deviceType === 'mobile' ? <NavMobile /> : ''}
 			</div>
 			{/* <Hero /> */}
 		</React.Fragment>
