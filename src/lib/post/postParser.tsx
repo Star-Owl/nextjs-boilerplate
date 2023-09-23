@@ -23,9 +23,9 @@ const parsePost = (text: string): PostSegment[] => {
 	// Map each match to a post segment based on its type
 	return matches.map((match): PostSegment => {
 		switch (true) {
-			case match.startsWith('@'):
+			case match.startsWith('@') && match.length > 1:
 				return { type: 'mention', value: match }
-			case match.startsWith('#'):
+			case match.startsWith('#') && match.length > 1:
 				return { type: 'hashtag', value: match }
 			case /^https?:\/\/\S+$/.test(match):
 				return { type: 'url', value: match }
