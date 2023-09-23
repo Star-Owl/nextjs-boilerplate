@@ -1,12 +1,27 @@
 import React from 'react'
 
+// TODO: add more markdawn support
 // Define the different types of post segments
-type PostSegmentType = 'text' | 'mention' | 'hashtag' | 'url' | 'newline'
+type PostSegmentType =
+	| 'text'
+	| 'mention'
+	| 'hashtag'
+	| 'url'
+	| 'newline'
+	| 'bold'
+	| 'italics'
+	| 'underline'
+	| 'strikethrough'
+	| 'code'
+	| 'spoiler'
+	| 'link'
+	| 'timestamp'
 
 // Define the shape of a post segment
 interface PostSegment {
 	type: PostSegmentType
 	value: string
+	url?: string
 }
 
 /**
@@ -16,8 +31,10 @@ interface PostSegment {
  */
 const parsePost = (text: string): PostSegment[] => {
 	// Define a regular expression to match the different types of post segments
+	// const regex =
+	// 	/(@[a-zA-Z0-9_]+)|(#\w+)|(\n)|((?:https?:\/\/)[\w/\-?=%.]+\.[\w/\-?=%.]+)|(\S+|\s+)/g
 	const regex =
-		/(@[a-zA-Z0-9_]+)|(#\w+)|(\n)|((?:https?:\/\/)[\w/\-?=%.]+\.[\w/\-?=%.]+)|(\S+|\s+)/g
+		/(\*\*[^*]+\*\*)|(\*[^*]+\*|_[^_]+_)|(__[^_]+__)|(\~\~[^\~]+\~\~)|(`[^`]+`)|(\|\|[^\|]+\|\|)|(\[[^\]]+\]\(https?:\/\/\S+\))|(@[a-zA-Z0-9_]+)|(#\w+)|(\n)|((?:https?:\/\/)[\w/\-?=%.]+\.[\w/\-?=%.]+)|(\S+|\s+)/g
 	// Match the regular expression against the post text
 	const matches = text.match(regex) || []
 	// Map each match to a post segment based on its type
@@ -31,6 +48,28 @@ const parsePost = (text: string): PostSegment[] => {
 				return { type: 'url', value: match }
 			case match === '\n':
 				return { type: 'newline', value: '\n' }
+			case match.startsWith('**'):
+				return { type: 'bold', value: match.slice(2, -2) } // Usuń ** z początku i końca
+			case match.startsWith('*') || match.startsWith('_'):
+				return { type: 'italics', value: match.slice(1, -1) }
+			case match.startsWith('__'):
+				return { type: 'underline', value: match.slice(2, -2) }
+			case match.startsWith('~~'):
+				return { type: 'strikethrough', value: match.slice(2, -2) }
+			case match.startsWith('`'):
+				return { type: 'code', value: match.slice(1, -1) }
+			case match.startsWith('||'):
+				return { type: 'spoiler', value: match.slice(2, -2) }
+			case match.startsWith('['):
+				const urlMatch = /\[([^\]]+)\]\((https?:\/\/\S+)\)/.exec(match)
+				if (urlMatch) {
+					return {
+						type: 'link',
+						value: urlMatch[1],
+						url: urlMatch[2],
+					}
+				}
+				return { type: 'text', value: match } // Wyjście awaryjne, nie powinno się zdarzyć
 			default:
 				return { type: 'text', value: match }
 		}
@@ -125,6 +164,16 @@ const renderParsedPost = (
 				)
 			}
 			currentLength += value.length
+			continue
+		}
+
+		if (type === 'bold') {
+			result.push(<strong key={index + 'b'}>{value}</strong>)
+			continue
+		}
+
+		if (type === 'italics') {
+			result.push(<em key={index + 'i'}>{value}</em>)
 			continue
 		}
 
