@@ -1,121 +1,12 @@
 'use client'
 
 import { Avatar, AvatarGroup } from '@nextui-org/react'
-import { FunctionComponent, useState } from 'react'
+import { FunctionComponent } from 'react'
 import { FillUser, OutlineUser } from 'src/icons/Icons'
-import { uuid } from 'uuidv4'
 import PostHeader from './post/header'
-import Typography from '@mui/material/Typography'
 import { Button } from '../ui/button'
-import { Stack } from '@mui/material'
 import React from 'react'
 import Post from '../ui/post/Post'
-import Chance from 'chance'
-
-const availableColors: Array<
-	'primary' | 'warning' | 'success' | 'default' | 'secondary' | 'danger'
-> = ['primary', 'warning', 'success', 'default', 'secondary', 'danger']
-
-const availableRadius: Array<'full' | 'md'> = ['full', 'md']
-
-const chance = new Chance()
-
-function generateRandomPost() {
-	let text = chance.paragraph()
-
-	// Wstaw losową liczbę znaków nowej linii
-	const breakLineCount = chance.integer({ min: 1, max: 6 })
-	for (let i = 0; i < breakLineCount; i++) {
-		const position = chance.integer({ min: 0, max: text.length })
-		text = `${text.slice(0, position)}\n\n${text.slice(position)}`
-	}
-
-	// Wstaw hashtagi
-	const hashtagCount = chance.integer({ min: 1, max: 3 })
-	for (let i = 0; i < hashtagCount; i++) {
-		const tag = `#${chance.word()}`
-		const position = chance.integer({ min: 0, max: text.length })
-		text = `${text.slice(0, position)} ${tag} ${text.slice(position)}`
-	}
-
-	// Wstaw wzmianki
-	const mentionCount = chance.integer({ min: 1, max: 3 })
-	for (let i = 0; i < mentionCount; i++) {
-		const mention = `@${chance.word()}`
-		const position = chance.integer({ min: 0, max: text.length })
-		text = `${text.slice(0, position)} ${mention} ${text.slice(position)}`
-	}
-
-	// Wstaw losowe domeny
-	const domainCount = chance.integer({ min: 1, max: 2 })
-	const domains = ['com', 'net', 'org', 'io', 'domain']
-	const protocols = ['http://', 'https://', ''] // puste dla braku protokołu
-
-	for (let i = 0; i < domainCount; i++) {
-		const domain = `${chance.word()}.${chance.pickone(domains)}`
-		const protocol = chance.pickone(protocols)
-		const url = `${protocol}${domain}`
-		const position = chance.integer({ min: 0, max: text.length })
-		text = `${text.slice(0, position)} ${url} ${text.slice(position)}`
-	}
-
-	return text
-}
-
-export function generateSections(count: number, constantAvatarSrc: string) {
-	return Array.from({ length: count }).map((_, index) => ({
-		id: index + 1,
-		avatars: [
-			{
-				id: uuid(),
-				color: availableColors[index % availableColors.length],
-				src: constantAvatarSrc,
-				radius: availableRadius[index % availableRadius.length],
-			},
-			{
-				id: uuid(),
-				color: availableColors[index % availableColors.length],
-				src: `https://i.pravatar.cc/150?u=${uuid()}`,
-				radius: availableRadius[index % availableRadius.length],
-			},
-			{
-				id: uuid(),
-				color: availableColors[index % availableColors.length],
-				src: `https://i.pravatar.cc/150?u=${uuid()}`,
-				radius: availableRadius[index % availableRadius.length],
-			},
-			{
-				id: uuid(),
-				color: availableColors[index % availableColors.length],
-				src: `https://i.pravatar.cc/150?u=${uuid()}`,
-				radius: availableRadius[index % availableRadius.length],
-			},
-			{
-				id: uuid(),
-				color: availableColors[index % availableColors.length],
-				src: `https://i.pravatar.cc/150?u=${uuid()}`,
-				radius: availableRadius[index % availableRadius.length],
-			},
-			{
-				id: uuid(),
-				color: availableColors[index % availableColors.length],
-				src: `https://i.pravatar.cc/150?u=${uuid()}`,
-				radius: availableRadius[index % availableRadius.length],
-			},
-			{
-				id: uuid(),
-				color: availableColors[index % availableColors.length],
-				src: `https://i.pravatar.cc/150?u=${uuid()}`,
-				radius: availableRadius[index % availableRadius.length],
-			},
-		],
-		posts: {
-			id: index + 1,
-			text: generateRandomPost(),
-			detailsUrl: `https://example.com/post/${index + 1}`,
-		},
-	}))
-}
 
 interface Props {
 	posts: any[]
@@ -135,8 +26,6 @@ interface AvatarType {
 }
 
 const Main: FunctionComponent<Props> = ({ posts }) => {
-	console.log(posts)
-
 	return (
 		<main className='flex w-full flex-col gap-6 py-[2.5rem] leading-none dark md:max-w-xl lg:max-w-lg xl:max-w-xl'>
 			{posts?.map((section) => (
@@ -151,8 +40,9 @@ const Main: FunctionComponent<Props> = ({ posts }) => {
 							key={section.posts.id}
 							text={section.posts.text}
 							detailsUrl={section.posts.detailsUrl}
-							maxTextLength={340}
+							maxTextLength={250}
 						/>
+						{/* <Postv2 content={section.posts.text} /> */}
 						<div className='flex w-full justify-between'>
 							<AvatarGroup
 								className='cursor-pointer'
