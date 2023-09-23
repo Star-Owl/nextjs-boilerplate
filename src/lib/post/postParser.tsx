@@ -99,10 +99,14 @@ const renderParsedPost = (
 			const remainingLength = maxTextLength - currentLength
 			if (buffer.length > remainingLength) {
 				buffer = `${buffer.slice(0, remainingLength - 3)}...`
-				result.push(<span key={index + 's'}>{buffer}</span>)
+				result.push(
+					<React.Fragment key={index + 's'}>{buffer}</React.Fragment>,
+				)
 				return true
 			}
-			result.push(<span key={index + 's'}>{buffer}</span>)
+			result.push(
+				<React.Fragment key={index + 's'}>{buffer}</React.Fragment>,
+			)
 			currentLength += buffer.length
 			buffer = ''
 		}
@@ -126,7 +130,11 @@ const renderParsedPost = (
 				if (pushBuffer(index, true)) {
 					return result
 				}
-				result.push(<span key={index + 'truncated'}>...</span>)
+				result.push(
+					<React.Fragment key={index + 'truncated'}>
+						...
+					</React.Fragment>,
+				)
 				return result
 			}
 			// Otherwise, push the buffer to the result array and render the segment as a link
@@ -167,31 +175,41 @@ const renderParsedPost = (
 			continue
 		}
 
-		if (type === 'bold') {
-			result.push(<strong key={index + 'b'}>{value}</strong>)
-			continue
-		}
+		pushBuffer(index)
 
-		if (type === 'italics') {
-			result.push(<em key={index + 'i'}>{value}</em>)
-			continue
-		}
-
-		if (type === 'newline') {
-			// If the current length plus the buffer length plus one exceeds the maximum length,
-			// truncate the buffer and return the result array
-			if (currentLength + buffer.length + 1 > maxTextLength) {
-				if (pushBuffer(index, true)) {
-					return result
-				}
-				result.push(<span key={index + 'truncated'}>...</span>)
-				return result
-			}
-			// Otherwise, push the buffer to the result array and add a line break
-			pushBuffer(index)
-			result.push(<br key={index + 'br'} />)
-			currentLength++
-			continue
+		switch (type) {
+			case 'bold':
+				result.push(<strong key={index + 'b'}>{value}</strong>)
+				break
+			case 'italics':
+				result.push(<em key={index + 'i'}>{value}</em>)
+				break
+			case 'underline':
+				result.push(<u key={index + 'u'}>{value}</u>)
+				break
+			case 'strikethrough':
+				result.push(<del key={index + 'del'}>{value}</del>)
+				break
+			case 'code':
+				result.push(<code key={index + 'code'}>{value}</code>)
+				break
+			case 'spoiler':
+				result.push(
+					<span
+						key={index + 'spoiler'}
+						style={{ backgroundColor: 'black', color: 'black' }}
+					>
+						{value}
+					</span>,
+				)
+				break
+			case 'timestamp':
+				result.push(<time key={index + 'time'}>{value}</time>)
+				break
+			case 'newline':
+				buffer += '\n'
+				currentLength++
+				break
 		}
 
 		// If the current length exceeds the maximum length, break out of the loop

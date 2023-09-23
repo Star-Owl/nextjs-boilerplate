@@ -45,7 +45,7 @@ const Post: React.FC<Props> = ({ text, detailsUrl, maxTextLength = 150 }) => {
 		text.length > maxTextLength || breakLinesCount > maxLinesCount
 
 	return (
-		<p className='leading-normal'>
+		<div className='whitespace-pre-line leading-normal'>
 			{formattedText.length > 0 ? (
 				<React.Fragment>
 					{formattedText}
@@ -61,9 +61,9 @@ const Post: React.FC<Props> = ({ text, detailsUrl, maxTextLength = 150 }) => {
 					)}
 				</React.Fragment>
 			) : (
-				<p>This post is empty.</p>
+				<span>This post is empty.</span>
 			)}
-		</p>
+		</div>
 	)
 }
 
