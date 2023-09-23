@@ -1,136 +1,62 @@
 import React, { useState } from 'react'
 import { Button } from '../button'
+import { parsePost, renderParsedPost } from '@/lib/post/postParser'
 
 interface Props {
+	/**
+	 * The text of the post.
+	 */
 	text: string
+	/**
+	 * The URL of the post details page.
+	 */
 	detailsUrl: string
+	/**
+	 * The maximum length of the post text to display.
+	 * @default 150
+	 */
 	maxTextLength?: number
 }
 
-const formatPostContent = (text: string, maxTextLength: number) => {
-	const regex =
-		/(@[a-zA-Z0-9_]+)|(#\w+)|(\n)|((?:https?:\/\/)[\w/\-?=%.]+\.[\w/\-?=%.]+)|(\S+|\s+)/g
-
-	let displayText = text
-	if (text.length > maxTextLength) {
-		const lastValidIndex = text.lastIndexOf(' ', maxTextLength - 3) // znajdź ostatnią spację przed maksymalną długością
-		displayText = `${text.slice(0, lastValidIndex)}...`
-	}
-
-	const parts = displayText.match(regex) || []
-
-	let buffer = ''
-	const result: JSX.Element[] = []
-
-	parts.forEach((part, index) => {
-		const pushBuffer = () => {
-			if (buffer) {
-				result.push(<span key={index + 's'}>{buffer}</span>)
-				buffer = ''
-			}
-		}
-
-		switch (true) {
-			case !part:
-				return
-			case part.startsWith('@'):
-				pushBuffer()
-				result.push(
-					<a
-						key={index + 'a'}
-						className='w-fit cursor-pointer rounded-[.313rem] bg-white/[.06] px-[.376rem] py-[.188rem] text-sm text-white/[.60] transition-colors hover:bg-white/[.12] hover:text-white'
-						href={`https://example.com/${part.slice(1)}`}
-					>
-						{part}
-					</a>,
-				)
-				break
-			case part.startsWith('#'):
-				pushBuffer()
-				result.push(
-					<a
-						key={index + 'h'}
-						className='text-blue-600'
-						href={`https://example.com/tags/${part.slice(1)}`}
-					>
-						{part}
-					</a>,
-				)
-				break
-			case !!part.match(/(?:https?:\/\/)[\w/\-?=%.]+\.[\w/\-?=%.]+/i):
-				pushBuffer()
-				const displayUrl = part.replace(/^https?:\/\//, '')
-				result.push(
-					<a
-						key={index + 'l'}
-						href={part}
-						className='text-blue-600'
-					>
-						{displayUrl}
-					</a>,
-				)
-				break
-			case part === '\n':
-				pushBuffer()
-				result.push(<br key={index + 'br'} />)
-				break
-			default:
-				buffer += part
-				break
-		}
-
-		if (index === parts.length - 1) {
-			pushBuffer()
-		}
-	})
-
-	return result
-}
-
+/**
+ * A component that displays a post with a "Show more" button to expand the text.
+ */
 const Post: React.FC<Props> = ({ text, detailsUrl, maxTextLength = 150 }) => {
+	// Define state for whether to show the full text or not
 	const [showMore, setShowMore] = useState(false)
 
+	/**
+	 * Handles the "Show more" button click event.
+	 */
 	const handleShowMoreClick = () => {
-		setShowMore(!showMore)
+		setShowMore((prevState) => !prevState)
 	}
 
+	// Calculate the maximum number of lines to display
 	const maxLinesCount = 8
 	const breakLinesCount = (text.match(/\n/g) || []).length
-
-	let shouldShowMore =
+	const segments = parsePost(text)
+	// Render the post text with the appropriate length
+	const formattedText = showMore
+		? renderParsedPost(segments, Infinity)
+		: renderParsedPost(segments, maxTextLength)
+	// Determine whether to show the "Show more" button
+	const shouldShowMore =
 		text.length > maxTextLength || breakLinesCount > maxLinesCount
-
-	let displayText = text
-	if (!showMore && shouldShowMore) {
-		const lastValidIndex = text.lastIndexOf(' ', maxTextLength - 3)
-		displayText = `${text.slice(0, lastValidIndex)}...`
-	}
-
-	const formattedText = formatPostContent(displayText, maxTextLength)
 
 	return (
 		<p className='leading-normal'>
 			{formattedText.length > 0 ? (
 				<React.Fragment>
 					{formattedText}
-					{shouldShowMore && !showMore && (
+					{shouldShowMore && (
 						<Button
 							onClick={handleShowMoreClick}
 							size={'link'}
 							variant={'link'}
 							className='ml-2'
 						>
-							Show more
-						</Button>
-					)}
-					{showMore && (
-						<Button
-							onClick={handleShowMoreClick}
-							size={'link'}
-							variant={'link'}
-							className='ml-2'
-						>
-							Show Less
+							{showMore ? 'Show Less' : 'Show more'}
 						</Button>
 					)}
 				</React.Fragment>
