@@ -15,7 +15,7 @@ const UserInfo: FunctionComponent<Props> = ({}) => {
 				<Typography
 					variant='body2'
 					component='p'
-					className='w-max cursor-pointer overflow-hidden text-ellipsis whitespace-pre !font-semibold hover:underline'
+					className='w-max cursor-pointer overflow-hidden text-ellipsis whitespace-pre text-base font-bold hover:underline'
 				>
 					Hasira 🥃🪴
 				</Typography>
@@ -23,9 +23,9 @@ const UserInfo: FunctionComponent<Props> = ({}) => {
 			<Chip
 				radius='sm'
 				classNames={{
-					base: 'group bg-white/[.06] !py-[.281rem] !px-[.562rem] !h-auto rounded-[.375rem] cursor-pointer text-xs transition-colors hover:bg-white/[.12]',
+					base: 'group bg-white/[.06] py-[.281rem] px-[.562rem] !h-auto rounded-[.375rem] cursor-pointer transition-colors hover:bg-white/[.12]',
 					content:
-						'text-white/[.60] p-0 group-hover:text-white overflow-hidden text-ellipsis whitespace-pre leading-tight',
+						'text-white/[.60] p-0 group-hover:text-white text-xs overflow-hidden text-ellipsis whitespace-pre leading-tight',
 				}}
 			>
 				@starowl.social

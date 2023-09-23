@@ -1,8 +1,5 @@
-import PostHeader from '@/components/layout/post/header'
-import Typography from '@mui/material/Typography'
 import React, { useState } from 'react'
 import { Button } from '../button'
-import Chip from '@mui/material/Chip'
 
 interface Props {
 	text: string
@@ -10,69 +7,94 @@ interface Props {
 	maxTextLength?: number
 }
 
-const formatPostContent = (text: string) => {
+const formatPostContent = (text: string, maxTextLength: number) => {
 	const regex =
-		/(@[a-zA-Z0-9_]+)|(#\w+)|(\n)|((?:https?:\/\/)?(?:[\w/\-?=%.]+\.)+[\w/\-?=%.]+)/g
-	const parts = text ? text.split(regex) : []
-	return parts.map((part, index) => {
+		/(@[a-zA-Z0-9_]+)|(#\w+)|(\n)|((?:https?:\/\/)[\w/\-?=%.]+\.[\w/\-?=%.]+)|(\S+|\s+)/g
+
+	let displayText = text
+	if (text.length > maxTextLength) {
+		const lastValidIndex = text.lastIndexOf(' ', maxTextLength - 3) // znajdź ostatnią spację przed maksymalną długością
+		displayText = `${text.slice(0, lastValidIndex)}...`
+	}
+
+	const parts = displayText.match(regex) || []
+
+	let buffer = ''
+	const result: JSX.Element[] = []
+
+	parts.forEach((part, index) => {
+		const pushBuffer = () => {
+			if (buffer) {
+				result.push(<span key={index + 's'}>{buffer}</span>)
+				buffer = ''
+			}
+		}
+
 		switch (true) {
 			case !part:
-				return null
+				return
 			case part.startsWith('@'):
-				return (
+				pushBuffer()
+				result.push(
 					<a
-						className='!h-auto w-fit cursor-pointer rounded-[.375rem] bg-white/[.06] !px-[.562rem] !py-[.281rem] text-xs text-white/[.60] transition-colors hover:bg-white/[.12] hover:text-white'
-						key={index}
+						key={index + 'a'}
+						className='w-fit cursor-pointer rounded-[.313rem] bg-white/[.06] px-[.376rem] py-[.188rem] text-sm text-white/[.60] transition-colors hover:bg-white/[.12] hover:text-white'
 						href={`https://example.com/${part.slice(1)}`}
 					>
 						{part}
-					</a>
+					</a>,
 				)
+				break
 			case part.startsWith('#'):
-				return (
+				pushBuffer()
+				result.push(
 					<a
-						key={index}
+						key={index + 'h'}
 						className='text-blue-600'
 						href={`https://example.com/tags/${part.slice(1)}`}
 					>
 						{part}
-					</a>
+					</a>,
 				)
-			case !!part &&
-				!!part.match(
-					/^(?:https?:\/\/)?(?:[\w/\-?=%.]+\.)+[\w/\-?=%.]+$/i,
-				):
-				return (
+				break
+			case !!part.match(/(?:https?:\/\/)[\w/\-?=%.]+\.[\w/\-?=%.]+/i):
+				pushBuffer()
+				const displayUrl = part.replace(/^https?:\/\//, '')
+				result.push(
 					<a
-						key={index}
-						href={`https://${part}`}
-						target='_blank'
+						key={index + 'l'}
+						href={part}
 						className='text-blue-600'
-						rel='noopener noreferrer'
 					>
-						{part}
-					</a>
+						{displayUrl}
+					</a>,
 				)
+				break
 			case part === '\n':
-				return <br key={index} />
+				pushBuffer()
+				result.push(<br key={index + 'br'} />)
+				break
 			default:
-				return <span key={index}>{part}</span>
+				buffer += part
+				break
+		}
+
+		if (index === parts.length - 1) {
+			pushBuffer()
 		}
 	})
+
+	return result
 }
 
 const Post: React.FC<Props> = ({ text, detailsUrl, maxTextLength = 150 }) => {
 	const [showMore, setShowMore] = useState(false)
 
 	const handleShowMoreClick = () => {
-		showMore ? setShowMore(false) : setShowMore(true)
+		setShowMore(!showMore)
 	}
 
-	const GoToPost = () => {
-		console.log('detailsUrl')
-	}
-
-	const maxLinesCount = 4
+	const maxLinesCount = 8
 	const breakLinesCount = (text.match(/\n/g) || []).length
 
 	let shouldShowMore =
@@ -80,17 +102,14 @@ const Post: React.FC<Props> = ({ text, detailsUrl, maxTextLength = 150 }) => {
 
 	let displayText = text
 	if (!showMore && shouldShowMore) {
-		displayText = text.slice(0, maxTextLength - 3) + '...'
+		const lastValidIndex = text.lastIndexOf(' ', maxTextLength - 3)
+		displayText = `${text.slice(0, lastValidIndex)}...`
 	}
 
-	const formattedText = formatPostContent(displayText)
+	const formattedText = formatPostContent(displayText, maxTextLength)
 
 	return (
-		<Typography
-			variant='body2'
-			component='p'
-			className='leading-normal'
-		>
+		<p className='leading-normal'>
 			{formattedText.length > 0 ? (
 				<React.Fragment>
 					{formattedText}
@@ -118,7 +137,7 @@ const Post: React.FC<Props> = ({ text, detailsUrl, maxTextLength = 150 }) => {
 			) : (
 				<p>This post is empty.</p>
 			)}
-		</Typography>
+		</p>
 	)
 }
 
