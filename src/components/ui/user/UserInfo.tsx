@@ -19,9 +19,8 @@ const UserInfo: FunctionComponent<Props> = ({ size = 'small' }) => {
 		<React.Fragment>
 			<Twemoji options={{ className: 'emoji' }}>
 				<Typography
-					variant='body2'
-					component={`${size === 'small' ? 'p' : 'h3'}`}
-					className={`w-max cursor-pointer overflow-hidden text-ellipsis whitespace-pre font-bold ${typographyStyle} hover:underline`}
+					component={size === 'small' ? 'p' : 'h4'}
+					className={`w-max cursor-pointer overflow-hidden text-ellipsis whitespace-pre font-bold hover:underline ${typographyStyle}`}
 				>
 					Hasira 🥃🪴
 				</Typography>
