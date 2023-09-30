@@ -9,6 +9,8 @@ export function random(min, max) {
 
 const CanvasSpace = ({ size, speed, color, count }) => {
 	const appRef = useRef(null)
+	let isBlackHoleActive = false
+	let blackHolePosition = { x: 0, y: 0 }
 
 	useEffect(() => {
 		const app = new PIXI.Application({
@@ -17,6 +19,25 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 			backgroundColor: 0x000000,
 			antialias: true,
 		})
+
+		app.view.addEventListener('mousedown', (e) => {
+			isBlackHoleActive = true
+			blackHolePosition.x = e.clientX
+			blackHolePosition.y = e.clientY
+			console.log('Black hole activated at:', blackHolePosition)
+		})
+
+		app.view.addEventListener('mouseup', () => {
+			isBlackHoleActive = false
+			console.log('Black hole deactivated')
+		})
+
+		app.view.addEventListener('mousemove', (e) => {
+			if (!isBlackHoleActive) return
+			blackHolePosition.x = e.clientX
+			blackHolePosition.y = e.clientY
+		})
+
 		appRef.current.appendChild(app.view)
 
 		window.addEventListener('resize', () => {
@@ -31,7 +52,12 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 				this.size = random(size, size * 0.5)
 				this.speedX = random(-speed, speed)
 				this.speedY = random(-speed, speed)
+				this.isAffectedByBlackHole = false
+				this.isBeingPulled = false
 				this.alpha = 0.33
+
+				this.originalSpeedX = this.speedX
+				this.originalSpeedY = this.speedY
 
 				this.beginFill(0xffffff)
 				this.drawCircle(0, 0, this.size)
@@ -45,6 +71,34 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 				this.fadeSpeed = random(0.005, 0.02)
 				this.fadeDelayMax = random(1000, 5000) // Opóźnienie mrugania
 				this.fadeDelay = Math.floor(random(0, this.fadeDelayMax))
+			}
+
+			applyBlackHoleForce() {
+				console.log('Applying black hole force')
+				console.log(isBlackHoleActive)
+				if (!isBlackHoleActive) {
+					this.speedX += (this.originalSpeedX - this.speedX) * 0.05
+					this.speedY += (this.originalSpeedY - this.speedY) * 0.05
+					return
+				}
+
+				const dx = blackHolePosition.x - this.x
+				const dy = blackHolePosition.y - this.y
+				const dist = Math.sqrt(dx * dx + dy * dy)
+
+				if (dist < 1) {
+					this.x = random(0, app.screen.width)
+					this.y = random(0, app.screen.height)
+					return
+				}
+
+				const forceMagnitude = 6 / (dist * dist)
+				const MAX_FORCE = 0.5
+
+				const force = Math.min(forceMagnitude, MAX_FORCE)
+
+				this.speedX += dx * force
+				this.speedY += dy * force
 			}
 
 			update() {
@@ -68,7 +122,6 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 				if (this.fadeDelay <= 0) {
 					this.alpha -= this.fadeSpeed
 
-					// Jeśli cząstka jest niewidoczna lub w pełni widoczna, odwróć kierunek znikania i resetuj opóźnienie
 					if (this.alpha <= 0 || this.alpha >= 1) {
 						this.fadeSpeed = -this.fadeSpeed
 						this.fadeDelay = Math.floor(
@@ -104,7 +157,7 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 				shadow.blur = 15
 				shadow.alpha = 0.6
 				shadow.distance = 10
-				shadow.color = 0xffffff // biały kolor
+				shadow.color = 0xffffff
 
 				this.filters = [shadow]
 
@@ -144,6 +197,51 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 			}
 		}
 
+		Particle.prototype.remove = function () {
+			const index = particles.indexOf(this)
+			if (index > -1) {
+				particles.splice(index, 1)
+			}
+		}
+
+		Particle.prototype.respawn = function () {
+			this.x = Math.random() * app.view.width
+			this.y = Math.random() * app.view.height
+			this.speedX = random(-speed, speed)
+			this.speedY = random(-speed, speed)
+
+			particles.push(this)
+		}
+
+		Particle.prototype.applyBlackHoleForce = function () {
+			if (isBlackHoleActive) {
+				const dx = blackHolePosition.x - this.x
+				const dy = blackHolePosition.y - this.y
+				const dist = Math.sqrt(dx * dx + dy * dy)
+
+				const G = 0.3
+				const forceMagnitude = G / (dist * dist)
+
+				const ax = forceMagnitude * (dx / dist)
+				const ay = forceMagnitude * (dy / dist)
+
+				this.speedX += ax
+				this.speedY += ay
+			} else {
+				// Interpoluj prędkość do pierwotnej wartości
+				this.speedX = this.speedX * 0.9 + this.originalSpeedX * 0.1
+				this.speedY = this.speedY * 0.9 + this.originalSpeedY * 0.1
+
+				// Jeśli prędkość jest wystarczająco bliska pierwotnej wartości, ustaw flagę na false
+				if (
+					Math.abs(this.speedX - this.originalSpeedX) < 0.01 &&
+					Math.abs(this.speedY - this.originalSpeedY) < 0.01
+				) {
+					this.isBeingPulled = false
+				}
+			}
+		}
+
 		const particles = []
 
 		for (let i = 0; i < count; i++) {
@@ -159,6 +257,7 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 
 		app.ticker.add(() => {
 			for (let i = 0; i < particles.length; i++) {
+				//particles[i].applyBlackHoleForce()
 				particles[i].update()
 			}
 		})

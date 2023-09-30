@@ -22,6 +22,7 @@ export { OutlineBookmark } from './assets/OutlineBookmark'
 export { FillSettings } from './assets/FillSettings'
 export { OutlineSettings } from './assets/OutlineSettings'
 
+export { FillRepost } from './assets/FillRepost'
 export { OutlineRepost } from './assets/OutlineRepost'
 
 export { OutlineEdit } from './assets/OutlineEdit'

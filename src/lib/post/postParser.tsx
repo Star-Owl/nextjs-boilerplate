@@ -49,7 +49,7 @@ const parsePost = (text: string): PostSegment[] => {
 			case match === '\n':
 				return { type: 'newline', value: '\n' }
 			case match.startsWith('**'):
-				return { type: 'bold', value: match.slice(2, -2) } // Usuń ** z początku i końca
+				return { type: 'bold', value: match.slice(2, -2) }
 			case match.startsWith('*') || match.startsWith('_'):
 				return { type: 'italics', value: match.slice(1, -1) }
 			case match.startsWith('__'):
@@ -114,6 +114,8 @@ const renderParsedPost = (
 		return truncated
 	}
 
+	//TODO: remove <br> from post render
+
 	// Iterate over each post segment and render it as a JSX element
 	for (const [index, segment] of segments.entries()) {
 		const { type, value } = segment
@@ -122,6 +124,16 @@ const renderParsedPost = (
 			buffer += value
 			continue
 		}
+
+		// if (type === 'bold') {
+		// 	pushBuffer(index)
+		// 	result.push(<strong key={index + 'b'}>{value}</strong>)
+		// }
+
+		// if (type === 'underline') {
+		// 	pushBuffer(index)
+		// 	result.push(<u key={index + 'u'}>{value}</u>)
+		// }
 
 		if (type === 'mention' || type === 'hashtag' || type === 'url') {
 			// If the current length plus the buffer length plus the segment length exceeds the maximum length,
@@ -175,42 +187,59 @@ const renderParsedPost = (
 			continue
 		}
 
-		pushBuffer(index)
-
-		switch (type) {
-			case 'bold':
-				result.push(<strong key={index + 'b'}>{value}</strong>)
-				break
-			case 'italics':
-				result.push(<em key={index + 'i'}>{value}</em>)
-				break
-			case 'underline':
-				result.push(<u key={index + 'u'}>{value}</u>)
-				break
-			case 'strikethrough':
-				result.push(<del key={index + 'del'}>{value}</del>)
-				break
-			case 'code':
-				result.push(<code key={index + 'code'}>{value}</code>)
-				break
-			case 'spoiler':
-				result.push(
-					<span
-						key={index + 'spoiler'}
-						style={{ backgroundColor: 'black', color: 'black' }}
-					>
-						{value}
-					</span>,
-				)
-				break
-			case 'timestamp':
-				result.push(<time key={index + 'time'}>{value}</time>)
-				break
-			case 'newline':
-				buffer += '\n'
-				currentLength++
-				break
+		if (type === 'newline') {
+			// If the current length plus the buffer length plus one exceeds the maximum length,
+			// truncate the buffer and return the result array
+			if (currentLength + buffer.length + 1 > maxTextLength) {
+				if (pushBuffer(index, true)) {
+					return result
+				}
+				result.push(<span key={index + 'truncated'}>...</span>)
+				return result
+			}
+			// Otherwise, push the buffer to the result array and add a line break
+			pushBuffer(index)
+			result.push(<br key={index + 'br'} />)
+			currentLength++
+			continue
 		}
+
+		//pushBuffer(index)
+
+		// 	switch (type) {
+		// 		case 'bold':
+		// 			result.push(<strong key={index + 'b'}>{value}</strong>)
+		// 			break
+		// 		case 'italics':
+		// 			result.push(<em key={index + 'i'}>{value}</em>)
+		// 			break
+		// 		case 'underline':
+		// 			result.push(<u key={index + 'u'}>{value}</u>)
+		// 			break
+		// 		case 'strikethrough':
+		// 			result.push(<del key={index + 'del'}>{value}</del>)
+		// 			break
+		// 		case 'code':
+		// 			result.push(<code key={index + 'code'}>{value}</code>)
+		// 			break
+		// 		case 'spoiler':
+		// 			result.push(
+		// 				<span
+		// 					key={index + 'spoiler'}
+		// 					style={{ backgroundColor: 'black', color: 'black' }}
+		// 				>
+		// 					{value}
+		// 				</span>,
+		// 			)
+		// 			break
+		// 		case 'timestamp':
+		// 			result.push(<time key={index + 'time'}>{value}</time>)
+		// 			break
+		// 		case 'newline':
+		// 		// buffer += '\n'
+		// 		// currentLength++
+		// 		// break
+		// 	}
 
 		// If the current length exceeds the maximum length, break out of the loop
 		if (currentLength >= maxTextLength) {

@@ -8,8 +8,8 @@ import NavMobile from '@/components/layout/nav-mobile'
 import { generateSections } from '@/lib/post/generateSections'
 import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
 import { BrowserRouter } from 'react-router-dom'
-import Posts from '@/components/layout/post/posts'
 import { getSession, useSession } from 'next-auth/react'
+import Echoes from '@/components/layout/post/echoes'
 
 export async function getServerSideProps() {
 	const posts = generateSections(
@@ -22,11 +22,11 @@ export async function getServerSideProps() {
 	}
 }
 
-interface HomePageProps {
+interface Props {
 	posts: any[]
 }
 
-const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
+const EchoPage: FunctionComponent<Props> = ({ posts }) => {
 	const { deviceType, os, browser } = useDeviceAndBrowser()
 	const [following, setFollowing] = useState<string[]>([])
 	console.log(deviceType, os, browser)
@@ -56,7 +56,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 		<React.Fragment>
 			<NextSeo
 				titleTemplate='%s'
-				title='Home | StarOwl'
+				title='Echoes | StarOwl'
 				description='Ready-to-go Next.js starter template using the battle-tested pages router.'
 				canonical='https://nextjs-starter.nordcom.io/'
 				additionalMetaTags={[
@@ -77,9 +77,9 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 					deviceType === 'mobile' ? 'pb-24' : ''
 				}`}
 			>
-				<Nav />
-				<main className='flex w-full flex-col gap-6 py-[2.5rem] leading-none dark md:max-w-xl lg:max-w-lg xl:max-w-xl'>
-					<Posts posts={posts} />
+				<Nav activeItem={'echoes'} />
+				<main className='flex w-full flex-col gap-4 py-[2.5rem] leading-none dark md:max-w-xl lg:max-w-lg xl:max-w-xl'>
+					<Echoes posts={posts} />
 				</main>
 				<Aside />
 				{deviceType === 'mobile' ? <NavMobile /> : ''}
@@ -89,4 +89,4 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 	)
 }
 
-export default HomePage
+export default EchoPage

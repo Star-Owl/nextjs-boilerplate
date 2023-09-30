@@ -72,6 +72,19 @@ function useDeviceAndBrowser() {
 			os: getOS(),
 			browser: getBrowser(),
 		})
+
+		// const updateDeviceInfo = () => {
+		// 	setInfo({
+		// 		deviceType: getDeviceType(),
+		// 		os: getOS(),
+		// 		browser: getBrowser(),
+		// 	})
+		// }
+
+		// updateDeviceInfo()
+
+		// window.addEventListener('resize', updateDeviceInfo)
+		// return () => window.removeEventListener('resize', updateDeviceInfo)
 	}, [])
 
 	return info

@@ -15,10 +15,9 @@
 	height: 100dvh;
 }
 
-/* html {
+html {
 	font-size: 1em;
-	line-height: 150%;
-} */
+}
 
 body {
 	font-family: 'Rubik', sans-serif;

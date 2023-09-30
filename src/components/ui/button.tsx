@@ -36,7 +36,7 @@ const buttonVariants = cva(
 				'xs-icon': 'rounded-[0.5rem] p-[.5rem]',
 				'sm-icon': 'rounded-[0.625rem] p-[.75rem]',
 				'default-icon': 'rounded-[0.875rem] p-[1rem]',
-				'lg-icon': 'rounded-2xl p-[1.25rem]',
+				'lg-icon': 'rounded-2xl p-[1.125rem]',
 				'xl-icon': 'rounded-[1.125rem] p-[1.5rem]',
 			},
 		},

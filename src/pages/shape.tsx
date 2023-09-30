@@ -68,6 +68,7 @@ const Donut = () => {
 				}
 			}
 			setAscii(b.join(''))
+			canvasframe()
 		}
 
 		const canvasframe = () => {

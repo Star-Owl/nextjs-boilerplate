@@ -20,6 +20,22 @@ function generateRandomPost() {
 		text = `${text.slice(0, position)} ${tag} ${text.slice(position)}`
 	}
 
+	// // Wstaw bold
+	// const boldCount = chance.integer({ min: 1, max: 3 })
+	// for (let i = 0; i < boldCount; i++) {
+	// 	const bold = `**${chance.word()}**`
+	// 	const position = chance.integer({ min: 0, max: text.length })
+	// 	text = `${text.slice(0, position)} ${bold} ${text.slice(position)}`
+	// }
+
+	// // Wstaw underline
+	// const underlineCount = chance.integer({ min: 1, max: 3 })
+	// for (let i = 0; i < underlineCount; i++) {
+	// 	const underline = `__${chance.word()}__`
+	// 	const position = chance.integer({ min: 0, max: text.length })
+	// 	text = `${text.slice(0, position)} ${underline} ${text.slice(position)}`
+	// }
+
 	// Wstaw wzmianki
 	const mentionCount = chance.integer({ min: 1, max: 3 })
 	for (let i = 0; i < mentionCount; i++) {

@@ -7,9 +7,10 @@ import Aside from '@/components/layout/aside'
 import NavMobile from '@/components/layout/nav-mobile'
 import { generateSections } from '@/lib/post/generateSections'
 import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
-import { BrowserRouter } from 'react-router-dom'
 import Posts from '@/components/layout/post/posts'
-import { getSession, useSession } from 'next-auth/react'
+
+import useUser from '@/hooks/useUser'
+import { useRouter } from 'next/router'
 
 export async function getServerSideProps() {
 	const posts = generateSections(
@@ -27,36 +28,33 @@ interface HomePageProps {
 }
 
 const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
+	const router = useRouter()
+	const { userId } = router.query
+
+	const { data: fetchedUser, isLoading } = useUser(userId as string)
+
 	const { deviceType, os, browser } = useDeviceAndBrowser()
-	const [following, setFollowing] = useState<string[]>([])
 	console.log(deviceType, os, browser)
 
-	// const [session, loading] = useSession()
-
-	// if (loading) {
-	// 	return <p>Loading...</p>
-	// }
-
-	// if (!session) {
-	// 	return <p>You need to sign in to access this page</p>
-	// }
-
-	useEffect(() => {
-		const following = localStorage.getItem('following')
-		if (following !== null) {
-			setFollowing(JSON.parse(following))
-		}
-	}, [])
-
-	getSession().then((session) => {
-		console.log(session)
-	})
+	// useEffect(() => {
+	// 	const timer = setTimeout(() => {
+	// 		//router.push('/404')
+	// 	}, 3000)
+	// 	return () => clearTimeout(timer)
+	// 	// if (!isLoading && !fetchedUser) {
+	// 	// 	const timer = setTimeout(() => {
+	// 	// 		//router.push('/404')
+	// 	// 		_FETCH = true
+	// 	// 	}, 3000)
+	// 	// 	return () => clearTimeout(timer)
+	// 	// }
+	// }, [fetchedUser, isLoading, router])
 
 	return (
 		<React.Fragment>
 			<NextSeo
 				titleTemplate='%s'
-				title='Home | StarOwl'
+				title='Hasiradoo | StarOwl'
 				description='Ready-to-go Next.js starter template using the battle-tested pages router.'
 				canonical='https://nextjs-starter.nordcom.io/'
 				additionalMetaTags={[
@@ -77,14 +75,17 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 					deviceType === 'mobile' ? 'pb-24' : ''
 				}`}
 			>
-				<Nav />
+				<Nav activeItem='none' />
 				<main className='flex w-full flex-col gap-6 py-[2.5rem] leading-none dark md:max-w-xl lg:max-w-lg xl:max-w-xl'>
-					<Posts posts={posts} />
+					{!isLoading && !fetchedUser ? (
+						<h1>user not found</h1>
+					) : (
+						<h1>loading...</h1>
+					)}
 				</main>
 				<Aside />
 				{deviceType === 'mobile' ? <NavMobile /> : ''}
 			</div>
-			{/* <Hero /> */}
 		</React.Fragment>
 	)
 }

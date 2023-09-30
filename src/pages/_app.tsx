@@ -8,6 +8,7 @@ import { Analytics } from '@vercel/analytics/react'
 
 import '@/styles/globals.css'
 import { NextWebVitalsMetric } from 'next/app'
+import { SessionProvider } from 'next-auth/react'
 
 interface Props {
 	Component: React.ComponentType<any>
@@ -39,25 +40,27 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 				<link
 					rel='icon'
 					type='image/png'
-					href='https://brandly.nordcom.io/favicon.png'
+					href='/favicon.ico'
 				/>
 				<link
 					rel='icon'
 					type='image/x-icon'
-					href='https://brandly.nordcom.io/favicon.ico'
+					href='/favicon.ico'
 				/>
 				<link
 					rel='apple-touch-icon'
-					href='https://brandly.nordcom.io/favicon.png'
+					href='/favicon.ico'
 				/>
 			</Head>
 			<DefaultSeo {...SEO} />
-			<NextUIProvider>
-				<Component
-					key={router.asPath}
-					{...pageProps}
-				/>
-			</NextUIProvider>
+			<SessionProvider session={pageProps.session}>
+				<NextUIProvider>
+					<Component
+						key={router.asPath}
+						{...pageProps}
+					/>
+				</NextUIProvider>
+			</SessionProvider>
 			<Analytics />
 		</React.Fragment>
 	)

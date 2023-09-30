@@ -22,6 +22,7 @@ import {
 	FillUser,
 	OutlineBell,
 	OutlineBookmark,
+	OutlineEdit,
 	OutlineHome,
 	OutlineLogOut,
 	OutlineMessage,
@@ -32,6 +33,7 @@ import {
 } from 'src/icons/Icons'
 import NavItem from './nav-item'
 import UserInfo from '../ui/user/UserInfo'
+import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
 
 export const MyCode = extendVariants(Code, {
 	variants: {
@@ -75,94 +77,84 @@ interface NavLinkItem {
 	isLogout?: boolean
 }
 
-const items: NavLinkItem[] = [
-	{
-		active: true,
-		href: '/home',
-		text: 'Nest',
-		icon: null,
-	},
-	{
-		active: false,
-		href: '/explore',
-		text: 'Explore',
-		icon: null,
-	},
-	...(currentUser
-		? [
-				{
-					active: false,
-					href: '/notifications',
-					text: 'Echoes',
-					icon: null,
-				},
-				{
-					active: false,
-					href: '/messages',
-					text: 'Chatter',
-					icon: null,
-				},
-				{
-					active: false,
-					href: '/bookmarks',
-					text: 'StarMark',
-					icon: null,
-				},
-		  ]
-		: []),
-	{
-		active: false,
-		href: '/settings',
-		text: 'Tweak',
-		icon: null,
-	},
-	// ...(currentUser
-	// 	? [
-	// 			{
-	// 				active: false,
-	// 				href: '',
-	// 				text: 'Logout',
-	// 				icon: null,
-	// 				isLogout: true,
-	// 			},
-	// 	  ]
-	// 	: []),
-]
-
-const activeIcons = {
-	'/home': <FillHome size={28} />,
-	'/explore': <FillSearch size={28} />,
-	'/notifications': <FillBell size={28} />,
-	'/messages': <FillMessage size={28} />,
-	'/bookmarks': <FillBookmark size={28} />,
-	'/settings': <FillSettings size={28} />,
+interface Props {
+	activeItem?: string
 }
+const Nav: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
+	const { deviceType, os, browser } = useDeviceAndBrowser()
 
-const inactiveIcons = {
-	'/home': <OutlineHome size={28} />,
-	'/explore': <OutlineSearch size={28} />,
-	'/notifications': <OutlineBell size={28} />,
-	'/messages': <OutlineMessage size={28} />,
-	'/bookmarks': <OutlineBookmark size={28} />,
-	'/settings': <OutlineSettings size={28} />,
-	'': <OutlineLogOut size={28} />,
-}
+	const items: NavLinkItem[] = [
+		{
+			active: activeItem === 'nest',
+			href: '/',
+			text: 'Nest',
+			icon: null,
+		},
+		{
+			active: activeItem === 'explore',
+			href: '/explore',
+			text: 'Explore',
+			icon: null,
+		},
+		...(currentUser
+			? [
+					{
+						active: activeItem === 'echoes',
+						href: '/echoes',
+						text: 'Echoes',
+						icon: null,
+					},
+					{
+						active: activeItem === 'messages',
+						href: '/messages',
+						text: 'Chatter',
+						icon: null,
+					},
+					{
+						active: activeItem === 'bookmarks',
+						href: '/bookmarks',
+						text: 'StarMark',
+						icon: null,
+					},
+			  ]
+			: []),
+		{
+			active: activeItem === 'settings',
+			href: '/settings',
+			text: 'Tweak',
+			icon: null,
+		},
+		// ...(currentUser
+		// 	? [
+		// 			{
+		// 				active: false,
+		// 				href: '',
+		// 				text: 'Logout',
+		// 				icon: null,
+		// 				isLogout: true,
+		// 			}
+		// 	  ]
+		// 	: []),
+	]
 
-interface Props {}
-const Nav: FunctionComponent<Props> = ({}) => {
-	let [isSmallScreen, setIsSmallScreen] = useState(false)
+	const activeIcons = {
+		'/': <FillHome size={deviceType === 'tablet' ? 28 : 28} />,
+		'/explore': <FillSearch size={28} />,
+		'/echoes': <FillBell size={28} />,
+		'/messages': <FillMessage size={28} />,
+		'/bookmarks': <FillBookmark size={28} />,
+		'/settings': <FillSettings size={28} />,
+	}
 
-	useEffect(() => {
-		setIsSmallScreen(window.innerWidth < 1280)
-
-		const handleResize = () => {
-			setIsSmallScreen(window.innerWidth < 1280)
-		}
-
-		window.addEventListener('resize', handleResize)
-
-		return () => window.removeEventListener('resize', handleResize)
-	}, [])
+	const inactiveIcons = {
+		'/': <OutlineHome size={28} />,
+		'/explore': <OutlineSearch size={28} />,
+		'/echoes': <OutlineBell size={28} />,
+		'/messages': <OutlineMessage size={28} />,
+		'/bookmarks': <OutlineBookmark size={28} />,
+		'/settings': <OutlineSettings size={28} />,
+		'': <OutlineLogOut size={28} />,
+	}
 
 	return (
 		<nav className='h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end justify-between py-[2.5rem] pl-10 pr-6  md:flex lg:ml-0 xl:ml-0 xl:max-w-[16rem] xl:items-start xl:px-0'>
@@ -200,8 +192,12 @@ const Nav: FunctionComponent<Props> = ({}) => {
 						</React.Fragment>
 					))}
 				</ul>
-				<Button size={isSmallScreen ? 'lg-icon' : 'lg'}>
-					{isSmallScreen ? <FillUser size={28} /> : 'Hoot'}
+				<Button size={deviceType === 'tablet' ? 'lg-icon' : 'lg'}>
+					{deviceType === 'tablet' ? (
+						<OutlineEdit size={28} />
+					) : (
+						'Hoot'
+					)}
 				</Button>
 			</section>
 			<section className='flex w-fit items-center justify-center gap-4 overflow-hidden rounded-2xl bg-primary-lighter p-4 xl:w-full xl:justify-start'>
@@ -212,7 +208,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 						shape='circle'
 						placement='bottom-right'
 						className={`${
-							isSmallScreen
+							deviceType === 'tablet'
 								? 'h-[1.125rem] w-[1.125rem]'
 								: 'h-5 w-5'
 						} pointer-events-none border-4 border-primary-lighter`}
@@ -225,19 +221,20 @@ const Nav: FunctionComponent<Props> = ({}) => {
 							showFallback
 							fallback={
 								<OutlineUser
-									className={`${
-										isSmallScreen ? 'h-4 w-4' : 'h-6 w-6'
-									} text-default-500`}
+									size={deviceType === 'tablet' ? 16 : 24}
+									className='text-default-500'
 									fill='currentColor'
 								/>
 							}
 							className={`${
-								isSmallScreen ? 'h-8 w-8' : 'h-10 w-10'
+								deviceType === 'tablet'
+									? 'h-8 w-8'
+									: 'h-10 w-10'
 							} cursor-pointer bg-white/[.06] text-sm transition-opacity hover:opacity-60`}
 						/>
 					</Badge>
 				</React.Fragment>
-				{isSmallScreen ? (
+				{deviceType === 'tablet' ? (
 					''
 				) : (
 					<React.Fragment>
@@ -250,10 +247,6 @@ const Nav: FunctionComponent<Props> = ({}) => {
 						>
 							<OutlineMore size={24} />
 						</Button>
-						{/* <OutlineMore
-							className='cursor-pointer transition-colors hover:text-accent-600'
-							size={24}
-						/> */}
 					</React.Fragment>
 				)}
 			</section>

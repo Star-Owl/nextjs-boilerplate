@@ -21,7 +21,11 @@ interface Props {
 /**
  * A component that displays a post with a "Show more" button to expand the text.
  */
-const Post: React.FC<Props> = ({ text, detailsUrl, maxTextLength = 150 }) => {
+const PostContent: React.FC<Props> = ({
+	text,
+	detailsUrl,
+	maxTextLength = 150,
+}) => {
 	// Define state for whether to show the full text or not
 	const [showMore, setShowMore] = useState(false)
 
@@ -67,4 +71,4 @@ const Post: React.FC<Props> = ({ text, detailsUrl, maxTextLength = 150 }) => {
 	)
 }
 
-export default Post
+export default PostContent
