@@ -11,9 +11,7 @@ interface Props {
 
 const UserInfo: FunctionComponent<Props> = ({ size = 'small' }) => {
 	const isLarge = size === 'large'
-	const typographyStyle = isLarge
-		? 'text-xxl font-bold'
-		: 'text-base font-bold'
+	const typographyStyle = isLarge ? 'text-xxl' : 'text-base'
 	const chipTextStyle = isLarge ? 'text-white' : 'text-white/[.60]'
 	const chipBgStyle = isLarge ? 'bg-black/[.3]' : 'bg-white/[.06]'
 
@@ -22,8 +20,8 @@ const UserInfo: FunctionComponent<Props> = ({ size = 'small' }) => {
 			<Twemoji options={{ className: 'emoji' }}>
 				<Typography
 					variant='body2'
-					component='p'
-					className={`w-max cursor-pointer overflow-hidden text-ellipsis whitespace-pre ${typographyStyle} hover:underline`}
+					component={`${size === 'small' ? 'p' : 'h3'}`}
+					className={`w-max cursor-pointer overflow-hidden text-ellipsis whitespace-pre font-bold ${typographyStyle} hover:underline`}
 				>
 					Hasira 🥃🪴
 				</Typography>
