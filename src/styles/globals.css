@@ -24,6 +24,11 @@ body {
 	font-weight: 450;
 }
 
+::selection {
+	color: #ffd56b;
+	background: #121923;
+}
+
 .icon {
 	position: relative;
 }

@@ -125,12 +125,6 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 							>
 								<OutlineUser size={24} />
 							</Button>
-							<Button
-								variant={'ghost'}
-								size={'sm-icon'}
-							>
-								<OutlineUser size={24} />
-							</Button>
 						</div>
 						<div className='flex space-x-4'>
 							<Button
@@ -145,12 +139,12 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 							>
 								Following
 							</Button>
-							<Button
+							{/* <Button
 								variant={'default'}
 								size={'sm'}
 							>
 								Follow
-							</Button>
+							</Button> */}
 						</div>
 					</div>
 				</footer>

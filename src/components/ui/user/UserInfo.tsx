@@ -17,7 +17,7 @@ const UserInfo: FunctionComponent<Props> = ({ size = 'small' }) => {
 	const chipTextStyle = isLarge ? 'text-white' : 'text-white/[.60]'
 	const chipBgStyle = isLarge
 		? 'bg-black/[.3]'
-		: 'bg-white/[.06] cursor-pointer'
+		: 'bg-white/[.06] cursor-pointer hover:bg-white/[.12]'
 
 	return (
 		<React.Fragment>
@@ -31,7 +31,7 @@ const UserInfo: FunctionComponent<Props> = ({ size = 'small' }) => {
 			<Chip
 				radius='sm'
 				classNames={{
-					base: `group ${chipBgStyle} backdrop-blur-md py-[.281rem] px-[.562rem] !h-auto rounded-[.375rem] transition-colors hover:bg-white/[.12]`,
+					base: `group ${chipBgStyle} backdrop-blur-md py-[.281rem] px-[.562rem] !h-auto rounded-[.375rem] transition-colors`,
 					content: `${chipTextStyle} text-xs p-0 group-hover:text-white overflow-hidden text-ellipsis whitespace-pre leading-tight`,
 				}}
 			>
