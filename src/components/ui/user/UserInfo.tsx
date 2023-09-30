@@ -18,12 +18,11 @@ const UserInfo: FunctionComponent<Props> = ({ size = 'small' }) => {
 	return (
 		<React.Fragment>
 			<Twemoji options={{ className: 'emoji' }}>
-				<Typography
-					component={size === 'small' ? 'p' : 'h3'}
+				<span
 					className={`w-max cursor-pointer overflow-hidden text-ellipsis whitespace-pre ${typographyStyle} font-bold hover:underline`}
 				>
 					Hasira 🥃🪴
-				</Typography>
+				</span>
 			</Twemoji>
 			<Chip
 				radius='sm'
