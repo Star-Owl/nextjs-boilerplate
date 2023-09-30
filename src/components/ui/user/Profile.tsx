@@ -106,11 +106,31 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 				<footer className='flex w-full flex-col'>
 					<UserInfo size='large' />
 					<div className='mt-2 flex items-baseline justify-between'>
-						<div className='flex space-x-4'>
-							<OutlineUser size={24} />
-							<OutlineUser size={24} />
-							<OutlineUser size={24} />
-							<OutlineUser size={24} />
+						<div className='flex'>
+							<Button
+								variant={'ghost'}
+								size={'sm-icon'}
+							>
+								<OutlineUser size={24} />
+							</Button>
+							<Button
+								variant={'ghost'}
+								size={'sm-icon'}
+							>
+								<OutlineUser size={24} />
+							</Button>
+							<Button
+								variant={'ghost'}
+								size={'sm-icon'}
+							>
+								<OutlineUser size={24} />
+							</Button>
+							<Button
+								variant={'ghost'}
+								size={'sm-icon'}
+							>
+								<OutlineUser size={24} />
+							</Button>
 						</div>
 						<div className='flex space-x-4'>
 							<Button
