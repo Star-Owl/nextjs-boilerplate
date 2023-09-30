@@ -38,7 +38,7 @@ const Main: FunctionComponent<Props> = ({
 			)}
 			{page === 'profile' && username && username !== userProfile && (
 				//userProfile?.username
-				<p>You are not authorized to view this user's profile.</p>
+				<p>You are not authorized to view this user&apos;s profile.</p>
 			)}
 		</React.Fragment>
 	)
