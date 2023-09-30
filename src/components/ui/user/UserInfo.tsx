@@ -17,12 +17,14 @@ const UserInfo: FunctionComponent<Props> = ({ size = 'small' }) => {
 
 	return (
 		<React.Fragment>
-			<Typography
-				component={size === 'small' ? 'p' : 'h3'}
-				className={`w-max cursor-pointer overflow-hidden text-ellipsis whitespace-pre ${typographyStyle} font-bold hover:underline`}
-			>
-				<Twemoji options={{ className: 'emoji' }}>Hasira 🥃🪴</Twemoji>
-			</Typography>
+			<Twemoji options={{ className: 'emoji' }}>
+				<Typography
+					component={size === 'small' ? 'p' : 'h3'}
+					className={`w-max cursor-pointer overflow-hidden text-ellipsis whitespace-pre ${typographyStyle} font-bold hover:underline`}
+				>
+					Hasira 🥃🪴
+				</Typography>
+			</Twemoji>
 			<Chip
 				radius='sm'
 				classNames={{
