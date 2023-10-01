@@ -3,17 +3,31 @@ import { Button } from '../button'
 import { Chip } from '@nextui-org/react'
 import UserInfo from './UserInfo'
 import {
+	ArrowBack,
 	OutlineBell,
+	OutlineLink,
 	OutlineMessage,
 	OutlineMore,
 	OutlineTrashCan,
 	OutlineUser,
 } from 'src/icons/Icons'
 import { FormatNumber } from '@/lib/numberFormat'
+import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
+
+type SpecialBadgeType =
+	| 'bday'
+	| 'staff'
+	| 'backer'
+	| 'staruser'
+	| 'community'
+	| 'zodiac'
+	| 'basic'
 
 interface BadgeProps {
 	content: string
+	type?: SpecialBadgeType
 	color?: string
+	icon?: React.ReactNode
 }
 
 interface ProfileCoverProps {
@@ -40,10 +54,12 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 	following,
 	isOwnProfile = false,
 }) => {
+	const { deviceType, os, browser } = useDeviceAndBrowser()
+
 	return (
-		<section className='relative overflow-hidden rounded-2xl p-5'>
+		<section className='relative overflow-hidden rounded-b-2xl p-4 lg:rounded-2xl lg:p-6'>
 			{/* Cover with mask */}
-			<div
+			<figure
 				className='absolute left-0 top-0 h-full w-full'
 				style={{
 					backgroundImage: `url(${coverImage})`,
@@ -52,16 +68,16 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 					backgroundRepeat: 'no-repeat',
 					filter: 'brightness(60%)',
 				}}
-			></div>
+			></figure>
 
 			{/* Content */}
-			<div className='relative flex h-max flex-col gap-4'>
+			<article className='relative flex h-max flex-col gap-4'>
 				<nav className='flex items-center justify-between space-x-3'>
 					<Button
-						variant={'outline'}
-						size={'sm-icon'}
+						variant={'dimmed'}
+						size={'default-icon'}
 					>
-						<OutlineTrashCan size={24} />
+						<ArrowBack size={24} />
 					</Button>
 					<div className='flex gap-4 font-bold'>
 						<div className='flex flex-col items-center space-y-1'>
@@ -75,16 +91,16 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 					</div>
 					<div className='flex flex-col'>
 						<Button
-							variant={'outline'}
-							size={'sm-icon'}
+							variant={'dimmed'}
+							size={'default-icon'}
 						>
 							<OutlineMore size={24} />
 						</Button>
 						{!isOwnProfile && (
 							<Button
-								variant={'outline'}
-								className='absolute top-16'
-								size={'sm-icon'}
+								variant={'dimmed'}
+								className='absolute top-[4.5rem]'
+								size={'default-icon'}
 							>
 								<OutlineBell size={24} />
 							</Button>
@@ -106,36 +122,54 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 				<footer className='flex w-full flex-col'>
 					<UserInfo size='large' />
 					<div className='mt-2 flex items-baseline justify-between'>
-						<div className='flex'>
+						<div className='flex space-x-2'>
 							<Button
 								variant={'ghost'}
-								size={'sm-icon'}
+								size={
+									deviceType === 'mobile'
+										? 'xs-icon'
+										: 'sm-icon'
+								}
 							>
-								<OutlineUser size={24} />
+								<OutlineLink size={24} />
 							</Button>
 							<Button
 								variant={'ghost'}
-								size={'sm-icon'}
+								size={
+									deviceType === 'mobile'
+										? 'xs-icon'
+										: 'sm-icon'
+								}
 							>
-								<OutlineUser size={24} />
+								<OutlineLink size={24} />
 							</Button>
 							<Button
 								variant={'ghost'}
-								size={'sm-icon'}
+								size={
+									deviceType === 'mobile'
+										? 'xs-icon'
+										: 'sm-icon'
+								}
 							>
-								<OutlineUser size={24} />
+								<OutlineLink size={24} />
 							</Button>
 						</div>
 						<div className='flex space-x-4'>
 							<Button
 								variant={'outline'}
-								size={'sm-icon'}
+								size={
+									deviceType === 'mobile'
+										? 'sm-icon'
+										: 'default-icon'
+								}
 							>
 								<OutlineMessage size={24} />
 							</Button>
 							<Button
 								variant={'outline'}
-								size={'sm'}
+								size={
+									deviceType === 'mobile' ? 'sm' : 'default'
+								}
 							>
 								Following
 							</Button>
@@ -148,56 +182,71 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 						</div>
 					</div>
 				</footer>
-			</div>
-
-			{/* User Info and Followers/Following Count */}
-			{/* <div className='mt-56 flex items-end justify-between px-5'>
-				<div>
-					<h1 className='text-xl font-bold'>{displayName}</h1>
-					<span className='text-gray-600'>@{userID}</span>
-				</div>
-
-				<div className='flex space-x-8 text-gray-600'>
-					<div className='flex flex-col items-center'>
-						<span className='text-xl font-bold'>{followers}</span>
-						<span>Followers</span>
-					</div>
-					<div className='flex flex-col items-center'>
-						<span className='text-xl font-bold'>{following}</span>
-						<span>Following</span>
-					</div>
-				</div>
-			</div> */}
+			</article>
 		</section>
 	)
 }
 
 const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
+	const getSpecialBadgeProperties = (
+		type: SpecialBadgeType,
+	): { color?: string; icon?: React.ReactNode } => {
+		switch (type) {
+			case 'bday':
+				return {
+					color: 'text-accent-500',
+					icon: <OutlineLink size={24} />,
+				}
+			case 'staff':
+				return {
+					color: 'text-white',
+					icon: <OutlineLink size={24} />,
+				}
+			case 'backer':
+				return {
+					color: 'text-accent-500',
+					icon: <OutlineLink size={24} />,
+				}
+			case 'staruser':
+				return {
+					color: 'text-warning-200',
+					icon: <OutlineLink size={24} />,
+				}
+			case 'community':
+				return {
+					color: 'text-accent-500',
+					icon: <OutlineLink size={24} />,
+				}
+			case 'zodiac':
+				return {
+					icon: <OutlineLink size={24} />,
+				}
+			default:
+				return {}
+		}
+	}
+
 	return (
 		<section className='px-5'>
-			<p className='text-white'>{bio}</p>
-			<div className='mt-3 flex space-x-2'>
-				{badges.map((badge, index) => (
-					<Chip
-						key={index}
-						radius='sm'
-						classNames={{
-							base: 'group bg-white/[.06] py-[.281rem] px-[.562rem] !h-auto rounded-[.375rem] cursor-pointer transition-colors hover:bg-white/[.12]',
-							content:
-								'text-white/[.60] p-0 group-hover:text-white text-xs overflow-hidden text-ellipsis whitespace-pre leading-tight',
-						}}
-					>
-						{badge.content}
-					</Chip>
-					// <span
-					// 	key={index}
-					// 	className={`rounded-lg px-3 py-1 text-white ${
-					// 		badge.color || 'bg-indigo-500'
-					// 	}`}
-					// >
-					// 	{badge.content}
-					// </span>
-				))}
+			<p>{bio}</p>
+			<div className='scroll mt-3 flex space-x-4 overflow-x-auto pb-5'>
+				{badges.map((badge, index) => {
+					const { color, icon } = badge.type
+						? getSpecialBadgeProperties(badge.type)
+						: { color: badge.color, icon: null }
+					return (
+						<Chip
+							key={index}
+							classNames={{
+								base: `group py-[.75rem] px-[1.5rem] !h-auto rounded-[.75rem] cursor-pointer transition-colors bg-primary-lighter hover:bg-primary-badge`,
+								content: `text-white/[.60] ${color} p-0 flex items-center gap-2 text-lg overflow-hidden text-ellipsis whitespace-pre leading-tight`,
+							}}
+						>
+							{icon}
+							{badge.content}
+						</Chip>
+					)
+				})}
 			</div>
 		</section>
 	)

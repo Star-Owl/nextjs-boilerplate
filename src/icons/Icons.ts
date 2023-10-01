@@ -41,6 +41,8 @@ export { OutlineEyeOff } from './assets/OutlineEyeOff'
 export { FillUser } from './assets/FillUser'
 export { OutlineUser } from './assets/OutlineUser'
 
+export { OutlineLink } from './assets/OutlineLink'
+
 export { ArrowBack } from './assets/ArrowBack'
 export { BookmarkCheck } from './assets/BookmarkCheck'
 export { Close } from './assets/Close'

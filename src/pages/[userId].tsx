@@ -77,7 +77,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 				}`}
 			>
 				<Nav activeItem='none' />
-				<main className='flex w-full flex-col gap-6 py-[2.5rem] leading-none dark md:max-w-xl lg:max-w-lg xl:max-w-xl'>
+				<main className='flex w-full flex-col gap-6 leading-none dark md:max-w-xl lg:max-w-lg lg:py-[2.5rem] xl:max-w-xl'>
 					{!fetchedUser ? (
 						<React.Fragment>
 							<ProfileCover
@@ -96,12 +96,20 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 								bio='Digging UI'
 								badges={[
 									{
-										content: 'Star User',
-										color: 'bg-green-500',
+										content: 'STAFF',
+										type: 'staff',
 									},
 									{
-										content: 'Verified',
-										color: 'bg-blue-500',
+										content: 'Star User',
+										type: 'staruser',
+									},
+									{
+										content: 'Cancer',
+										type: 'zodiac',
+									},
+									{
+										content: 'He / Him',
+										type: 'basic',
 									},
 								]}
 							/>
