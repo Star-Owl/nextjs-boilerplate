@@ -23,6 +23,7 @@ import {
 	OutlineUser,
 } from 'src/icons/Icons'
 import NavItem from './nav-item'
+import router from 'next/router'
 
 const currentUser = true
 
@@ -41,13 +42,13 @@ interface Props {
 const NavMobile: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 	const items: NavLinkItem[] = [
 		{
-			active: activeItem === 'nest',
+			active: router.pathname === '/',
 			href: '/',
 			text: 'Nest',
 			icon: null,
 		},
 		{
-			active: activeItem === 'explore',
+			active: router.pathname === '/explore',
 			href: '/explore',
 			text: 'Explore',
 			icon: null,
@@ -55,13 +56,13 @@ const NavMobile: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 		...(currentUser
 			? [
 					{
-						active: activeItem === 'messages',
+						active: router.pathname === '/messages',
 						href: '/messages',
 						text: 'Chatter',
 						icon: null,
 					},
 					{
-						active: activeItem === 'echoes',
+						active: router.pathname === '/echoes',
 						href: '/echoes',
 						text: 'Echoes',
 						icon: null,
@@ -69,7 +70,7 @@ const NavMobile: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 			  ]
 			: []),
 		{
-			active: activeItem === 'settings',
+			active: router.pathname === '/settings',
 			href: '/settings',
 			text: 'Tweak',
 			icon: null,

@@ -50,7 +50,7 @@ interface Props {
 	activeItem?: string
 }
 
-const Nav: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
+const Nav: FunctionComponent<Props> = ({}) => {
 	const router = useRouter()
 	const { data: session } = useSession()
 	const { deviceType, os, browser, orientation } = useDeviceAndBrowser()
