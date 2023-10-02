@@ -185,39 +185,20 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 					<UserInfo size='large' />
 					<div className='mt-2 flex items-baseline justify-between'>
 						<div className='flex space-x-2'>
-							{/* TODO: Fix build error*/}
+							{/* TFIXME: tooltip build error*/}
 							{links?.map((link, index) => {
-								const { icon } = link.type
-									? getLinkIcon(link.type)
-									: { icon: <OutlineLink size={24} /> }
-								return (
-									<Button
-										variant={'ghost'}
-										key={index}
-										size={
-											deviceType === 'mobile'
-												? 'xs-icon'
-												: 'sm-icon'
-										}
-										asChild
-									>
-										<Link href={link.url}>{icon}</Link>
-									</Button>
-								)
-							})}
-							{/* {links?.map((link, index) => {
 								const { icon } = link.type
 									? getLinkIcon(link.type)
 									: { icon: <OutlineLink size={24} /> }
 								return (
 									<Tooltip
 										showArrow={true}
+										key={index}
 										content={link.label}
 										placement={'bottom'}
 									>
 										<Button
 											variant={'ghost'}
-											key={index}
 											size={
 												deviceType === 'mobile'
 													? 'xs-icon'
@@ -229,7 +210,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 										</Button>
 									</Tooltip>
 								)
-							})} */}
+							})}
 						</div>
 						<div className='flex space-x-4'>
 							<Button
