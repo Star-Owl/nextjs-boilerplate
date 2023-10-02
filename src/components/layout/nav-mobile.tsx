@@ -34,75 +34,84 @@ interface NavLinkItem {
 	isLogout?: boolean
 }
 
-const items: NavLinkItem[] = [
-	{
-		active: true,
-		href: '/home',
-		text: 'Nest',
-		icon: null,
-	},
-	{
-		active: false,
-		href: '/explore',
-		text: 'Explore',
-		icon: null,
-	},
-	...(currentUser
-		? [
-				{
-					active: false,
-					href: '/messages',
-					text: 'Chatter',
-					icon: null,
-				},
-				{
-					active: false,
-					href: '/notifications',
-					text: 'Echoes',
-					icon: null,
-				},
-		  ]
-		: []),
-	{
-		active: false,
-		href: '/settings',
-		text: 'Tweak',
-		icon: null,
-	},
-	// ...(currentUser
-	// 	? [
-	// 			{
-	// 				active: false,
-	// 				href: '',
-	// 				text: 'Logout',
-	// 				icon: null,
-	// 				isLogout: true,
-	// 			},
-	// 	  ]
-	// 	: []),
-]
-
-const activeIcons = {
-	'/home': <FillHome size={28} />,
-	'/explore': <FillSearch size={28} />,
-	'/notifications': <FillBell size={28} />,
-	'/messages': <FillMessage size={28} />,
-	'/bookmarks': <FillBookmark size={28} />,
-	'/settings': <FillSettings size={28} />,
+interface Props {
+	activeItem?: string
 }
 
-const inactiveIcons = {
-	'/home': <OutlineHome size={28} />,
-	'/explore': <OutlineSearch size={28} />,
-	'/notifications': <OutlineBell size={28} />,
-	'/messages': <OutlineMessage size={28} />,
-	'/bookmarks': <OutlineBookmark size={28} />,
-	'/settings': <OutlineSettings size={28} />,
-	'': <OutlineLogOut size={28} />,
-}
+const NavMobile: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
+	const items: NavLinkItem[] = [
+		{
+			active: activeItem === 'nest',
+			href: '/',
+			text: 'Nest',
+			icon: null,
+		},
+		{
+			active: activeItem === 'explore',
+			href: '/explore',
+			text: 'Explore',
+			icon: null,
+		},
+		...(currentUser
+			? [
+					{
+						active: activeItem === 'echoes',
+						href: '/echoes',
+						text: 'Echoes',
+						icon: null,
+					},
+					{
+						active: activeItem === 'messages',
+						href: '/messages',
+						text: 'Chatter',
+						icon: null,
+					},
+					{
+						active: activeItem === 'bookmarks',
+						href: '/bookmarks',
+						text: 'StarMark',
+						icon: null,
+					},
+			  ]
+			: []),
+		{
+			active: activeItem === 'settings',
+			href: '/settings',
+			text: 'Tweak',
+			icon: null,
+		},
+		// ...(currentUser
+		// 	? [
+		// 			{
+		// 				active: false,
+		// 				href: '',
+		// 				text: 'Logout',
+		// 				icon: null,
+		// 				isLogout: true,
+		// 			}
+		// 	  ]
+		// 	: []),
+	]
 
-interface Props {}
-const NavMobile: FunctionComponent<Props> = ({}) => {
+	const activeIcons = {
+		'/': <FillHome size={28} />,
+		'/explore': <FillSearch size={28} />,
+		'/echoes': <FillBell size={28} />,
+		'/messages': <FillMessage size={28} />,
+		'/bookmarks': <FillBookmark size={28} />,
+		'/settings': <FillSettings size={28} />,
+	}
+
+	const inactiveIcons = {
+		'/': <OutlineHome size={28} />,
+		'/explore': <OutlineSearch size={28} />,
+		'/echoes': <OutlineBell size={28} />,
+		'/messages': <OutlineMessage size={28} />,
+		'/bookmarks': <OutlineBookmark size={28} />,
+		'/settings': <OutlineSettings size={28} />,
+		'': <OutlineLogOut size={28} />,
+	}
+
 	return (
 		<nav className='fixed bottom-0 z-100 flex w-full rounded-t-2xl bg-primary-badge/[.80] py-4 backdrop-blur-md'>
 			<ul className='flex flex-1 justify-around gap-2 px-5'>
