@@ -82,7 +82,11 @@ const EchoPage: FunctionComponent<Props> = ({ posts }) => {
 					<Echoes posts={posts} />
 				</main>
 				<Aside />
-				{deviceType === 'mobile' ? <NavMobile /> : ''}
+				{deviceType === 'mobile' ? (
+					<NavMobile activeItem={'echoes'} />
+				) : (
+					''
+				)}
 			</div>
 			{/* <Hero /> */}
 		</React.Fragment>

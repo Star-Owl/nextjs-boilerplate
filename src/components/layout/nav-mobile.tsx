@@ -55,21 +55,15 @@ const NavMobile: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 		...(currentUser
 			? [
 					{
-						active: activeItem === 'echoes',
-						href: '/echoes',
-						text: 'Echoes',
-						icon: null,
-					},
-					{
 						active: activeItem === 'messages',
 						href: '/messages',
 						text: 'Chatter',
 						icon: null,
 					},
 					{
-						active: activeItem === 'bookmarks',
-						href: '/bookmarks',
-						text: 'StarMark',
+						active: activeItem === 'echoes',
+						href: '/echoes',
+						text: 'Echoes',
 						icon: null,
 					},
 			  ]
@@ -130,7 +124,7 @@ const NavMobile: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 										href as keyof typeof inactiveIcons
 								  ]}
 							<span
-								className={`hidden flex-none text-lg xl:inline-flex ${
+								className={`flex-none text-sm lg:text-lg xl:inline-flex ${
 									active ? 'font-bold' : 'font-medium'
 								}`}
 							>

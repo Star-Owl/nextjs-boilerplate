@@ -16,11 +16,14 @@ interface Props {
 const LinksStyle = cva(
 	`
 		flex
-		gap-4
+		flex-col
+		gap-1
 		transition
 		items-center
 		disabled:opacity-50
 		disabled:cursor-not-allowed
+		lg:flex-row
+		lg:gap-4
 	`,
 	{
 		variants: {
@@ -30,7 +33,7 @@ const LinksStyle = cva(
 			},
 			size: {
 				default:
-					'rounded-[.875rem] p-[1.125rem] xl:py-[.875rem] xl:pr-6 lg:pl-4',
+					'rounded-[.875rem] lg:p-[1.125rem] xl:py-[.875rem] xl:pr-6 lg:pl-4',
 			},
 			active: {
 				true: 'opacity-100 md:bg-accent-600/[.12] md:text-accent-600',
