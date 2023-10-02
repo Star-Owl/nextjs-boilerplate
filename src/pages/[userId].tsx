@@ -91,21 +91,21 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 								}
 								followers={1_234}
 								following={12_345}
-								links={[
-									{
-										url: 'https://ko-fi.com/pokercatscreations',
-										label: 'Ko-fi',
-									},
-									{
-										url: 'https://www.patreon.com/PokerCatsCreations',
-										label: 'Patreon',
-										type: 'patreon',
-									},
-									{
-										url: 'google.com',
-										label: 'Google',
-									},
-								]}
+								// links={[
+								// 	{
+								// 		url: 'https://ko-fi.com/pokercatscreations',
+								// 		label: 'Ko-fi',
+								// 	},
+								// 	{
+								// 		url: 'https://www.patreon.com/PokerCatsCreations',
+								// 		label: 'Patreon',
+								// 		type: 'patreon',
+								// 	},
+								// 	{
+								// 		url: 'google.com',
+								// 		label: 'Google',
+								// 	},
+								// ]}
 							/>
 							<ProfileDetails
 								bio='Digging UI'
