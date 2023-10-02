@@ -1,6 +1,3 @@
-'use client'
-
-import Typography from '@mui/material/Typography'
 import {
 	Avatar,
 	Badge,
@@ -34,38 +31,10 @@ import {
 import NavItem from './nav-item'
 import UserInfo from '../ui/user/UserInfo'
 import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
-
-export const MyCode = extendVariants(Code, {
-	variants: {
-		// <- modify/add variants
-		// color: {
-		// 	olive: 'text-[#000] bg-[#84cc16]',
-		// 	orange: 'bg-[#ff8c00] text-[#fff]',
-		// 	violet: 'bg-[#8b5cf6] text-[#fff]',
-		// },
-		// isDisabled: {
-		// 	true: 'bg-[#eaeaea] text-[#000] opacity-50 cursor-not-allowed',
-		// },
-		size: {
-			sm: 'px-2 py-1 text-base',
-			md: 'px-4 text-sm',
-			xl: 'px-8 text-base',
-		},
-	},
-	defaultVariants: {
-		// <- modify/add default variants
-		//color: 'olive',
-		size: 'sm',
-	},
-	compoundVariants: [
-		// <- modify/add compound variants
-		{
-			//isDisabled: true,
-			//color: 'olive',
-			//class: 'bg-[#84cc16]/80 opacity-100',
-		},
-	],
-})
+import { useRouter } from 'next/router'
+import LoginModal from '../modals/LoginModal'
+import { useSession, signIn, signOut } from 'next-auth/react'
+import RegisterModal from '../modals/RegisterModal'
 
 const currentUser = true
 
@@ -82,7 +51,12 @@ interface Props {
 }
 
 const Nav: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
+	const router = useRouter()
+	const { data: session } = useSession()
 	const { deviceType, os, browser, orientation } = useDeviceAndBrowser()
+
+	const [isLoginModalOpen, setLoginModalOpen] = useState(false)
+	const [isRegisterModalOpen, setRegisterModalOpen] = useState(false)
 
 	// useEffect(() => {
 
@@ -90,33 +64,33 @@ const Nav: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 
 	const items: NavLinkItem[] = [
 		{
-			active: activeItem === 'nest',
+			active: router.pathname === '/',
 			href: '/',
 			text: 'Nest',
 			icon: null,
 		},
 		{
-			active: activeItem === 'explore',
+			active: router.pathname === '/explore',
 			href: '/explore',
 			text: 'Explore',
 			icon: null,
 		},
-		...(currentUser
+		...(session
 			? [
 					{
-						active: activeItem === 'echoes',
+						active: router.pathname === '/echoes',
 						href: '/echoes',
 						text: 'Echoes',
 						icon: null,
 					},
 					{
-						active: activeItem === 'messages',
+						active: router.pathname === '/messages',
 						href: '/messages',
 						text: 'Chatter',
 						icon: null,
 					},
 					{
-						active: activeItem === 'bookmarks',
+						active: router.pathname === '/bookmarks',
 						href: '/bookmarks',
 						text: 'StarMark',
 						icon: null,
@@ -124,22 +98,22 @@ const Nav: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 			  ]
 			: []),
 		{
-			active: activeItem === 'settings',
+			active: router.pathname === '/settings',
 			href: '/settings',
 			text: 'Tweak',
 			icon: null,
 		},
-		// ...(currentUser
-		// 	? [
-		// 			{
-		// 				active: false,
-		// 				href: '',
-		// 				text: 'Logout',
-		// 				icon: null,
-		// 				isLogout: true,
-		// 			}
-		// 	  ]
-		// 	: []),
+		...(session
+			? [
+					{
+						active: false,
+						href: '',
+						text: 'Logout',
+						icon: null,
+						isLogout: true,
+					},
+			  ]
+			: []),
 	]
 
 	const activeIcons = {
@@ -161,6 +135,13 @@ const Nav: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 		'': <OutlineLogOut size={28} />,
 	}
 
+	const handleLogin = async () => {
+		try {
+			await signIn('credentials', { callbackUrl: '/' })
+		} catch (error) {
+			console.error('Błąd logowania:', error)
+		}
+	}
 	return (
 		<nav
 			className={`h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end justify-between py-[2.5rem] pl-10 pr-6 ${
@@ -177,7 +158,7 @@ const Nav: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 								href={href}
 								width='inline'
 								size='default'
-								onClick={isLogout ? () => undefined : undefined}
+								onClick={isLogout ? () => signOut() : undefined}
 							>
 								{active
 									? activeIcons[
@@ -201,76 +182,109 @@ const Nav: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 						</React.Fragment>
 					))}
 				</ul>
-				<Button
-					size={
-						deviceType === 'tablet' && window.innerWidth < 1366
-							? 'lg-icon'
-							: 'lg'
-					}
-				>
-					{deviceType === 'tablet' && window.innerWidth < 1366 ? (
-						<OutlineEdit size={28} />
-					) : (
-						'Hoot'
-					)}
-				</Button>
-			</section>
-			<section className='flex w-fit items-center justify-center gap-4 overflow-hidden rounded-2xl bg-primary-lighter p-4 xl:w-full xl:justify-start'>
-				<React.Fragment>
-					<Badge
-						content=''
-						color='success'
-						shape='circle'
-						placement='bottom-right'
-						className={`${
+				{session ? (
+					<Button
+						size={
 							deviceType === 'tablet' && window.innerWidth < 1366
-								? 'h-[1.125rem] w-[1.125rem]'
-								: 'h-5 w-5'
-						} pointer-events-none border-4 border-primary-lighter`}
+								? 'lg-icon'
+								: 'lg'
+						}
 					>
-						<Avatar
-							//isBordered
-							// color='base'
-							name='Hasira'
-							src='https://cdn.discordapp.com/avatars/569975072417251378/2113775a498da6818a3bdf75af82f40c.webp?size=128'
-							showFallback
-							fallback={
-								<OutlineUser
-									size={
-										deviceType === 'tablet' &&
-										window.innerWidth < 1366
-											? 16
-											: 24
-									}
-									className='text-default-500'
-									fill='currentColor'
-								/>
-							}
-							className={`${
-								deviceType === 'tablet' &&
-								window.innerWidth < 1366
-									? 'h-8 w-8'
-									: 'h-10 w-10'
-							} cursor-pointer bg-white/[.06] text-sm transition-opacity hover:opacity-60`}
-						/>
-					</Badge>
-				</React.Fragment>
-				{deviceType === 'tablet' && window.innerWidth < 1366 ? (
-					''
+						{deviceType === 'tablet' && window.innerWidth < 1366 ? (
+							<OutlineEdit size={28} />
+						) : (
+							'Hoot'
+						)}
+					</Button>
 				) : (
 					<React.Fragment>
-						<div className='flex h-full flex-1 flex-col justify-around overflow-hidden'>
-							<UserInfo />
-						</div>
-						<Button
-							variant={'ghost'}
-							size={'xs-icon'}
+						{/* <Button
+							variant={'outline'}
+							size={
+								deviceType === 'tablet' &&
+								window.innerWidth < 1366
+									? 'lg-icon'
+									: 'lg'
+							}
+							onClick={() => handleLogin()}
 						>
-							<OutlineMore size={24} />
-						</Button>
+							{deviceType === 'tablet' &&
+							window.innerWidth < 1366 ? (
+								<OutlineEdit size={28} />
+							) : (
+								'Login'
+							)}
+						</Button> */}
+						<LoginModal
+							open={isLoginModalOpen}
+							onOpenChange={setLoginModalOpen}
+						/>
+						<RegisterModal
+							open={isRegisterModalOpen}
+							onOpenChange={setRegisterModalOpen}
+						/>
 					</React.Fragment>
 				)}
 			</section>
+			{session ? (
+				<section className='flex w-fit items-center justify-center gap-4 overflow-hidden rounded-2xl bg-primary-lighter p-4 xl:w-full xl:justify-start'>
+					<React.Fragment>
+						<Badge
+							content=''
+							color='success'
+							shape='circle'
+							placement='bottom-right'
+							className={`${
+								deviceType === 'tablet' &&
+								window.innerWidth < 1366
+									? 'h-[1.125rem] w-[1.125rem]'
+									: 'h-5 w-5'
+							} pointer-events-none border-4 border-primary-lighter`}
+						>
+							<Avatar
+								//isBordered
+								// color='base'
+								name='Hasira'
+								src='https://cdn.discordapp.com/avatars/569975072417251378/2113775a498da6818a3bdf75af82f40c.webp?size=128'
+								showFallback
+								fallback={
+									<OutlineUser
+										size={
+											deviceType === 'tablet' &&
+											window.innerWidth < 1366
+												? 16
+												: 24
+										}
+										className='text-default-500'
+										fill='currentColor'
+									/>
+								}
+								className={`${
+									deviceType === 'tablet' &&
+									window.innerWidth < 1366
+										? 'h-8 w-8'
+										: 'h-10 w-10'
+								} cursor-pointer bg-white/[.06] text-sm transition-opacity hover:opacity-60`}
+							/>
+						</Badge>
+					</React.Fragment>
+					{deviceType === 'tablet' && window.innerWidth < 1366 ? (
+						''
+					) : (
+						<React.Fragment>
+							<div className='flex h-full flex-1 flex-col justify-around overflow-hidden'>
+								<UserInfo />
+							</div>
+							<Button
+								variant={'ghost'}
+								size={'xs-icon'}
+							>
+								<OutlineMore size={24} />
+							</Button>
+						</React.Fragment>
+					)}
+				</section>
+			) : null}
 		</nav>
 	)
 }

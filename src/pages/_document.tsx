@@ -1,7 +1,33 @@
-import Document, { Head, Html, Main, NextScript } from 'next/document'
+import Aside from '@/components/layout/aside'
+import Nav from '@/components/layout/nav'
+import NavMobile from '@/components/layout/nav-mobile'
+import Document, {
+	DocumentContext,
+	Head,
+	Html,
+	Main,
+	NextScript,
+} from 'next/document'
 
-class AppDocument extends Document {
-	render() {
+type Props = {
+	deviceInfo: {
+		deviceType: string
+		os: string
+		browser: string
+	}
+}
+
+class AppDocument extends Document<Props> {
+	static async getInitialProps(ctx: DocumentContext) {
+		const initialProps = await Document.getInitialProps(ctx)
+
+		return {
+			...initialProps,
+			pathname: ctx.pathname,
+		}
+	}
+
+	render(): JSX.Element {
 		return (
 			<Html lang='en'>
 				<Head>

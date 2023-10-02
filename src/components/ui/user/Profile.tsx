@@ -185,7 +185,6 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 					<UserInfo size='large' />
 					<div className='mt-2 flex items-baseline justify-between'>
 						<div className='flex space-x-2'>
-							{/* TFIXME: tooltip build error*/}
 							{links?.map((link, index) => {
 								const { icon } = link.type
 									? getLinkIcon(link.type)

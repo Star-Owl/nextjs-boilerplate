@@ -9,6 +9,10 @@ import { Analytics } from '@vercel/analytics/react'
 import '@/styles/globals.css'
 import { NextWebVitalsMetric } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
+import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
+import Nav from '@/components/layout/nav'
+import Aside from '@/components/layout/aside'
+import NavMobile from '@/components/layout/nav-mobile'
 
 interface Props {
 	Component: React.ComponentType<any>
@@ -17,6 +21,7 @@ interface Props {
 
 const App: React.FC<Props> = ({ Component, pageProps }) => {
 	const router = useRouter()
+	const { deviceType, os, browser } = useDeviceAndBrowser()
 
 	return (
 		<React.Fragment>
@@ -35,7 +40,7 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 				/>
 				<meta
 					name='apple-mobile-web-app-title'
-					content='Brandly by Nordcom Group Inc.'
+					content='StarOwl Social by Poker Cats Creations'
 				/>
 				<link
 					rel='icon'
@@ -55,10 +60,19 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 			<DefaultSeo {...SEO} />
 			<SessionProvider session={pageProps.session}>
 				<NextUIProvider>
-					<Component
-						key={router.asPath}
-						{...pageProps}
-					/>
+					<div
+						className={`flex xl:justify-center xl:gap-6 ${
+							deviceType === 'mobile' ? 'pb-24' : null
+						}`}
+					>
+						<Nav activeItem={router.pathname} />
+						<Component
+							key={router.asPath}
+							{...pageProps}
+						/>
+						<Aside />
+						{deviceType === 'mobile' ? <NavMobile /> : null}
+					</div>
 				</NextUIProvider>
 			</SessionProvider>
 			<Analytics />

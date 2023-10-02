@@ -72,7 +72,14 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 					},
 				]}
 			/>
-			<div
+			<main
+				className={`flex w-full flex-col gap-6 py-[2.5rem] leading-none dark ${
+					deviceType !== 'mobile' ? ' md:max-w-xl' : ''
+				} lg:max-w-lg xl:max-w-xl`}
+			>
+				<Posts posts={posts} />
+			</main>
+			{/* <div
 				className={`flex xl:justify-center xl:gap-6 ${
 					deviceType === 'mobile' ? 'pb-24' : ''
 				}`}
@@ -85,9 +92,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 				>
 					<Posts posts={posts} />
 				</main>
-				<Aside />
-				{deviceType === 'mobile' ? <NavMobile /> : ''}
-			</div>
+			</div> */}
 			{/* <Hero /> */}
 		</React.Fragment>
 	)

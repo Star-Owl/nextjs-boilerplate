@@ -72,26 +72,13 @@ const EchoPage: FunctionComponent<Props> = ({ posts }) => {
 					},
 				]}
 			/>
-			<div
-				className={`flex xl:justify-center xl:gap-6 ${
-					deviceType === 'mobile' ? 'pb-24' : ''
-				}`}
+			<main
+				className={`flex w-full flex-col gap-6 py-[2.5rem] leading-none dark ${
+					deviceType !== 'mobile' ? ' md:max-w-xl' : ''
+				} lg:max-w-lg xl:max-w-xl`}
 			>
-				<Nav activeItem={'echoes'} />
-				<main
-					className={`flex w-full flex-col gap-6 py-[2.5rem] leading-none dark ${
-						deviceType !== 'mobile' ? ' md:max-w-xl' : ''
-					} lg:max-w-lg xl:max-w-xl`}
-				>
-					<Echoes posts={posts} />
-				</main>
-				<Aside />
-				{deviceType === 'mobile' ? (
-					<NavMobile activeItem={'echoes'} />
-				) : (
-					''
-				)}
-			</div>
+				<Echoes posts={posts} />
+			</main>
 			{/* <Hero /> */}
 		</React.Fragment>
 	)
