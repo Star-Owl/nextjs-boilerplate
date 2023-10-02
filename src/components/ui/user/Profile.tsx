@@ -14,6 +14,17 @@ import {
 import { FormatNumber } from '@/lib/numberFormat'
 import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { Tooltip } from '@nextui-org/react'
+
+type SpecialIcon =
+	| 'facebook'
+	| 'patreon'
+	| 'backer'
+	| 'staruser'
+	| 'community'
+	| 'zodiac'
+	| 'basic'
 
 type SpecialBadgeType =
 	| 'bday'
@@ -23,6 +34,13 @@ type SpecialBadgeType =
 	| 'community'
 	| 'zodiac'
 	| 'basic'
+
+interface LinksProps {
+	url: string
+	label?: string
+	type?: SpecialIcon
+	icon?: React.ReactNode
+}
 
 interface BadgeProps {
 	content: string
@@ -39,6 +57,7 @@ interface ProfileCoverProps {
 	followers: number
 	following: number
 	isOwnProfile?: boolean
+	links?: LinksProps[]
 }
 
 interface ProfileDetailsProps {
@@ -54,6 +73,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 	followers,
 	following,
 	isOwnProfile = false,
+	links,
 }) => {
 	const { deviceType, os, browser } = useDeviceAndBrowser()
 	const router = useRouter()
@@ -68,6 +88,19 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 
 	const showFollowing = () => {
 		alert(`following ${following}`)
+	}
+
+	const getLinkIcon = (
+		type: SpecialIcon,
+	): { color?: string; icon?: React.ReactNode } => {
+		switch (type) {
+			case 'patreon':
+				return {
+					icon: <OutlineLink size={24} />,
+				}
+			default:
+				return {}
+		}
 	}
 
 	return (
@@ -152,36 +185,31 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 					<UserInfo size='large' />
 					<div className='mt-2 flex items-baseline justify-between'>
 						<div className='flex space-x-2'>
-							<Button
-								variant={'ghost'}
-								size={
-									deviceType === 'mobile'
-										? 'xs-icon'
-										: 'sm-icon'
-								}
-							>
-								<OutlineLink size={24} />
-							</Button>
-							<Button
-								variant={'ghost'}
-								size={
-									deviceType === 'mobile'
-										? 'xs-icon'
-										: 'sm-icon'
-								}
-							>
-								<OutlineLink size={24} />
-							</Button>
-							<Button
-								variant={'ghost'}
-								size={
-									deviceType === 'mobile'
-										? 'xs-icon'
-										: 'sm-icon'
-								}
-							>
-								<OutlineLink size={24} />
-							</Button>
+							{links?.map((link, index) => {
+								const { icon } = link.type
+									? getLinkIcon(link.type)
+									: { icon: <OutlineLink size={24} /> }
+								return (
+									<Tooltip
+										showArrow={true}
+										content={link.label}
+										placement={'bottom'}
+									>
+										<Button
+											variant={'ghost'}
+											key={index}
+											size={
+												deviceType === 'mobile'
+													? 'xs-icon'
+													: 'sm-icon'
+											}
+											asChild
+										>
+											<Link href={link.url}>{icon}</Link>
+										</Button>
+									</Tooltip>
+								)
+							})}
 						</div>
 						<div className='flex space-x-4'>
 							<Button
@@ -259,7 +287,7 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
 		<section className='px-5'>
 			<p>{bio}</p>
 			<div className='scroll mt-3 flex space-x-4 overflow-x-auto pb-5'>
-				{badges.map((badge, index) => {
+				{badges?.map((badge, index) => {
 					const { color, icon } = badge.type
 						? getSpecialBadgeProperties(badge.type)
 						: { color: badge.color, icon: null }
