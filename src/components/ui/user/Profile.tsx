@@ -185,7 +185,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 					<UserInfo size='large' />
 					<div className='mt-2 flex items-baseline justify-between'>
 						<div className='flex space-x-2'>
-							{links?.map((link, index) => {
+							{/* {links?.map((link, index) => {
 								const { icon } = link.type
 									? getLinkIcon(link.type)
 									: { icon: <OutlineLink size={24} /> }
@@ -209,7 +209,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 										</Button>
 									</Tooltip>
 								)
-							})}
+							})} */}
 						</div>
 						<div className='flex space-x-4'>
 							<Button
