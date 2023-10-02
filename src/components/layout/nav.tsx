@@ -80,8 +80,13 @@ interface NavLinkItem {
 interface Props {
 	activeItem?: string
 }
+
 const Nav: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
-	const { deviceType, os, browser } = useDeviceAndBrowser()
+	const { deviceType, os, browser, orientation } = useDeviceAndBrowser()
+
+	// useEffect(() => {
+
+	// }, [])
 
 	const items: NavLinkItem[] = [
 		{
@@ -192,8 +197,14 @@ const Nav: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 						</React.Fragment>
 					))}
 				</ul>
-				<Button size={deviceType === 'tablet' ? 'lg-icon' : 'lg'}>
-					{deviceType === 'tablet' ? (
+				<Button
+					size={
+						deviceType === 'tablet' && window.innerWidth < 1366
+							? 'lg-icon'
+							: 'lg'
+					}
+				>
+					{deviceType === 'tablet' && window.innerWidth < 1366 ? (
 						<OutlineEdit size={28} />
 					) : (
 						'Hoot'
@@ -208,7 +219,7 @@ const Nav: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 						shape='circle'
 						placement='bottom-right'
 						className={`${
-							deviceType === 'tablet'
+							deviceType === 'tablet' && window.innerWidth < 1366
 								? 'h-[1.125rem] w-[1.125rem]'
 								: 'h-5 w-5'
 						} pointer-events-none border-4 border-primary-lighter`}
@@ -221,20 +232,26 @@ const Nav: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 							showFallback
 							fallback={
 								<OutlineUser
-									size={deviceType === 'tablet' ? 16 : 24}
+									size={
+										deviceType === 'tablet' &&
+										window.innerWidth < 1366
+											? 16
+											: 24
+									}
 									className='text-default-500'
 									fill='currentColor'
 								/>
 							}
 							className={`${
-								deviceType === 'tablet'
+								deviceType === 'tablet' &&
+								window.innerWidth < 1366
 									? 'h-8 w-8'
 									: 'h-10 w-10'
 							} cursor-pointer bg-white/[.06] text-sm transition-opacity hover:opacity-60`}
 						/>
 					</Badge>
 				</React.Fragment>
-				{deviceType === 'tablet' ? (
+				{deviceType === 'tablet' && window.innerWidth < 1366 ? (
 					''
 				) : (
 					<React.Fragment>

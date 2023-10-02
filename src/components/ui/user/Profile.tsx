@@ -13,6 +13,7 @@ import {
 } from 'src/icons/Icons'
 import { FormatNumber } from '@/lib/numberFormat'
 import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
+import { useRouter } from 'next/router'
 
 type SpecialBadgeType =
 	| 'bday'
@@ -55,6 +56,19 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 	isOwnProfile = false,
 }) => {
 	const { deviceType, os, browser } = useDeviceAndBrowser()
+	const router = useRouter()
+
+	const goBack = () => {
+		router.back()
+	}
+
+	const showFollowers = () => {
+		alert(`followers ${followers}`)
+	}
+
+	const showFollowing = () => {
+		alert(`following ${following}`)
+	}
 
 	return (
 		<section className='relative overflow-hidden rounded-b-2xl p-4 lg:rounded-2xl lg:p-6'>
@@ -76,18 +90,33 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 					<Button
 						variant={'dimmed'}
 						size={'default-icon'}
+						onClick={goBack}
 					>
 						<ArrowBack size={24} />
 					</Button>
-					<div className='flex gap-4 font-bold'>
-						<div className='flex flex-col items-center space-y-1'>
-							<span className=''>{FormatNumber(followers)}</span>
-							<span className='text-white/[.60]'>Followers</span>
-						</div>
-						<div className='flex flex-col  items-center space-y-1'>
-							<span className=''>{FormatNumber(following)}</span>
-							<span className='text-white/[.60]'>Following</span>
-						</div>
+					<div className='flex gap-4'>
+						<button
+							className='flex cursor-pointer flex-col items-center space-y-1 rounded-lg p-2 transition-colors hover:bg-black/[.12]'
+							onClick={showFollowers}
+						>
+							<span className='pointer-events-none font-bold'>
+								{FormatNumber(followers)}
+							</span>
+							<span className='pointer-events-none text-white/[.60]'>
+								Followers
+							</span>
+						</button>
+						<button
+							className='flex cursor-pointer flex-col items-center space-y-1 rounded-lg p-2 transition-colors hover:bg-black/[.12]'
+							onClick={showFollowing}
+						>
+							<span className='pointer-events-none font-bold'>
+								{FormatNumber(following)}
+							</span>
+							<span className='pointer-events-none text-white/[.60]'>
+								Following
+							</span>
+						</button>
 					</div>
 					<div className='flex flex-col'>
 						<Button

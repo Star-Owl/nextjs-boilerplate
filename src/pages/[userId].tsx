@@ -89,8 +89,8 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 								coverImage={
 									'https://images.unsplash.com/photo-1671723521246-a6710cfafc70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80'
 								}
-								followers={1_024}
-								following={13_405}
+								followers={1_234}
+								following={12_345}
 							/>
 							<ProfileDetails
 								bio='Digging UI'
