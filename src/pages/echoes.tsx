@@ -78,7 +78,11 @@ const EchoPage: FunctionComponent<Props> = ({ posts }) => {
 				}`}
 			>
 				<Nav activeItem={'echoes'} />
-				<main className='flex w-full flex-col gap-4 py-[2.5rem] leading-none dark md:max-w-xl lg:max-w-lg xl:max-w-xl'>
+				<main
+					className={`flex w-full flex-col gap-6 py-[2.5rem] leading-none dark ${
+						deviceType !== 'mobile' ? ' md:max-w-xl' : ''
+					} lg:max-w-lg xl:max-w-xl`}
+				>
 					<Echoes posts={posts} />
 				</main>
 				<Aside />

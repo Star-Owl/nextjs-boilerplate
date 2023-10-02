@@ -1,3 +1,4 @@
+import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
 import { cva } from 'class-variance-authority'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -13,8 +14,19 @@ interface Props {
 	disabled?: boolean
 }
 
-const LinksStyle = cva(
-	`
+const NavItem = ({
+	active = false,
+	href,
+	children,
+	width,
+	size,
+	onClick,
+}: Props) => {
+	const router = useRouter()
+	const { deviceType, os, browser, orientation } = useDeviceAndBrowser()
+
+	const LinksStyle = cva(
+		`
 		flex
 		flex-col
 		gap-1
@@ -25,37 +37,28 @@ const LinksStyle = cva(
 		lg:flex-row
 		lg:gap-4
 	`,
-	{
-		variants: {
-			width: {
-				full: 'w-full justify-start',
-				inline: 'max-w-fit justify-center', // max-w-fit Twitter not full width effect
+		{
+			variants: {
+				width: {
+					full: 'w-full justify-start',
+					inline: 'max-w-fit justify-center', // max-w-fit Twitter not full width effect
+				},
+				size: {
+					default: `rounded-[.875rem] ${
+						deviceType !== 'mobile' ? ' p-[1.125rem]' : ''
+					} xl:py-[.875rem] xl:pr-6 lg:pl-4`,
+				},
+				active: {
+					true: 'opacity-100 md:bg-accent-600/[.12] md:text-accent-600',
+					false: 'md:group-hover:bg-white/[.06] group-hover:opacity-100 opacity-50',
+				},
 			},
-			size: {
-				default:
-					'rounded-[.875rem] lg:p-[1.125rem] xl:py-[.875rem] xl:pr-6 lg:pl-4',
-			},
-			active: {
-				true: 'opacity-100 md:bg-accent-600/[.12] md:text-accent-600',
-				false: 'md:group-hover:bg-white/[.06] group-hover:opacity-100 opacity-50',
+			defaultVariants: {
+				width: 'inline',
+				size: 'default',
 			},
 		},
-		defaultVariants: {
-			width: 'inline',
-			size: 'default',
-		},
-	},
-)
-
-const NavItem = ({
-	active = false,
-	href,
-	children,
-	width,
-	size,
-	onClick,
-}: Props) => {
-	const router = useRouter()
+	)
 
 	const handleNavigation = (e: React.MouseEvent<HTMLLIElement>) => {
 		// prevent default anchor action
