@@ -24,6 +24,16 @@ body {
 	font-weight: 450;
 }
 
+a {
+	@apply text-accent-500 transition-transform-colors;
+}
+
+a:hover,
+a:focus {
+	@apply text-accent-600;
+	text-decoration: underline;
+}
+
 ::selection {
 	color: #ffd56b;
 	background: #121923;

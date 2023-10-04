@@ -32,6 +32,7 @@ const NavItem = ({
 		gap-1
 		transition
 		items-center
+		text-white
 		disabled:opacity-50
 		disabled:cursor-not-allowed
 		lg:flex-row
@@ -44,9 +45,7 @@ const NavItem = ({
 					inline: 'max-w-fit justify-center', // max-w-fit Twitter not full width effect
 				},
 				size: {
-					default: `rounded-[.875rem] ${
-						deviceType !== 'mobile' ? ' p-[1.125rem]' : ''
-					} xl:py-[.875rem] xl:pr-6 lg:pl-4`,
+					default: `rounded-[.875rem] p-[1.125rem] xl:py-[.875rem] xl:pr-6 lg:pl-4`,
 				},
 				active: {
 					true: 'opacity-100 md:bg-accent-600/[.12] md:text-accent-600',

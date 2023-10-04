@@ -16,6 +16,25 @@ interface Props {
 
 const RegisterModal: React.FC<Props> = ({ open, onOpenChange }) => {
 	const { deviceType, os, browser } = useDeviceAndBrowser()
+	const [windowWidth, setWindowWidth] = React.useState(0)
+
+	React.useEffect(() => {
+		// Update the width when the component mounts
+		setWindowWidth(window.innerWidth)
+
+		// Add a resize listener
+		const handleResize = () => {
+			setWindowWidth(window.innerWidth)
+		}
+
+		window.addEventListener('resize', handleResize)
+
+		// Cleanup the listener on component unmount
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [])
+
 	return (
 		<Dialog
 			open={open}
@@ -24,13 +43,9 @@ const RegisterModal: React.FC<Props> = ({ open, onOpenChange }) => {
 			<DialogTrigger asChild>
 				<Button
 					disabled
-					size={
-						deviceType === 'tablet' && window.innerWidth < 1366
-							? 'lg-icon'
-							: 'lg'
-					}
+					size={windowWidth <= 1280 ? 'lg-icon' : 'lg'}
 				>
-					{deviceType === 'tablet' && window.innerWidth < 1366 ? (
+					{windowWidth <= 1280 ? (
 						<OutlineEdit size={28} />
 					) : (
 						'Register'

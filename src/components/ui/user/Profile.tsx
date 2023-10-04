@@ -15,7 +15,7 @@ import { FormatNumber } from '@/lib/numberFormat'
 import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { Tooltip } from '@nextui-org/react'
+import { Tooltip, ScrollShadow } from '@nextui-org/react'
 
 type SpecialIcon =
 	| 'facebook'
@@ -205,7 +205,12 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 											}
 											asChild
 										>
-											<Link href={link.url}>{icon}</Link>
+											<Link
+												href={link.url}
+												className='text-inherit'
+											>
+												{icon}
+											</Link>
 										</Button>
 									</Tooltip>
 								)
@@ -286,7 +291,11 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
 	return (
 		<section className='px-5'>
 			<p>{bio}</p>
-			<div className='scroll mt-3 flex space-x-4 overflow-x-auto pb-5'>
+			<ScrollShadow
+				orientation='horizontal'
+				className='scroll mt-3 flex max-w-full space-x-4 overflow-x-auto pb-5'
+				//className='max-h-[300px] max-w-[400px]'
+			>
 				{badges?.map((badge, index) => {
 					const { color, icon } = badge.type
 						? getSpecialBadgeProperties(badge.type)
@@ -304,7 +313,7 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
 						</Chip>
 					)
 				})}
-			</div>
+			</ScrollShadow>
 		</section>
 	)
 }

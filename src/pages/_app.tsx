@@ -13,6 +13,7 @@ import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
 import Nav from '@/components/layout/nav'
 import Aside from '@/components/layout/aside'
 import NavMobile from '@/components/layout/nav-mobile'
+import { Toaster } from '@/components/ui/toaster'
 
 interface Props {
 	Component: React.ComponentType<any>
@@ -61,9 +62,7 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 			<SessionProvider session={pageProps.session}>
 				<NextUIProvider>
 					<div
-						className={`flex xl:justify-center xl:gap-6 ${
-							deviceType === 'mobile' ? 'pb-24' : null
-						}`}
+						className={`flex pb-24 md:pb-0 xl:justify-center xl:gap-6`}
 					>
 						<Nav activeItem={router.pathname} />
 						<Component
@@ -71,8 +70,9 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 							{...pageProps}
 						/>
 						<Aside />
-						{deviceType === 'mobile' ? <NavMobile /> : null}
+						<NavMobile />
 					</div>
+					<Toaster />
 				</NextUIProvider>
 			</SessionProvider>
 			<Analytics />

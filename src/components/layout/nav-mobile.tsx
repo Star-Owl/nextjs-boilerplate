@@ -3,7 +3,7 @@
 import Typography from '@mui/material/Typography'
 import { Avatar, Badge, Chip, Code, extendVariants } from '@nextui-org/react'
 import React, { FunctionComponent, ReactNode, useEffect, useState } from 'react'
-import { Button, buttonVariants } from 'src/components/ui/button'
+import { Button } from 'src/components/ui/button'
 
 import {
 	FillBell,
@@ -23,7 +23,7 @@ import {
 	OutlineUser,
 } from 'src/icons/Icons'
 import NavItem from './nav-item'
-import router from 'next/router'
+import router, { useRouter } from 'next/router'
 
 const currentUser = true
 
@@ -39,7 +39,8 @@ interface Props {
 	activeItem?: string
 }
 
-const NavMobile: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
+const NavMobile: FunctionComponent<Props> = ({}) => {
+	const router = useRouter()
 	const items: NavLinkItem[] = [
 		{
 			active: router.pathname === '/',
@@ -108,7 +109,7 @@ const NavMobile: FunctionComponent<Props> = ({ activeItem = 'nest' }) => {
 	}
 
 	return (
-		<nav className='fixed bottom-0 z-100 flex w-full rounded-t-2xl bg-primary-badge/[.80] py-4 backdrop-blur-md'>
+		<nav className='fixed bottom-0 z-100 flex w-full rounded-t-2xl bg-primary-badge/[.80] py-4 backdrop-blur-md md:hidden'>
 			<ul className='flex flex-1 justify-around gap-2 px-5'>
 				{items.map(({ active, href, text, isLogout }, i) => (
 					<React.Fragment key={`header-${i}`}>

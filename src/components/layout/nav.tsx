@@ -1,3 +1,5 @@
+'use client'
+
 import {
 	Avatar,
 	Badge,
@@ -7,7 +9,7 @@ import {
 	user,
 } from '@nextui-org/react'
 import React, { FunctionComponent, ReactNode, useEffect, useState } from 'react'
-import { Button, buttonVariants } from 'src/components/ui/button'
+import { Button } from 'src/components/ui/button'
 
 import {
 	FillBell,
@@ -35,6 +37,7 @@ import { useRouter } from 'next/router'
 import LoginModal from '../modals/LoginModal'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import RegisterModal from '../modals/RegisterModal'
+import { ScrollShadow } from '@nextui-org/react'
 
 const currentUser = true
 
@@ -144,61 +147,58 @@ const Nav: FunctionComponent<Props> = ({}) => {
 	}
 	return (
 		<nav
-			className={`h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end justify-between py-[2.5rem] pl-10 pr-6 ${
-				deviceType !== 'mobile' ? ' md:flex' : ''
-			} lg:ml-0 xl:ml-0 xl:max-w-[16rem] xl:items-start xl:px-0`}
+			className={`h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end justify-between py-[2.5rem] pl-10 pr-6 md:flex lg:ml-0 xl:ml-0 xl:max-w-[16rem] xl:items-start xl:px-0`}
 		>
-			<section className='rounded-2x flex w-full flex-col gap-6'>
-				{/* bg-primary-lighter p-4 */}
-				<ul className='flex flex-col items-end gap-2 xl:px-0'>
-					{items.map(({ active, href, text, isLogout }, i) => (
-						<React.Fragment key={`header-${i}`}>
-							<NavItem
-								active={active}
-								href={href}
-								width='inline'
-								size='default'
-								onClick={isLogout ? () => signOut() : undefined}
-							>
-								{active
-									? activeIcons[
-											href as keyof typeof activeIcons
-									  ]
-									: inactiveIcons[
-											href as keyof typeof inactiveIcons
-									  ]}
-								<span
-									className={`
+			<ScrollShadow className='h-full px-4 lg:w-full lg:px-0'>
+				<section className='rounded-2x flex w-full flex-col gap-6'>
+					{/* bg-primary-lighter p-4 */}
+					<ul className='flex flex-col items-end gap-2 xl:px-0'>
+						{items.map(({ active, href, text, isLogout }, i) => (
+							<React.Fragment key={`header-${i}`}>
+								<NavItem
+									active={active}
+									href={href}
+									width='inline'
+									size='default'
+									onClick={
+										isLogout ? () => signOut() : undefined
+									}
+								>
+									{active
+										? activeIcons[
+												href as keyof typeof activeIcons
+										  ]
+										: inactiveIcons[
+												href as keyof typeof inactiveIcons
+										  ]}
+									<span
+										className={`
 										hidden
 										flex-none
 										text-lg
 										xl:inline-flex
 										${active ? 'font-bold' : 'font-medium'}
 									`}
-								>
-									{text}
-								</span>
-							</NavItem>
-						</React.Fragment>
-					))}
-				</ul>
-				{session ? (
-					<Button
-						size={
-							deviceType === 'tablet' && window.innerWidth < 1366
-								? 'lg-icon'
-								: 'lg'
-						}
-					>
-						{deviceType === 'tablet' && window.innerWidth < 1366 ? (
-							<OutlineEdit size={28} />
-						) : (
-							'Hoot'
-						)}
-					</Button>
-				) : (
-					<React.Fragment>
-						{/* <Button
+									>
+										{text}
+									</span>
+								</NavItem>
+							</React.Fragment>
+						))}
+					</ul>
+					{session ? (
+						<Button
+							size={window.innerWidth < 640 ? 'lg-icon' : 'lg'}
+						>
+							{window.innerWidth < 640 ? (
+								<OutlineEdit size={28} />
+							) : (
+								'Hoot'
+							)}
+						</Button>
+					) : (
+						<React.Fragment>
+							{/* <Button
 							variant={'outline'}
 							size={
 								deviceType === 'tablet' &&
@@ -215,76 +215,74 @@ const Nav: FunctionComponent<Props> = ({}) => {
 								'Login'
 							)}
 						</Button> */}
-						<LoginModal
-							open={isLoginModalOpen}
-							onOpenChange={setLoginModalOpen}
-						/>
-						<RegisterModal
-							open={isRegisterModalOpen}
-							onOpenChange={setRegisterModalOpen}
-						/>
-					</React.Fragment>
-				)}
-			</section>
-			{session ? (
-				<section className='flex w-fit items-center justify-center gap-4 overflow-hidden rounded-2xl bg-primary-lighter p-4 xl:w-full xl:justify-start'>
-					<React.Fragment>
-						<Badge
-							content=''
-							color='success'
-							shape='circle'
-							placement='bottom-right'
-							className={`${
-								deviceType === 'tablet' &&
-								window.innerWidth < 1366
-									? 'h-[1.125rem] w-[1.125rem]'
-									: 'h-5 w-5'
-							} pointer-events-none border-4 border-primary-lighter`}
-						>
-							<Avatar
-								//isBordered
-								// color='base'
-								name='Hasira'
-								src='https://cdn.discordapp.com/avatars/569975072417251378/2113775a498da6818a3bdf75af82f40c.webp?size=128'
-								showFallback
-								fallback={
-									<OutlineUser
-										size={
-											deviceType === 'tablet' &&
-											window.innerWidth < 1366
-												? 16
-												: 24
-										}
-										className='text-default-500'
-										fill='currentColor'
-									/>
-								}
-								className={`${
-									deviceType === 'tablet' &&
-									window.innerWidth < 1366
-										? 'h-8 w-8'
-										: 'h-10 w-10'
-								} cursor-pointer bg-white/[.06] text-sm transition-opacity hover:opacity-60`}
+							<LoginModal
+								open={isLoginModalOpen}
+								onOpenChange={setLoginModalOpen}
 							/>
-						</Badge>
-					</React.Fragment>
-					{deviceType === 'tablet' && window.innerWidth < 1366 ? (
-						''
-					) : (
-						<React.Fragment>
-							<div className='flex h-full flex-1 flex-col justify-around overflow-hidden'>
-								<UserInfo />
-							</div>
-							<Button
-								variant={'ghost'}
-								size={'xs-icon'}
-							>
-								<OutlineMore size={24} />
-							</Button>
+							<RegisterModal
+								open={isRegisterModalOpen}
+								onOpenChange={setRegisterModalOpen}
+							/>
 						</React.Fragment>
 					)}
 				</section>
-			) : null}
+				{session ? (
+					<section className='flex w-fit items-center justify-center gap-4 overflow-hidden rounded-2xl bg-primary-lighter p-4 xl:w-full xl:justify-start'>
+						<React.Fragment>
+							<Badge
+								content=''
+								color='success'
+								shape='circle'
+								placement='bottom-right'
+								className={`${
+									window.innerWidth < 1366
+										? 'h-[1.125rem] w-[1.125rem]'
+										: 'h-5 w-5'
+								} pointer-events-none border-4 border-primary-lighter`}
+							>
+								<Avatar
+									//isBordered
+									// color='base'
+									name='Hasira'
+									src='https://cdn.discordapp.com/avatars/569975072417251378/2113775a498da6818a3bdf75af82f40c.webp?size=128'
+									showFallback
+									fallback={
+										<OutlineUser
+											size={
+												window.innerWidth < 1366
+													? 16
+													: 24
+											}
+											className='text-default-500'
+											fill='currentColor'
+										/>
+									}
+									className={`${
+										window.innerWidth < 1366
+											? 'h-8 w-8'
+											: 'h-10 w-10'
+									} cursor-pointer bg-white/[.06] text-sm transition-opacity hover:opacity-60`}
+								/>
+							</Badge>
+						</React.Fragment>
+						{window.innerWidth < 1366 ? (
+							''
+						) : (
+							<React.Fragment>
+								<div className='flex h-full flex-1 flex-col justify-around overflow-hidden'>
+									<UserInfo />
+								</div>
+								<Button
+									variant={'ghost'}
+									size={'xs-icon'}
+								>
+									<OutlineMore size={24} />
+								</Button>
+							</React.Fragment>
+						)}
+					</section>
+				) : null}
+			</ScrollShadow>
 		</nav>
 	)
 }

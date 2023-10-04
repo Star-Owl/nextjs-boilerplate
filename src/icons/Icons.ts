@@ -45,6 +45,6 @@ export { OutlineLink } from './assets/OutlineLink'
 
 export { ArrowBack } from './assets/ArrowBack'
 export { BookmarkCheck } from './assets/BookmarkCheck'
-export { Close } from './assets/Close'
+export { OutlineClose } from './assets/OutlineClose'
 export { Share } from './assets/Share'
 export { Views } from './assets/Views'
