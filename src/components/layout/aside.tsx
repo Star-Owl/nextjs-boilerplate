@@ -1,7 +1,6 @@
-'use client'
-
 import Link from 'next/link'
 import { FunctionComponent } from 'react'
+import { Kbd } from '@nextui-org/kbd'
 
 interface Props {}
 const Aside: FunctionComponent<Props> = ({}) => {

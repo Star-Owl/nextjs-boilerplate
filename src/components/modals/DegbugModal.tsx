@@ -12,6 +12,7 @@ import { Button } from '../ui/button'
 import { OutlineClose } from 'src/icons/Icons'
 import { Switch, cn } from '@nextui-org/react'
 import { NotificationContext } from 'src/contexts/NotificationContext'
+import { Separator } from '@/components/ui/separator'
 
 interface InfoData {
 	browser: string | undefined
@@ -80,16 +81,11 @@ const DebugMenuModal = () => {
 								size={'sm-icon'}
 								onClick={onClose}
 							>
-								<OutlineClose size={24} />{' '}
+								<OutlineClose size={24} />
 							</Button>
 						</ModalHeader>
 						<ModalBody>
 							<p>How did you get here?</p>
-							<div>Browser: {info?.browser}</div>
-							<div>Version: {info?.version}</div>
-							<div>OS: {info?.os}</div>
-							<div>Device: {info?.device}</div>
-							<div>IP: {info?.ip}</div>
 							<Switch
 								isSelected={isSelected}
 								onValueChange={setIsSelected}
@@ -97,7 +93,7 @@ const DebugMenuModal = () => {
 								classNames={{
 									base: cn(
 										'inline-flex flex-row-reverse w-full max-w-md bg-primary-lighter items-center',
-										'justify-between cursor-pointer rounded-lg gap-2 p-4 border-2 border-transparent',
+										'justify-between cursor-pointer rounded-2xl gap-2 p-4 border-2 border-transparent',
 										'data-[selected=true]:border-primary',
 									),
 									wrapper: cn(
@@ -124,15 +120,85 @@ const DebugMenuModal = () => {
 									</p>
 								</div>
 							</Switch>
+							<Switch
+								// isSelected={isSelected}
+								// onValueChange={setIsSelected}
+								size={'sm'}
+								classNames={{
+									base: cn(
+										'inline-flex flex-row-reverse w-full max-w-md bg-primary-lighter items-center',
+										'justify-between cursor-pointer rounded-2xl gap-2 p-4 border-2 border-transparent',
+										'data-[selected=true]:border-primary',
+									),
+									wrapper: cn(
+										'p-0 h-4 overflow-visible bg-[#273648]',
+										'group-data-[selected=true]:bg-accent-600',
+									),
+									thumb: cn(
+										'w-6 h-6 border-2 shadow-lg border-[#273648] bg-primary-dark',
+										'group-data-[hover=true]:border-accent',
+										//selected
+										'group-data-[selected=true]:ml-4 group-data-[selected=true]:border-accent-600',
+										// pressed
+										'group-data-[pressed=true]:w-6',
+										'group-data-[selected]:group-data-[pressed]:ml-4',
+									),
+								}}
+							>
+								<div className='flex flex-col gap-1'>
+									<h4 className='text-lg'>Test</h4>
+									<p className='text-sm text-white-500'>
+										Test
+									</p>
+								</div>
+							</Switch>
+							<Switch
+								// isSelected={isSelected}
+								// onValueChange={setIsSelected}
+								size={'sm'}
+								classNames={{
+									base: cn(
+										'inline-flex flex-row-reverse w-full max-w-md bg-primary-lighter items-center',
+										'justify-between cursor-pointer rounded-2xl gap-2 p-4 border-2 border-transparent',
+										'data-[selected=true]:border-primary',
+									),
+									wrapper: cn(
+										'p-0 h-4 overflow-visible bg-[#273648]',
+										'group-data-[selected=true]:bg-accent-600',
+									),
+									thumb: cn(
+										'w-6 h-6 border-2 shadow-lg border-[#273648] bg-primary-dark',
+										'group-data-[hover=true]:border-accent',
+										//selected
+										'group-data-[selected=true]:ml-4 group-data-[selected=true]:border-accent-600',
+										// pressed
+										'group-data-[pressed=true]:w-6',
+										'group-data-[selected]:group-data-[pressed]:ml-4',
+									),
+								}}
+							>
+								<div className='flex flex-col gap-1'>
+									<h4 className='text-lg'>Test</h4>
+									<p className='text-sm text-white-500'>
+										Test
+									</p>
+								</div>
+							</Switch>
+							{/* <Separator /> */}
+							<p>Browser: {info?.browser}</p>
+							<p>Version: {info?.version}</p>
+							<p>OS: {info?.os}</p>
+							<p>Device: {info?.device}</p>
+							<p>IP: {info?.ip}</p>
 						</ModalBody>
-						<ModalFooter className='mb-2'>
+						<ModalFooter className='mb-2 flex gap-4'>
 							<Button
-								color='danger'
-								variant='outline'
+								variant='ghost'
 								onClick={onClose}
 							>
-								Close
+								Cancel
 							</Button>
+							<Button onClick={onClose}>Save</Button>
 						</ModalFooter>
 					</React.Fragment>
 				)}
