@@ -67,14 +67,16 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 						className={`flex pb-24 md:pb-0 xl:justify-center xl:gap-6`}
 					>
 						<NotificationProvider>
-							<Nav activeItem={router.pathname} />
+							{router.pathname !== '/particles' ? (
+								<Nav activeItem={router.pathname} />
+							) : null}
 							<DebugMenuModal />
 						</NotificationProvider>
 						<Component
 							key={router.asPath}
 							{...pageProps}
 						/>
-						<Aside />
+						{router.pathname !== '/particles' ? <Aside /> : null}
 						<NavMobile />
 					</div>
 					<Toaster />
