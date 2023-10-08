@@ -29,7 +29,7 @@ const Posts: FunctionComponent<Props> = ({ posts }) => {
 			{posts?.map((section) => (
 				<section
 					key={section.id}
-					className='rounded-2xl bg-primary-lighter p-3'
+					className='rounded-2xl bg-primary-lighter p-4'
 				>
 					<article className='head flex w-full flex-col items-start gap-4 leading-tight'>
 						<PostHeader />

@@ -1,15 +1,10 @@
-import type { FunctionComponent } from 'react'
-import { NextSeo } from 'next-seo'
-import React, { useEffect, useState } from 'react'
-import Nav from '@/components/layout/nav'
-import Main from '@/components/layout/main'
-import Aside from '@/components/layout/aside'
-import NavMobile from '@/components/layout/nav-mobile'
-import { generateSections } from '@/lib/post/generateSections'
-import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
-import { BrowserRouter } from 'react-router-dom'
-import { getSession, useSession } from 'next-auth/react'
 import Echoes from '@/components/layout/post/echoes'
+import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
+import { generateSections } from '@/lib/post/generateSections'
+import { getSession } from 'next-auth/react'
+import { NextSeo } from 'next-seo'
+import React from 'react'
+import { useEffect, type FunctionComponent, useState } from 'react'
 
 export async function getServerSideProps() {
 	const posts = generateSections(

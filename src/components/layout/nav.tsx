@@ -1,53 +1,30 @@
-'use client'
-
-import {
-	Avatar,
-	Badge,
-	Chip,
-	Code,
-	extendVariants,
-	user,
-} from '@nextui-org/react'
-import React, { FunctionComponent, ReactNode, useEffect, useState } from 'react'
-import { Button } from 'src/components/ui/button'
-
-import {
-	FillBell,
-	FillBookmark,
-	FillHome,
-	FillMessage,
-	FillSearch,
-	FillSettings,
-	FillUser,
-	OutlineBell,
-	OutlineBookmark,
-	OutlineEdit,
-	OutlineHome,
-	OutlineLogOut,
-	OutlineMessage,
-	OutlineMore,
-	OutlineSearch,
-	OutlineSettings,
-	OutlineUser,
-} from 'src/icons/Icons'
-import NavItem from './nav-item'
-import UserInfo from '../ui/user/UserInfo'
-import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
+import { Avatar, Badge, ScrollShadow } from '@nextui-org/react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import LoginModal from '../modals/LoginModal'
 import { useSession, signIn, signOut } from 'next-auth/react'
+import NavItem from './nav-item'
+import LoginModal from '../modals/LoginModal'
 import RegisterModal from '../modals/RegisterModal'
-import { ScrollShadow } from '@nextui-org/react'
-
-const currentUser = true
-
-interface NavLinkItem {
-	active: boolean
-	href: string
-	text: string
-	icon?: ReactNode
-	isLogout?: boolean
-}
+import {
+	FillHome,
+	FillSearch,
+	FillBell,
+	FillMessage,
+	FillBookmark,
+	FillSettings,
+	OutlineHome,
+	OutlineSearch,
+	OutlineBell,
+	OutlineMessage,
+	OutlineBookmark,
+	OutlineSettings,
+	OutlineLogOut,
+	OutlineEdit,
+	OutlineUser,
+	OutlineMore,
+} from 'src/icons/Icons'
+import { Button } from '../ui/button'
+import UserInfo from '../ui/user/UserInfo'
 
 interface Props {
 	activeItem?: string
@@ -56,16 +33,24 @@ interface Props {
 const Nav: FunctionComponent<Props> = ({}) => {
 	const router = useRouter()
 	const { data: session } = useSession()
-	const { deviceType, os, browser, orientation } = useDeviceAndBrowser()
-
 	const [isLoginModalOpen, setLoginModalOpen] = useState(false)
 	const [isRegisterModalOpen, setRegisterModalOpen] = useState(false)
+	const [windowWidth, setWindowWidth] = useState<number | null>(null)
 
-	// useEffect(() => {
+	useEffect(() => {
+		setWindowWidth(window.innerWidth)
 
-	// }, [])
+		const handleResize = () => {
+			setWindowWidth(window.innerWidth)
+		}
+		window.addEventListener('resize', handleResize)
 
-	const items: NavLinkItem[] = [
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [])
+
+	const NavLinkItem = [
 		{
 			active: router.pathname === '/',
 			href: '/',
@@ -120,7 +105,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 	]
 
 	const activeIcons = {
-		'/': <FillHome size={deviceType === 'tablet' ? 28 : 28} />,
+		'/': <FillHome size={28} />,
 		'/explore': <FillSearch size={28} />,
 		'/echoes': <FillBell size={28} />,
 		'/messages': <FillMessage size={28} />,
@@ -145,15 +130,16 @@ const Nav: FunctionComponent<Props> = ({}) => {
 			console.error('Błąd logowania:', error)
 		}
 	}
+
 	return (
 		<nav
 			className={`h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end justify-between py-[2.5rem] pl-10 pr-6 md:flex lg:ml-0 xl:ml-0 xl:max-w-[16rem] xl:items-start xl:px-0`}
 		>
-			<ScrollShadow className='h-full px-4 lg:w-full lg:px-0'>
+			<ScrollShadow className='flex h-full flex-col justify-between px-4 lg:w-full lg:px-0'>
 				<section className='rounded-2x flex w-full flex-col gap-6'>
 					{/* bg-primary-lighter p-4 */}
 					<ul className='flex flex-col items-end gap-2 xl:px-0'>
-						{items.map(({ active, href, text, isLogout }, i) => (
+						{NavLinkItem.map(({ active, href, text }, i) => (
 							<React.Fragment key={`header-${i}`}>
 								<NavItem
 									active={active}
@@ -161,16 +147,56 @@ const Nav: FunctionComponent<Props> = ({}) => {
 									width='inline'
 									size='default'
 									onClick={
-										isLogout ? () => signOut() : undefined
+										session ? () => signOut() : undefined
 									}
 								>
-									{active
-										? activeIcons[
-												href as keyof typeof activeIcons
-										  ]
-										: inactiveIcons[
-												href as keyof typeof inactiveIcons
-										  ]}
+									{href === '/settings' ? (
+										<Badge
+											color='primary'
+											content={'+9'}
+											isInvisible={false}
+											disableOutline
+											shape='circle'
+										>
+											{active
+												? activeIcons[
+														href as keyof typeof activeIcons
+												  ]
+												: inactiveIcons[
+														href as keyof typeof inactiveIcons
+												  ]}
+										</Badge>
+									) : href === '/' ? (
+										<Badge
+											color='primary'
+											content=''
+											isDot
+											isInvisible={false}
+											shape='circle'
+											className={`right-0 top-0 h-4 w-4 border-3 ${
+												active
+													? 'border-[#162238]'
+													: 'border-primary-dark'
+											} bg-accent-600`}
+										>
+											{active
+												? activeIcons[
+														href as keyof typeof activeIcons
+												  ]
+												: inactiveIcons[
+														href as keyof typeof inactiveIcons
+												  ]}
+										</Badge>
+									) : active ? (
+										activeIcons[
+											href as keyof typeof activeIcons
+										]
+									) : (
+										inactiveIcons[
+											href as keyof typeof inactiveIcons
+										]
+									)}
+
 									<span
 										className={`
 										hidden
@@ -186,35 +212,18 @@ const Nav: FunctionComponent<Props> = ({}) => {
 							</React.Fragment>
 						))}
 					</ul>
-					{session ? (
-						<Button
-							size={window.innerWidth < 640 ? 'lg-icon' : 'lg'}
-						>
-							{window.innerWidth < 640 ? (
-								<OutlineEdit size={28} />
-							) : (
-								'Hoot'
-							)}
+					{!session ? (
+						<Button size={windowWidth ? 'lg-icon' : 'lg'}>
+							{windowWidth !== null ? (
+								windowWidth <= 1024 ? (
+									<OutlineEdit size={28} />
+								) : (
+									'Hoot'
+								)
+							) : null}
 						</Button>
 					) : (
 						<React.Fragment>
-							{/* <Button
-							variant={'outline'}
-							size={
-								deviceType === 'tablet' &&
-								window.innerWidth < 1366
-									? 'lg-icon'
-									: 'lg'
-							}
-							onClick={() => handleLogin()}
-						>
-							{deviceType === 'tablet' &&
-							window.innerWidth < 1366 ? (
-								<OutlineEdit size={28} />
-							) : (
-								'Login'
-							)}
-						</Button> */}
 							<LoginModal
 								open={isLoginModalOpen}
 								onOpenChange={setLoginModalOpen}
@@ -226,7 +235,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 						</React.Fragment>
 					)}
 				</section>
-				{session ? (
+				{!session ? (
 					<section className='flex w-fit items-center justify-center gap-4 overflow-hidden rounded-2xl bg-primary-lighter p-4 xl:w-full xl:justify-start'>
 						<React.Fragment>
 							<Badge
@@ -235,8 +244,10 @@ const Nav: FunctionComponent<Props> = ({}) => {
 								shape='circle'
 								placement='bottom-right'
 								className={`${
-									window.innerWidth < 1366
-										? 'h-[1.125rem] w-[1.125rem]'
+									windowWidth !== null
+										? windowWidth < 1366
+											? 'h-[1.125rem] w-[1.125rem]'
+											: 'h-5 w-5'
 										: 'h-5 w-5'
 								} pointer-events-none border-4 border-primary-lighter`}
 							>
@@ -249,8 +260,10 @@ const Nav: FunctionComponent<Props> = ({}) => {
 									fallback={
 										<OutlineUser
 											size={
-												window.innerWidth < 1366
-													? 16
+												windowWidth !== null
+													? windowWidth < 1366
+														? 16
+														: 24
 													: 24
 											}
 											className='text-default-500'
@@ -258,28 +271,30 @@ const Nav: FunctionComponent<Props> = ({}) => {
 										/>
 									}
 									className={`${
-										window.innerWidth < 1366
-											? 'h-8 w-8'
+										windowWidth !== null
+											? windowWidth < 1366
+												? 'h-8 w-8'
+												: 'h-10 w-10'
 											: 'h-10 w-10'
 									} cursor-pointer bg-white/[.06] text-sm transition-opacity hover:opacity-60`}
 								/>
 							</Badge>
 						</React.Fragment>
-						{window.innerWidth < 1366 ? (
-							''
-						) : (
-							<React.Fragment>
-								<div className='flex h-full flex-1 flex-col justify-around overflow-hidden'>
-									<UserInfo />
-								</div>
-								<Button
-									variant={'ghost'}
-									size={'xs-icon'}
-								>
-									<OutlineMore size={24} />
-								</Button>
-							</React.Fragment>
-						)}
+						{windowWidth !== null ? (
+							windowWidth < 1366 ? null : (
+								<React.Fragment>
+									<div className='flex h-full flex-1 flex-col justify-around overflow-hidden'>
+										<UserInfo />
+									</div>
+									<Button
+										variant={'ghost'}
+										size={'xs-icon'}
+									>
+										<OutlineMore size={24} />
+									</Button>
+								</React.Fragment>
+							)
+						) : null}
 					</section>
 				) : null}
 			</ScrollShadow>

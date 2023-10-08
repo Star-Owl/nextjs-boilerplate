@@ -8,6 +8,26 @@ const config: Config = {
 	],
 	theme: {
 		extend: {
+			fontFamily: {
+				roboto: ['Roboto', 'sans-serif'],
+				rubik: ['Rubik', 'sans-serif'],
+				urbanist: ['Urbanist', 'sans-serif'],
+			},
+			fontWeight: {
+				regular: '450',
+				semibold: '600',
+				bold: '700',
+			},
+			fontSize: {
+				xs: '0.75rem', // 12px
+				sm: '0.875rem', // 14px
+				base: '1rem', // 16px
+				lg: '1.125rem', // 18px
+				xl: '1.375rem', // 22px
+				xxl: '1.75rem', // 28px
+				xxl2: '2rem', // 32px
+				xxl3: '4rem', // 64px
+			},
 			colors: {
 				// Background Colors
 				'primary-dark': 'hsl(215, 32%, 10%)',
@@ -83,37 +103,6 @@ const config: Config = {
 				'color-repost': 'hsl(139, 47%, 44%)',
 				'color-repost-subtle': 'hsla(139, 47%, 44%, 0.12)',
 			},
-			fontWeight: {
-				regular: '450',
-				semibold: '600',
-				bold: '700',
-			},
-			fontSize: {
-				xs: '0.75rem', // 12px
-				sm: '0.875rem', // 14px
-				base: '1rem', // 16px
-				lg: '1.125rem', // 18px
-				xl: '1.375rem', // 22px
-				xxl: '1.75rem', // 28px
-				xxl2: '2rem', // 32px
-				xxl3: '4rem', // 64px
-			},
-			zIndex: {
-				100: '100',
-			},
-			container: {
-				center: true,
-				// padding: {
-				// 	DEFAULT: '1rem',
-				// 	sm: '2rem',
-				// 	lg: '4rem',
-				// 	xl: '5rem',
-				// 	'2xl': '6rem',
-				// },
-				screens: {
-					'2xl': '1500px',
-				},
-			},
 			extend: {
 				keyframes: {
 					'accordion-down': {
@@ -144,7 +133,7 @@ const config: Config = {
 		aspectRatio: true,
 	},
 	plugins: [
-		require('@tailwindcss/typography'),
+		//require('@tailwindcss/typography'),
 		require('@tailwindcss/aspect-ratio'),
 		nextui({
 			layout: {}, // common layout options

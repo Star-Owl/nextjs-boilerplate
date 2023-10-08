@@ -1,15 +1,10 @@
-import type { FunctionComponent } from 'react'
-import { NextSeo } from 'next-seo'
-import React, { useEffect, useState } from 'react'
-import Nav from '@/components/layout/nav'
-import Main from '@/components/layout/main'
-import Aside from '@/components/layout/aside'
-import NavMobile from '@/components/layout/nav-mobile'
-import { generateSections } from '@/lib/post/generateSections'
-import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
-import { BrowserRouter } from 'react-router-dom'
 import Posts from '@/components/layout/post/posts'
-import { getSession, useSession } from 'next-auth/react'
+import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
+import { generateSections } from '@/lib/post/generateSections'
+import { getSession } from 'next-auth/react'
+import { NextSeo } from 'next-seo'
+import type { FunctionComponent } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export async function getServerSideProps() {
 	const posts = generateSections(
@@ -79,21 +74,6 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 			>
 				<Posts posts={posts} />
 			</main>
-			{/* <div
-				className={`flex xl:justify-center xl:gap-6 ${
-					deviceType === 'mobile' ? 'pb-24' : ''
-				}`}
-			>
-				<Nav />
-				<main
-					className={`flex w-full flex-col gap-6 py-[2.5rem] leading-none dark ${
-						deviceType !== 'mobile' ? ' md:max-w-xl' : ''
-					} lg:max-w-lg xl:max-w-xl`}
-				>
-					<Posts posts={posts} />
-				</main>
-			</div> */}
-			{/* <Hero /> */}
 		</React.Fragment>
 	)
 }

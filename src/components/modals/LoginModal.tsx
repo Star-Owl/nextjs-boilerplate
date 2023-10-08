@@ -80,14 +80,33 @@ const LoginModal: React.FC<Props> = () => {
 		resolver: zodResolver(FormSchema),
 	})
 
+	function getCurrentDateTime() {
+		const now = new Date()
+
+		const month = now.getMonth() + 1 // Months are 0-based
+		const day = now.getDate()
+		const year = now.getFullYear()
+
+		let hours = now.getHours()
+		const ampm = hours >= 12 ? 'PM' : 'AM'
+
+		hours = hours % 12
+		hours = hours ? hours : 12 // the hour '0' should be '12'
+		const minutes = String(now.getMinutes()).padStart(2, '0')
+		const seconds = String(now.getSeconds()).padStart(2, '0')
+
+		const dateStr = `${month}/${day}/${year}`
+		const timeStr = `${hours}:${minutes} ${ampm}`
+
+		return `${dateStr} and ${timeStr}`
+	}
+
 	const toastTest = () => {
 		toast({
 			title: 'You submitted the following values:',
 			description: (
 				<pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-					<code className='text-white'>
-						Friday, February 10, 2023 at 5:57 PM
-					</code>
+					<code className='text-white'>{getCurrentDateTime()}</code>
 				</pre>
 			),
 		})
@@ -278,6 +297,7 @@ const LoginModal: React.FC<Props> = () => {
 													Remember me
 												</Checkbox>
 												<Link
+													className='font-bold text-accent-600 underline-offset-2 transition-transform-colors hover:text-accent-700 hover:underline'
 													color='primary'
 													href='#'
 												>
@@ -294,8 +314,13 @@ const LoginModal: React.FC<Props> = () => {
 									</form>
 								</Form>
 							</ModalBody>
-							<ModalFooter className='justify-center'>
-								<Link href={'#'}>Create an account</Link>
+							<ModalFooter className='mb-2 justify-center'>
+								<Link
+									className='font-bold text-accent-600 underline-offset-2 transition-transform-colors hover:text-accent-700 hover:underline'
+									href={'#'}
+								>
+									Create an account
+								</Link>
 								{/* <Button
 									size={'xs'}
 									asChild

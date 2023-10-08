@@ -1,8 +1,10 @@
 import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
+import { Badge } from '@/components/ui/badge'
 import { cva } from 'class-variance-authority'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
+import React from 'react'
 
 interface Props {
 	active?: boolean
@@ -23,7 +25,20 @@ const NavItem = ({
 	onClick,
 }: Props) => {
 	const router = useRouter()
-	const { deviceType, os, browser, orientation } = useDeviceAndBrowser()
+	const [windowWidth, setWindowWidth] = useState<number | null>(null)
+
+	useEffect(() => {
+		setWindowWidth(window.innerWidth)
+
+		const handleResize = () => {
+			setWindowWidth(window.innerWidth)
+		}
+		window.addEventListener('resize', handleResize)
+
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [])
 
 	const LinksStyle = cva(
 		`
@@ -48,8 +63,8 @@ const NavItem = ({
 					default: `rounded-[.875rem] p-[1.125rem] xl:py-[.875rem] xl:pr-6 lg:pl-4`,
 				},
 				active: {
-					true: 'opacity-100 md:bg-accent-600/[.12] md:text-accent-600',
-					false: 'md:group-hover:bg-white/[.06] group-hover:opacity-100 opacity-50',
+					true: 'md:bg-accent-600/[.12] md:text-accent-600',
+					false: 'md:group-hover:bg-white/[.06] group-hover:text-white-50 text-white-500',
 				},
 			},
 			defaultVariants: {
@@ -73,7 +88,7 @@ const NavItem = ({
 	}
 	return (
 		<li
-			className='group cursor-pointer lg:w-full'
+			className='group flex cursor-pointer items-center justify-between lg:w-full'
 			onClick={handleNavigation}
 		>
 			<Link
@@ -86,7 +101,35 @@ const NavItem = ({
 				href={href}
 			>
 				{children}
+				{/* {href === '/' ? (
+					<Badge className='h-fit'>New hoots</Badge>
+				) : null}
+				{href === '/settings' ? (
+					<Badge className='h-fit'>New</Badge>
+				) : null} */}
 			</Link>
+			{windowWidth !== null ? (
+				windowWidth < 1366 ? null : (
+					<React.Fragment>
+						{href === '/' ? (
+							<Badge
+								className='h-fit rounded-lg !bg-accent-600 px-[.6250rem] py-[.3125rem] !font-regular'
+								variant={'secondary'}
+							>
+								New hoots
+							</Badge>
+						) : null}
+						{href === '/settings' ? (
+							<Badge
+								className='h-fit rounded-lg !bg-accent-600 px-[.6250rem] py-[.3125rem] !font-regular'
+								variant={'secondary'}
+							>
+								New
+							</Badge>
+						) : null}
+					</React.Fragment>
+				)
+			) : null}
 		</li>
 	)
 }
