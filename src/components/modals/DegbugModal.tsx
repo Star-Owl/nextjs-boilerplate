@@ -120,7 +120,7 @@ const DebugMenuModal = () => {
 										Disable Nest Notification
 									</p>
 									<p className='text-tiny text-default-400'>
-										it's experimantal
+										it&apos;s experimantal
 									</p>
 								</div>
 							</Switch>
