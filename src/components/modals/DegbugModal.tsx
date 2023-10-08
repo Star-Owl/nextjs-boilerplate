@@ -116,10 +116,10 @@ const DebugMenuModal = () => {
 								}}
 							>
 								<div className='flex flex-col gap-1'>
-									<p className='text-medium'>
-										Disable Nest Notification
-									</p>
-									<p className='text-tiny text-default-400'>
+									<h4 className='text-lg'>
+										Nest Notification
+									</h4>
+									<p className='text-sm text-white-500'>
 										it&apos;s experimantal
 									</p>
 								</div>
