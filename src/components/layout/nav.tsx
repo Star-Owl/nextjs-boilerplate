@@ -173,7 +173,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 											isDot
 											isInvisible={false}
 											shape='circle'
-											className={`right-0 top-0 h-4 w-4 border-3 ${
+											className={`right-0 top-0 h-3 w-3 border-2 ${
 												active
 													? 'border-[#162238]'
 													: 'border-primary-dark'
