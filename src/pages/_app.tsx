@@ -68,14 +68,14 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 					>
 						<NotificationProvider>
 							<Nav activeItem={router.pathname} />
-							<Component
-								key={router.asPath}
-								{...pageProps}
-							/>
-							<Aside />
-							<NavMobile />
 							<DebugMenuModal />
 						</NotificationProvider>
+						<Component
+							key={router.asPath}
+							{...pageProps}
+						/>
+						<Aside />
+						<NavMobile />
 					</div>
 					<Toaster />
 				</NextUIProvider>
