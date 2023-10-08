@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import UAParser from 'ua-parser-js'
 import axios from 'axios'
 import {
@@ -10,6 +10,8 @@ import {
 } from '@nextui-org/modal'
 import { Button } from '../ui/button'
 import { OutlineClose } from 'src/icons/Icons'
+import { Switch, cn } from '@nextui-org/react'
+import { NotificationContext } from 'src/contexts/NotificationContext'
 
 interface InfoData {
 	browser: string | undefined
@@ -22,6 +24,11 @@ interface InfoData {
 const DebugMenuModal = () => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [info, setInfo] = useState<InfoData | null>(null)
+	const context = useContext(NotificationContext)
+	if (!context) {
+		throw new Error('NotificationContext not provided')
+	}
+	const { isSelected, setIsSelected } = context
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -83,6 +90,40 @@ const DebugMenuModal = () => {
 							<div>OS: {info?.os}</div>
 							<div>Device: {info?.device}</div>
 							<div>IP: {info?.ip}</div>
+							<Switch
+								isSelected={isSelected}
+								onValueChange={setIsSelected}
+								size={'sm'}
+								classNames={{
+									base: cn(
+										'inline-flex flex-row-reverse w-full max-w-md bg-primary-lighter items-center',
+										'justify-between cursor-pointer rounded-lg gap-2 p-4 border-2 border-transparent',
+										'data-[selected=true]:border-primary',
+									),
+									wrapper: cn(
+										'p-0 h-4 overflow-visible bg-[#273648]',
+										'group-data-[selected=true]:bg-accent-600',
+									),
+									thumb: cn(
+										'w-6 h-6 border-2 shadow-lg border-[#273648] bg-primary-dark',
+										'group-data-[hover=true]:border-accent',
+										//selected
+										'group-data-[selected=true]:ml-4 group-data-[selected=true]:border-accent-600',
+										// pressed
+										'group-data-[pressed=true]:w-6',
+										'group-data-[selected]:group-data-[pressed]:ml-4',
+									),
+								}}
+							>
+								<div className='flex flex-col gap-1'>
+									<p className='text-medium'>
+										Disable Nest Notification
+									</p>
+									<p className='text-tiny text-default-400'>
+										it's experimantal
+									</p>
+								</div>
+							</Switch>
 						</ModalBody>
 						<ModalFooter className='mb-2'>
 							<Button

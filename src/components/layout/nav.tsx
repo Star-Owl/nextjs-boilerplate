@@ -1,5 +1,10 @@
 import { Avatar, Badge, ScrollShadow } from '@nextui-org/react'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, {
+	FunctionComponent,
+	useContext,
+	useEffect,
+	useState,
+} from 'react'
 import { useRouter } from 'next/router'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import NavItem from './nav-item'
@@ -25,6 +30,7 @@ import {
 } from 'src/icons/Icons'
 import { Button } from '../ui/button'
 import UserInfo from '../ui/user/UserInfo'
+import { NotificationContext } from 'src/contexts/NotificationContext'
 
 interface Props {
 	activeItem?: string
@@ -36,6 +42,13 @@ const Nav: FunctionComponent<Props> = ({}) => {
 	const [isLoginModalOpen, setLoginModalOpen] = useState(false)
 	const [isRegisterModalOpen, setRegisterModalOpen] = useState(false)
 	const [windowWidth, setWindowWidth] = useState<number | null>(null)
+	const context = useContext(NotificationContext)
+
+	if (!context) {
+		throw new Error('NotificationContext not provided')
+	}
+
+	const { isSelected } = context
 
 	useEffect(() => {
 		setWindowWidth(window.innerWidth)
@@ -171,7 +184,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 											color='primary'
 											content=''
 											isDot
-											isInvisible={false}
+											isInvisible={!isSelected}
 											shape='circle'
 											className={`right-0 top-0 h-3 w-3 border-2 ${
 												active
