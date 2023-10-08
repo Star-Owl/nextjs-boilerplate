@@ -14,6 +14,7 @@ import Nav from '@/components/layout/nav'
 import Aside from '@/components/layout/aside'
 import NavMobile from '@/components/layout/nav-mobile'
 import { Toaster } from '@/components/ui/toaster'
+import DebugMenuModal from '@/components/modals/DegbugModal'
 
 interface Props {
 	Component: React.ComponentType<any>
@@ -73,6 +74,7 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 						<NavMobile />
 					</div>
 					<Toaster />
+					<DebugMenuModal />
 				</NextUIProvider>
 			</SessionProvider>
 			<Analytics />
