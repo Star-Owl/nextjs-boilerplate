@@ -159,6 +159,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 									href={href}
 									width='inline'
 									size='default'
+									hasNotification={isSelected}
 									onClick={
 										session ? () => signOut() : undefined
 									}

@@ -66,7 +66,7 @@ const DebugMenuModal = () => {
 			onOpenChange={() => setIsOpen(false)}
 			closeButton={false}
 			classNames={{
-				backdrop: 'bg-[#292f46]/50 backdrop-blur-md',
+				backdrop: 'bg-[#292f46]/50 backdrop-blur-md z-10',
 				base: 'border-none bg-primary-dark rounded-2xl',
 				closeButton: 'hidden right-4 top-4',
 			}}

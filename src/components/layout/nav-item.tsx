@@ -3,8 +3,9 @@ import { Badge } from '@/components/ui/badge'
 import { cva } from 'class-variance-authority'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useContext, useEffect, useState } from 'react'
 import React from 'react'
+import { NotificationContext } from 'src/contexts/NotificationContext'
 
 interface Props {
 	active?: boolean
@@ -14,6 +15,7 @@ interface Props {
 	children: ReactNode
 	onClick?: () => void
 	disabled?: boolean
+	hasNotification?: boolean
 }
 
 const NavItem = ({
@@ -23,6 +25,7 @@ const NavItem = ({
 	width,
 	size,
 	onClick,
+	hasNotification,
 }: Props) => {
 	const router = useRouter()
 	const [windowWidth, setWindowWidth] = useState<number | null>(null)
@@ -111,7 +114,7 @@ const NavItem = ({
 			{windowWidth !== null ? (
 				windowWidth < 1366 ? null : (
 					<React.Fragment>
-						{href === '/' ? (
+						{href === '/' && hasNotification ? (
 							<Badge
 								className='h-fit rounded-lg !bg-accent-600 px-[.6250rem] py-[.3125rem] !font-regular'
 								variant={'secondary'}
