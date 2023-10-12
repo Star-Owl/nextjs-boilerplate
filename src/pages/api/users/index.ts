@@ -1,19 +1,19 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import prisma from 'src/lib/prismadb'
-import serverAuth, { isUserAuthenticated } from 'src/lib/serverAuth'
+//import serverAuth, { isUserAuthenticated } from 'src/lib/serverAuth'
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,
 ) {
-	const isAuthenticated = await isUserAuthenticated(req)
+	//const isAuthenticated = await isUserAuthenticated(req)
 
-	if (!isAuthenticated) {
-		res.statusCode = 401
-		res.json({ message: 'Unauthorized' })
-		return
-	}
+	// if (!isAuthenticated) {
+	// 	res.statusCode = 401
+	// 	res.json({ message: 'Unauthorized' })
+	// 	return
+	// }
 
 	if (req.method !== 'GET') {
 		return res.status(405).end()
