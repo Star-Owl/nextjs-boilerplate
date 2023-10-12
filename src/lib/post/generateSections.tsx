@@ -56,7 +56,17 @@ export function generateSections(count: number, constantAvatarSrc: string) {
 		],
 		posts: {
 			id: index + 1,
-			text: generateRandomPost(),
+			text: `hoot debug markdowns
+
+			hashtag: #hoot
+			link: https://starowl.social
+			mention: @starowl_social
+			underline: __underline__
+			bold: **bold**
+			italic: *italic*
+			strikethrough: ~~strikethrough~~
+			code: \`code\`
+			`,
 			detailsUrl: `https://example.com/post/${index + 1}`,
 		},
 	}))

@@ -1,10 +1,18 @@
+import { AnimatedNumber } from '@/components/ui/animated-number'
 import { Button } from '@/components/ui/button'
 import PostHeader from '@/components/ui/post/header'
 import PostContent from '@/components/ui/post/main'
 import { Avatar, AvatarGroup } from '@nextui-org/react'
 import React from 'react'
 import { FunctionComponent } from 'react'
-import { FillUser, OutlineUser } from 'src/icons/Icons'
+import {
+	FillUser,
+	OutlineBookmark,
+	OutlineMessage,
+	OutlineRepost,
+	OutlineStar,
+	OutlineUser,
+} from 'src/icons/Icons'
 
 interface AvatarType {
 	id: string
@@ -42,7 +50,38 @@ const Posts: FunctionComponent<Props> = ({ posts }) => {
 						/>
 						{/* <Postv2 content={section.posts.text} /> */}
 						<div className='flex w-full justify-between'>
-							<AvatarGroup
+							<div className='flex flex-1 space-x-2'>
+								<div className='flex w-1/5 cursor-pointer items-center justify-start space-x-2'>
+									<Button
+										variant={'ghost'}
+										size={'xs-icon'}
+									>
+										<OutlineStar size={24} />
+									</Button>
+									<AnimatedNumber value={123_123} />
+								</div>
+								<div className='flex w-1/5 cursor-pointer items-center justify-start space-x-2'>
+									<Button
+										variant={'ghost'}
+										size={'xs-icon'}
+									>
+										<OutlineMessage size={24} />
+									</Button>
+									<AnimatedNumber value={123_123} />
+								</div>
+								<div className='flex w-1/5 cursor-pointer items-center justify-start space-x-2'>
+									<Button
+										variant={'ghost'}
+										size={'xs-icon'}
+									>
+										<OutlineRepost size={24} />
+									</Button>
+									<span>
+										<AnimatedNumber value={12_345} />
+									</span>
+								</div>
+							</div>
+							{/* <AvatarGroup
 								className='cursor-pointer'
 								isBordered
 								max={3}
@@ -72,12 +111,12 @@ const Posts: FunctionComponent<Props> = ({ posts }) => {
 										}
 									/>
 								))}
-							</AvatarGroup>
+							</AvatarGroup> */}
 							<Button
 								variant={'ghost'}
 								size={'xs-icon'}
 							>
-								<OutlineUser size={24} />
+								<OutlineBookmark size={24} />
 							</Button>
 						</div>
 					</article>

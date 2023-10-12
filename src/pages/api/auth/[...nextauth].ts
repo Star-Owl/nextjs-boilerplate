@@ -1,103 +1,85 @@
-// /**
-//  * ################################################
-//  * # Importing Required Libraries, Modules and Secrets #
-//  * ################################################
-//  */
+// Import necessary libraries
+import { getApp, getApps, initializeApp } from 'firebase/app'
+import { getAnalytics } from 'firebase/analytics'
+import NextAuth from 'next-auth'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
-// Importing argon2 library for password hashing
-import argon2 from 'argon2'
+// Initialize Firebase using environment variables
+const firebaseConfig = {
+	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+	authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+	projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+	appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+	measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+}
 
-// Importing NextAuth and AuthOptions from next-auth for handling authentication
-import NextAuth, { AuthOptions } from 'next-auth'
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig)
+//const analytics = getAnalytics(app)
+const auth = getAuth(app)
 
-// Importing CredentialsProvider from next-auth/providers for handling credential-based authentication
-import CredentialsProvider from 'next-auth/providers/credentials'
-
-// Importing PrismaAdapter from @next-auth/prisma-adapter for connecting NextAuth to our Prisma database
-import { PrismaAdapter } from '@next-auth/prisma-adapter'
-
-// Importing our Prisma database client
-import prisma from 'src/lib/prismadb'
-
-/**
- * ################################################
- * # Authentication Options Configuration #
- * ################################################
- *
- * This object defines the configuration for our NextAuth authentication setup. It specifies that we're using
- * the Prisma Adapter for our database, and the Credentials Provider for our authentication method.
- *
- * The Credentials Provider is set up to expect 'email' and 'password' credentials, and includes an 'authorize'
- * function that checks the provided credentials against those stored in our database. If the credentials match,
- * the user is authenticated.
- */
-
-export const authOptions: AuthOptions = {
-	adapter: PrismaAdapter(prisma), // Use the Prisma Adapter for our database
+export default NextAuth({
 	providers: [
-		CredentialsProvider({
-			name: 'credentials', // The name of the credentials provider
+		{
+			id: 'credentials',
+			name: 'Credentials',
+			type: 'credentials',
 			credentials: {
-				email: { label: 'email', type: 'text' },
-				password: { label: 'password', type: 'password' },
+				email: {
+					label: 'Email',
+					type: 'text',
+					//placeholder: 'jsmith@example.com',
+				},
+				password: { label: 'Password', type: 'password' },
 			},
 			async authorize(credentials) {
+				// if (!credentials) {
+				// 	throw new Error('Missing credentials')
+				// }
+
 				// If no email or password were provided, throw an error
 				if (!credentials?.email || !credentials?.password) {
 					throw new Error('Invalid credentials')
 				}
 
-				// Try to find a user in the database that matches the provided email
-				const user = await prisma.user.findUnique({
-					where: {
-						email: credentials.email,
-					},
-					include: {
-						Following: true, // Make sure to return the "Following" object
-					},
-				})
-
-				// If no user was found, or the user doesn't have a hashedPassword, throw an error
-				if (!user || !user?.hashedPassword) {
-					throw new Error(`User Not Found`)
+				const { email, password } = credentials as Record<
+					string,
+					string
+				>
+				try {
+					// Use Firebase Authentication to verify credentials
+					const userCredential = await signInWithEmailAndPassword(
+						auth,
+						email,
+						password,
+					)
+					const user = userCredential.user
+					return {
+						id: user.uid,
+						name: user.displayName,
+						email: user.email,
+						image: user.photoURL,
+					}
+				} catch (error) {
+					console.error(error)
+					return null
+					//throw new Error('Authorization failed')
 				}
-
-				// Compare the provided password with the stored hashedPassword using argon2
-				const isCorrectPassword = await argon2.verify(
-					user.hashedPassword,
-					credentials.password,
-				)
-
-				// If the passwords don't match, throw an error
-				if (!isCorrectPassword) {
-					throw new Error(`Invalid Password`)
-				}
-
-				// If everything checks out, return the user
-				return user
 			},
-		}),
+		},
 	],
 	pages: {
-		error: '/error', // Change this to your own error page
+		// signIn: '/auth/signin',
+		// signOut: '/auth/signout',
+		// error: '/404',
+		// verifyRequest: '/auth/verify-request',
+		//newUser: null,
 	},
-	debug: process.env.NODE_ENV === 'development', // Enable debug mode in development environment
-	session: {
-		strategy: 'jwt', // Use JWT for session handling
+	callbacks: {
+		async session({ session, user }) {
+			session.user = user
+			return session
+		},
 	},
-	jwt: {
-		secret: process.env.NEXTAUTH_JWT_SECRET, // Secret for JWT
-	},
-	secret: process.env.NEXTAUTH_SECRET, // Secret for NextAuth
-}
-
-/**
- * #############################################
- * # NextAuth Authentication Function #
- * #############################################
- *
- * This is the default export for our NextAuth setup. It's a function call to NextAuth, passing
- * in our authOptions object.
- */
-
-export default NextAuth(authOptions)
+})

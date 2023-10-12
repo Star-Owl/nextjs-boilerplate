@@ -148,7 +148,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 		<nav
 			className={`h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end justify-between py-[2.5rem] pl-10 pr-6 md:flex lg:ml-0 xl:ml-0 xl:max-w-[16rem] xl:items-start xl:px-0`}
 		>
-			<ScrollShadow className='flex h-full flex-col justify-between px-4 lg:w-full lg:px-0'>
+			<ScrollShadow className='flex h-full flex-col justify-between overflow-auto px-4 lg:w-full lg:px-0'>
 				<section className='rounded-2x flex w-full flex-col gap-6'>
 					{/* bg-primary-lighter p-4 */}
 					<ul className='flex flex-col items-end gap-2 xl:px-0'>
@@ -226,7 +226,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 							</React.Fragment>
 						))}
 					</ul>
-					{!session ? (
+					{session ? (
 						<Button size={windowWidth ? 'lg-icon' : 'lg'}>
 							{windowWidth !== null ? (
 								windowWidth <= 1024 ? (
@@ -249,7 +249,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 						</React.Fragment>
 					)}
 				</section>
-				{!session ? (
+				{session ? (
 					<section className='flex w-fit items-center justify-center gap-4 overflow-hidden rounded-2xl bg-primary-lighter p-4 xl:w-full xl:justify-start'>
 						<React.Fragment>
 							<Badge

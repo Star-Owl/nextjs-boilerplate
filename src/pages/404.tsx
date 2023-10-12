@@ -15,6 +15,7 @@ import { useCallback } from 'react'
 
 export default function Custom404() {
 	const router = useRouter()
+	const error = router.query.error
 
 	// const handleBack = useCallback(() => {
 	// 	router.back()
@@ -28,6 +29,7 @@ export default function Custom404() {
 					<h2 className='text-xxl'>Lost in the Stars</h2>
 				</header>
 				<div className='text-color-text-dimmed flex flex-col items-center gap-2 text-base'>
+					{error && <p>Error: {error}</p>}
 					<p>
 						Even in the darkest night, a single star can guide the
 						way.

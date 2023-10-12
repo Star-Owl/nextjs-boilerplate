@@ -1,4 +1,5 @@
 import React from 'react'
+import { Code } from '@nextui-org/code'
 
 type PostSegmentType =
 	| 'text'
@@ -71,54 +72,162 @@ const segmentClasses: Partial<SegmentClassesType> = {
 	bold: 'font-bold',
 	italics: 'italic',
 	underline: 'underline',
+	strikethrough: 'line-through',
 }
 
 const renderParsedPost = (
 	segments: PostSegment[],
 	maxTextLength: number,
 ): JSX.Element[] => {
-	let buffer = ''
+	let elements: JSX.Element[] = []
+	let bufferElements: (JSX.Element | string)[] = []
+
 	for (const segment of segments) {
 		const { type, value } = segment
+
 		switch (type) {
 			case 'mention':
-				buffer += `<a href="https://example.com/${value.slice(
-					1,
-				)}" class="${segmentClasses.mention}">${value}</a>`
+				bufferElements.push(
+					<a
+						href={`https://example.com/${value.slice(1)}`}
+						className={segmentClasses.mention}
+					>
+						{value}
+					</a>,
+				)
 				break
 			case 'hashtag':
-				buffer += `<a href="https://example.com/tags/${value.slice(
-					1,
-				)}" class="${segmentClasses.hashtag}">${value}</a>`
+				bufferElements.push(
+					<a
+						href={`https://example.com/tags/${value.slice(1)}`}
+						className={segmentClasses.hashtag}
+					>
+						{value}
+					</a>,
+				)
 				break
 			case 'url':
-				buffer += `<a href="${value}" class="${segmentClasses.url}">${value}</a>`
+				bufferElements.push(
+					<a
+						href={value}
+						className={segmentClasses.url}
+					>
+						{value}
+					</a>,
+				)
 				break
 			case 'bold':
-				buffer += `<strong class="${segmentClasses.bold}">${value}</strong>`
+				bufferElements.push(
+					<strong className={segmentClasses.bold}>{value}</strong>,
+				)
 				break
 			case 'italics':
-				buffer += `<em class="${segmentClasses.italics}">${value}</em>`
+				bufferElements.push(
+					<em className={segmentClasses.italics}>{value}</em>,
+				)
 				break
 			case 'underline':
-				buffer += `<span class="${segmentClasses.underline}">${value}</span>`
+				bufferElements.push(
+					<span className={segmentClasses.underline}>{value}</span>,
+				)
+				break
+			case 'strikethrough':
+				bufferElements.push(
+					<span className={segmentClasses.strikethrough}>
+						{value}
+					</span>,
+				)
+				break
+			case 'code':
+				bufferElements.push(<Code>{value}</Code>)
 				break
 			default:
-				buffer += value
+				bufferElements.push(value)
 		}
 	}
-	return convertTextToParagraphs(buffer)
+
+	const convertedElements = convertBufferToElements(bufferElements)
+	elements = [...elements, ...convertedElements]
+
+	return elements
 }
 
-const convertTextToParagraphs = (text: string): JSX.Element[] => {
-	const paragraphs = text.split('\n\n')
-	return paragraphs.map((paragraph, index) => (
+const convertBufferToElements = (
+	buffer: (JSX.Element | string)[],
+): JSX.Element[] => {
+	let result: JSX.Element[] = []
+	let currentBuffer: (JSX.Element | string)[] = []
+
+	for (const item of buffer) {
+		if (typeof item === 'string' && item.includes('\n\n')) {
+			if (currentBuffer.length) {
+				const paragraph = createParagraphFromBuffer(
+					currentBuffer,
+					result.length === 0,
+				)
+				if (paragraph) {
+					result.push(paragraph)
+				}
+				currentBuffer = []
+			}
+			const splitTexts = item
+				.split('\n\n')
+				.filter((text) => text.trim() !== '')
+			for (let i = 0; i < splitTexts.length - 1; i++) {
+				result.push(
+					<p
+						key={result.length}
+						className={result.length === 0 ? 'mb-3 mt-0' : 'my-3'}
+					>
+						{splitTexts[i].replace('\n', '<br />')}
+					</p>,
+				)
+			}
+			if (splitTexts.length) {
+				currentBuffer.push(
+					splitTexts[splitTexts.length - 1].replace('\n', '<br />'),
+				)
+			}
+		} else {
+			currentBuffer.push(item)
+		}
+	}
+
+	if (currentBuffer.length) {
+		const paragraph = createParagraphFromBuffer(
+			currentBuffer,
+			result.length === 0,
+		)
+		if (paragraph) {
+			result.push(paragraph)
+		}
+	}
+
+	return result
+}
+
+const createParagraphFromBuffer = (
+	buffer: (JSX.Element | string)[],
+	isFirstParagraph: boolean,
+): JSX.Element | null => {
+	const content = buffer.map((item, index) =>
+		typeof item === 'string'
+			? item
+			: React.cloneElement(item, { key: index }),
+	)
+
+	if (content.join('').trim() === '') {
+		return null
+	}
+
+	return (
 		<p
-			key={index}
-			className={index === 0 ? 'mb-3 mt-0' : 'my-3'}
-			dangerouslySetInnerHTML={{ __html: paragraph }}
-		/>
-	))
+			key={Math.random()}
+			className={isFirstParagraph ? 'mb-3 mt-0' : 'my-3'}
+		>
+			{content}
+		</p>
+	)
 }
 
 export { parsePost, renderParsedPost }

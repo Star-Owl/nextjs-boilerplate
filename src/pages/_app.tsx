@@ -9,7 +9,6 @@ import { Analytics } from '@vercel/analytics/react'
 import '@/styles/globals.css'
 import { NextWebVitalsMetric } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
-import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
 import Nav from '@/components/layout/nav'
 import Aside from '@/components/layout/aside'
 import NavMobile from '@/components/layout/nav-mobile'
@@ -24,7 +23,6 @@ interface Props {
 
 const App: React.FC<Props> = ({ Component, pageProps }) => {
 	const router = useRouter()
-	const { deviceType, os, browser } = useDeviceAndBrowser()
 
 	return (
 		<React.Fragment>
@@ -67,7 +65,8 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 						className={`flex pb-24 md:pb-0 xl:justify-center xl:gap-6`}
 					>
 						<NotificationProvider>
-							{router.pathname !== '/particles' ? (
+							{router.pathname !== '/particles' &&
+							router.pathname !== '/404' ? (
 								<Nav activeItem={router.pathname} />
 							) : null}
 							<DebugMenuModal />
@@ -76,8 +75,13 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 							key={router.asPath}
 							{...pageProps}
 						/>
-						{router.pathname !== '/particles' ? <Aside /> : null}
-						<NavMobile />
+						{router.pathname !== '/particles' &&
+						router.pathname !== '/404' ? (
+							<React.Fragment>
+								<Aside />
+								<NavMobile />
+							</React.Fragment>
+						) : null}
 					</div>
 					<Toaster />
 				</NextUIProvider>

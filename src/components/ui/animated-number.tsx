@@ -1,5 +1,3 @@
-'use client'
-
 import { motion, useSpring, useTransform } from 'framer-motion'
 import { useEffect } from 'react'
 import { FormatNumber } from '@/lib/numberFormat'

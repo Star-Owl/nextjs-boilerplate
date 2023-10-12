@@ -53,7 +53,7 @@ const PostContent: React.FC<Props> = ({
 			{formattedText.length > 0 ? (
 				<React.Fragment>
 					{formattedText}
-					{shouldShowMore && (
+					{/* {shouldShowMore && (
 						<Button
 							onClick={handleShowMoreClick}
 							size={'link'}
@@ -62,7 +62,7 @@ const PostContent: React.FC<Props> = ({
 						>
 							{showMore ? 'Show Less' : 'Show more'}
 						</Button>
-					)}
+					)} */}
 				</React.Fragment>
 			) : (
 				<span>This post is empty.</span>

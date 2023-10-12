@@ -1,5 +1,3 @@
-'use client'
-
 import * as React from 'react'
 import { toast } from '@/hooks/use-toast'
 import { Button } from '../ui/button'
@@ -53,7 +51,6 @@ const FormSchema = z.object({
 })
 
 const LoginModal: React.FC<Props> = () => {
-	const { deviceType, os, browser } = useDeviceAndBrowser()
 	const [windowWidth, setWindowWidth] = React.useState(0)
 	console.log(windowWidth)
 
@@ -113,16 +110,33 @@ const LoginModal: React.FC<Props> = () => {
 	}
 
 	function onSubmit(data: z.infer<typeof FormSchema>) {
-		toast({
-			title: 'You submitted the following values:',
-			description: (
-				<pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-					<code className='text-white'>
-						{JSON.stringify(data, null, 2)}
-					</code>
-				</pre>
-			),
+		signIn('credentials', {
+			email: data.email,
+			password: data.password,
+			callbackUrl: '/',
 		})
+			.then(() => {
+				toast({
+					title: 'Successfully signed in!',
+				})
+			})
+			.catch((error) => {
+				console.error('Sign in failed:', error)
+				toast({
+					title: 'Sign in failed',
+					description: error.message,
+				})
+			})
+		// toast({
+		// 	title: 'You submitted the following values:',
+		// 	description: (
+		// 		<pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
+		// 			<code className='text-white'>
+		// 				{JSON.stringify(data, null, 2)}
+		// 			</code>
+		// 		</pre>
+		// 	),
+		// })
 	}
 
 	const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -347,190 +361,6 @@ const LoginModal: React.FC<Props> = () => {
 				</ModalContent>
 			</Modal>
 		</React.Fragment>
-		// <Modal.Dialog
-		// 	open={open}
-		// 	onOpenChange={onOpenChange}
-		// >
-		// 	<Modal.Trigger asChild>
-		// 		<Button
-		// 			variant={'outline'}
-		// 			size={
-		// 				deviceType === 'tablet' && window.innerWidth < 1366
-		// 					? 'lg-icon'
-		// 					: 'lg'
-		// 			}
-		// 		>
-		// 			{deviceType === 'tablet' && window.innerWidth < 1366 ? (
-		// 				<OutlineEdit size={28} />
-		// 			) : (
-		// 				'Login'
-		// 			)}
-		// 		</Button>
-		// 	</Modal.Trigger>
-		// 	<Modal.Portal>
-		// 		<Modal.Overlay className='DialogOverlay fixed inset-0 z-30 bg-slate-900/60 backdrop-blur-[12px]' />
-		// 		<Modal.Content className='DialogContent fixed left-1/2 top-1/2 z-40 max-h-[85vh] w-[90vw] max-w-xl -translate-x-2/4 -translate-y-2/4 rounded-2xl bg-primary-dark px-6 pb-6 pt-6 shadow-xl focus:outline-none'>
-		// 			<header className='mb-10 flex w-full items-center justify-between'>
-		// 				<Modal.Title className='text-xl'>Login</Modal.Title>
-		// 				<Modal.Close asChild>
-		// 					<Button
-		// 						aria-label='Close'
-		// 						variant={'ghost'}
-		// 						size={'sm-icon'}
-		// 					>
-		// 						<Close size={24} />
-		// 					</Button>
-		// 				</Modal.Close>
-		// 			</header>
-		// 			{/* <DialogPrimitive.Description className="DialogDescription">
-		// 				Make a Hoot
-		// 			</DialogPrimitive.Description> */}
-
-		// 			<main className='flex flex-col gap-4'>
-		// 				<Form {...form}>
-		// 					<form
-		// 						onSubmit={form.handleSubmit(onSubmit)}
-		// 						className='space-y-6'
-		// 					>
-		// 						<FormField
-		// 							control={form.control}
-		// 							name='email'
-		// 							render={({ field }) => (
-		// 								<FormItem>
-		// 									{/* <FormLabel>Username</FormLabel> */}
-		// 									<FormControl>
-		// 										<div className='items-top flex gap-4'>
-		// 											{/* <Button
-		// 												disabled
-		// 												variant={'outline'}
-		// 												className='h-fit !ring-default-400'
-		// 												size={'default-icon'}
-		// 											>
-		// 												<OutlineUser
-		// 													size={24}
-		// 												/>
-		// 											</Button> */}
-		// 											<Input
-		// 												//isClearable
-		// 												type='email'
-		// 												label='Email'
-		// 												variant='bordered'
-		// 												{...field}
-		// 												//placeholder='Enter your email'
-		// 												//defaultValue='junior@nextui.org'
-		// 												//description="We'll never share your email with anyone else."
-		// 												// onClear={() =>
-		// 												// 	console.log(
-		// 												// 		'input cleared',
-		// 												// 	)
-		// 												// }
-		// 												//className='max-w-xs'
-		// 											/>
-		// 										</div>
-		// 									</FormControl>
-		// 									{/* <FormDescription>
-		// 										This is your public display
-		// 										name.
-		// 									</FormDescription> */}
-		// 									<FormMessage className='text-danger' />
-		// 								</FormItem>
-		// 							)}
-		// 						/>
-		// 						<FormField
-		// 							control={form.control}
-		// 							name='password'
-		// 							render={({ field }) => (
-		// 								<FormItem>
-		// 									{/* <FormLabel>Username</FormLabel> */}
-		// 									<FormControl>
-		// 										<div className='flex items-center gap-4'>
-		// 											{/* <Button
-		// 												disabled
-		// 												variant={'outline'}
-		// 												className='!ring-default-400'
-		// 												size={'default-icon'}
-		// 											>
-		// 												<OutlineBell
-		// 													size={24}
-		// 												/>
-		// 											</Button> */}
-
-		// 											<Input
-		// 												label='Password'
-		// 												variant='bordered'
-		// 												{...field}
-		// 												//placeholder='Enter your password'
-		// 												// startContent={
-		// 												// 	<OutlineUser
-		// 												// 		size={24}
-		// 												// 	/>
-		// 												// }
-		// 												endContent={
-		// 													<button
-		// 														className='focus:outline-none'
-		// 														type='button'
-		// 														onClick={
-		// 															toggleVisibility
-		// 														}
-		// 													>
-		// 														{isVisible ? (
-		// 															<OutlineEye
-		// 																size={
-		// 																	24
-		// 																}
-		// 																className='pointer-events-none text-2xl text-default-400'
-		// 															/>
-		// 														) : (
-		// 															<OutlineEyeOff
-		// 																size={
-		// 																	24
-		// 																}
-		// 																className='pointer-events-none text-2xl text-default-400'
-		// 															/>
-		// 														)}
-		// 													</button>
-		// 												}
-		// 												type={
-		// 													isVisible
-		// 														? 'text'
-		// 														: 'password'
-		// 												}
-		// 												//className='max-w-xs'
-		// 											/>
-		// 										</div>
-		// 									</FormControl>
-		// 									{/* <FormDescription>
-		// 										This is your public display
-		// 										name.
-		// 									</FormDescription> */}
-		// 									<FormMessage />
-		// 								</FormItem>
-		// 							)}
-		// 						/>
-		// 						<div className='flex flex-col space-y-6'>
-		// 							<Checkbox radius='sm'>Remember me</Checkbox>
-		// 							<Button type='submit'>Login</Button>
-		// 						</div>
-		// 					</form>
-		// 				</Form>
-		// 			</main>
-
-		// 			<footer className='mt-4 text-center text-neutral-400'>
-		// 				<Button
-		// 					size={'xs'}
-		// 					className='
-		// 							cursor-pointer
-		// 							text-white
-		// 							hover:underline
-		// 						'
-		// 					variant={'link'}
-		// 				>
-		// 					Create an account
-		// 				</Button>
-		// 			</footer>
-		// 		</Modal.Content>
-		// 	</Modal.Portal>
-		// </Modal.Dialog>
 	)
 }
 
