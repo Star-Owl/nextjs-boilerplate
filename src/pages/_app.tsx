@@ -67,7 +67,10 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 						<NotificationProvider>
 							{router.pathname !== '/particles' &&
 							router.pathname !== '/404' ? (
-								<Nav activeItem={router.pathname} />
+								<React.Fragment>
+									<Nav activeItem={router.pathname} />
+									<NavMobile />
+								</React.Fragment>
 							) : null}
 							<DebugMenuModal />
 						</NotificationProvider>
@@ -77,10 +80,7 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 						/>
 						{router.pathname !== '/particles' &&
 						router.pathname !== '/404' ? (
-							<React.Fragment>
-								<Aside />
-								<NavMobile />
-							</React.Fragment>
+							<Aside />
 						) : null}
 					</div>
 					<Toaster />

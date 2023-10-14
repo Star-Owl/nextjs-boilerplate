@@ -115,8 +115,40 @@ const config: Config = {
 						},
 						to: { height: 0 },
 					},
+					fadeIn: {
+						to: { opacity: 1 },
+					},
+					fadeOut: {
+						to: { opacity: 0 },
+					},
+					zoomIn: {
+						to: { transform: 'scale(0.95)' },
+					},
+					zoomOut: {
+						to: { transform: 'scale(1)' },
+					},
+					slideInFromTop: {
+						to: { transform: 'translateY(2rem)' },
+					},
+					slideInFromRight: {
+						to: { transform: 'translateX(-2rem)' },
+					},
+					slideInFromLeft: {
+						to: { transform: 'translateX(2rem)' },
+					},
+					slideInFromBottom: {
+						to: { transform: 'translateY(-2rem)' },
+					},
 				},
 				animation: {
+					in: 'fadeIn 0.5s forwards',
+					out: 'fadeOut 0.5s forwards',
+					'zoom-in-95': 'zoomIn 0.5s forwards',
+					'zoom-out-95': 'zoomOut 0.5s forwards',
+					'slide-in-from-top-2': 'slideInFromTop 0.5s forwards',
+					'slide-in-from-right-2': 'slideInFromRight 0.5s forwards',
+					'slide-in-from-left-2': 'slideInFromLeft 0.5s forwards',
+					'slide-in-from-bottom-2': 'slideInFromBottom 0.5s forwards',
 					'accordion-down': 'accordion-down 0.2s ease-out',
 					'accordion-up': 'accordion-up 0.2s ease-out',
 				},

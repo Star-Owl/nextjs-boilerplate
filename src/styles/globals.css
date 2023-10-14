@@ -24,45 +24,14 @@
 }
 
 html {
-	font-size: 1em;
+	/*  */
 	@apply font-rubik;
 	font-weight: 450;
 }
 
-/* a {
-	@apply text-accent-500 transition-transform-colors;
-}
-
-a:hover,
-a:focus {
-	@apply text-accent-600;
-	text-decoration: underline;
-} */
-
 ::selection {
 	color: #ffd56b;
 	background: #121923;
-}
-
-.icon {
-	position: relative;
-}
-
-.icon::before {
-	position: absolute;
-	content: '';
-	height: 2.25rem;
-	width: 2.25rem;
-	background-color: currentColor;
-	opacity: 0;
-	border-radius: calc(2.25rem / 4);
-	transform: translateX(-18%) scale(0);
-	transition: transform 0.175s ease-in-out;
-}
-
-.icon:hover::before {
-	opacity: 0.12;
-	transform: translateX(-18%) scale(1);
 }
 
 img.emoji {

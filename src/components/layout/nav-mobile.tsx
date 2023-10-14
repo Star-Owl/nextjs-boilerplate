@@ -109,7 +109,7 @@ const NavMobile: FunctionComponent<Props> = ({}) => {
 	}
 
 	return (
-		<nav className='fixed bottom-0 z-100 flex w-full rounded-t-2xl bg-primary-badge/[.80] py-4 backdrop-blur-md md:hidden'>
+		<nav className='fixed bottom-0 z-20 flex w-full rounded-t-2xl bg-primary-badge/[.80] py-4 backdrop-blur-md md:hidden'>
 			<ul className='flex flex-1 justify-around gap-2 px-5'>
 				{items.map(({ active, href, text, isLogout }, i) => (
 					<React.Fragment key={`header-${i}`}>
