@@ -1,7 +1,7 @@
 let apiEndpoint
 
 if (process.env.NODE_ENV === 'dev') {
-    apiEndpoint = 'https://api.starowl.social'
+    apiEndpoint = 'https://starowl.social'
 } else if (process.env.NODE_ENV === 'pro') {
     apiEndpoint = 'http://localhost:5000'
 }
