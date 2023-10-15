@@ -20,6 +20,7 @@
 		],
 		"baseUrl": ".",
 		"paths": {
+			"@/frontend/*": ["../frontend/*"],
 			"@/private/*": ["private/*"],
 			"@/components/*": ["src/components/*"],
 			"@/hooks/*": ["src/hooks/*"],

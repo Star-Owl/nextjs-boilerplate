@@ -23,6 +23,7 @@ import {
 	TableCell,
 } from '@nextui-org/table'
 import { toast } from '@/hooks/use-toast'
+import { apiEndpoint } from '@/frontend/config'
 
 interface InfoData {
 	browser: string | undefined
@@ -114,11 +115,6 @@ interface CustomSwitchProps {
 	title: string
 	description: string
 }
-
-const apiEndpoint =
-	process.env.NODE_ENV === 'development'
-		? 'https://api.starowl.social'
-		: 'http://localhost:5000'
 
 async function fetchData() {
 	try {
