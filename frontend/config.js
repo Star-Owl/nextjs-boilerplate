@@ -1,6 +1,6 @@
 const apiEndpoint =
 	process.env.NODE_ENV === 'pro'
 		? 'http://localhost:5000'
-		: 'https://starowl.social'
+		: 'https://api.starowl.social'
 
 export { apiEndpoint }
