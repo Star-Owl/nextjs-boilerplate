@@ -22,6 +22,7 @@ import {
 	TableRow,
 	TableCell,
 } from '@nextui-org/table'
+import { toast } from '@/hooks/use-toast'
 
 interface InfoData {
 	browser: string | undefined
@@ -69,6 +70,7 @@ const DebugMenuModal = () => {
 						</ModalHeader>
 						<ModalBody>
 							<p>How did you get here?</p>
+							<Button onClick={fetchData}>Check Backend</Button>
 							<CustomSwitch
 								title={'Notification Controler'}
 								description={'Turn On / Turn off notification'}
@@ -111,6 +113,38 @@ interface CustomSwitchProps {
 	onValueChange?: (value: boolean) => void
 	title: string
 	description: string
+}
+
+async function fetchData() {
+	try {
+		const response = await fetch('http://localhost:5000/example/data')
+
+		// Log raw response for debugging
+		const text = await response.text()
+		console.log(text)
+
+		const data = JSON.parse(text)
+		console.log(data)
+		toast({
+			title: 'Fetch Data Success',
+			description: data.message,
+		})
+	} catch (error) {
+		console.error('Error fetching data:', error)
+		if (error instanceof Error) {
+			toast({
+				variant: 'destructive',
+				title: 'Fetch Data Failed',
+				description: error.message,
+			})
+		} else {
+			toast({
+				variant: 'destructive',
+				title: 'Fetch Data Failed',
+				description: 'An unexpected error occurred.',
+			})
+		}
+	}
 }
 
 const CustomSwitch: React.FC<CustomSwitchProps> = ({
