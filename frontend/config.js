@@ -1,9 +1,5 @@
-import dotenv from 'dotenv'
-
-dotenv.config()
-
 const apiEndpoint =
-	process.env.NODE_ENV === 'development'
+	process.env.NODE_ENV === 'dev'
 		? 'https://api.starowl.social'
 		: 'http://localhost:5000'
 
