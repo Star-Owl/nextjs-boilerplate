@@ -115,9 +115,14 @@ interface CustomSwitchProps {
 	description: string
 }
 
+const apiEndpoint =
+	process.env.NODE_ENV === 'development'
+		? 'https://api.starowl.social'
+		: 'http://localhost:5000'
+
 async function fetchData() {
 	try {
-		const response = await fetch('http://localhost:5000/example/data')
+		const response = await fetch(`${apiEndpoint}/example/data`)
 
 		// Log raw response for debugging
 		const text = await response.text()
