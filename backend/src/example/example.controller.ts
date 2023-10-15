@@ -7,7 +7,7 @@ export class ExampleController {
         return {
             message: 'Hello from NestJS backend!',
             data: {
-                exampleKey: 'exampleValue',
+                success: 'success',
             },
         };
     }
