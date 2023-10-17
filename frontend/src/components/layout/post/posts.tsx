@@ -43,7 +43,7 @@ const Posts: FunctionComponent<Props> = ({ posts }) => {
 			{posts?.map((section) => (
 				<section
 					key={section.id}
-					className='rounded-2xl bg-primary-lighter p-4'
+					className='border-b-1 border-primary-badge p-4 md:rounded-2xl md:border-0 md:bg-primary-lighter'
 				>
 					<article className='head flex w-full flex-col items-start gap-4 leading-tight'>
 						<PostHeader />
@@ -70,7 +70,7 @@ export const SocialCounters = () => {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<div className='group flex w-1/3 cursor-pointer items-center justify-start md:w-1/4 lg:space-x-2 xl:w-1/5'>
+							<div className='group flex w-1/4 cursor-pointer items-center justify-start space-x-2 md:w-1/4 xl:w-1/5'>
 								<Button
 									className='transition-transform-colors group-hover:bg-warning-200/[.12]'
 									variant={'ghost'}
@@ -98,7 +98,7 @@ export const SocialCounters = () => {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<div className='group flex w-1/3 cursor-pointer items-center justify-start md:w-1/4 lg:space-x-2 xl:w-1/5'>
+							<div className='group flex w-1/4 cursor-pointer items-center justify-start space-x-2 md:w-1/4 xl:w-1/5'>
 								<Button
 									className='transition-transform-colors group-hover:bg-accent-600/[.12]'
 									variant={'ghost'}
@@ -126,7 +126,7 @@ export const SocialCounters = () => {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<div className='group flex w-1/3 cursor-pointer items-center justify-start md:w-1/4 lg:space-x-2 xl:w-1/5'>
+							<div className='group flex w-1/4 cursor-pointer items-center justify-start space-x-2 md:w-1/4 xl:w-1/5'>
 								<Button
 									className='transition-transform-colors group-hover:bg-success-500/[.12]'
 									variant={'ghost'}
@@ -154,37 +154,6 @@ export const SocialCounters = () => {
 					</Tooltip>
 				</TooltipProvider>
 			</div>
-			{/* <AvatarGroup
-					className='cursor-pointer'
-					isBordered
-					max={3}
-					renderCount={(count) => (
-					// <Avatar
-					// 	fallback={
-					// 		<p className='text-base'>+{count}</p>
-					// 	}
-					// ></Avatar>
-					<p className='ml-4 text-small font-medium text-foreground'>
-						+{count} others
-					</p>
-				)}
-			>
-				{section.avatars?.map((avatar: AvatarType) => (
-					<Avatar
-						key={avatar.id}
-						color={avatar.color}
-						src={avatar.src}
-						showFallback
-						radius={avatar.radius}
-						fallback={
-							<FillUser
-								className={`h-6 w-6 text-white`}
-								fill='currentColor'
-							/>
-						}
-					/>
-				))}
-			</AvatarGroup> */}
 			<Button
 				variant={'ghost'}
 				size={'xs-icon'}
