@@ -22,6 +22,7 @@
 		"paths": {
 			"@/frontend/*": ["../frontend/*"],
 			"@/private/*": ["private/*"],
+			"@/root/*": ["../*"],
 			"@/components/*": ["src/components/*"],
 			"@/hooks/*": ["src/hooks/*"],
 			"@/lib/*": ["src/lib/*"],

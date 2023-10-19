@@ -24,6 +24,8 @@ import {
 } from '@nextui-org/table'
 import { toast } from '@/hooks/use-toast'
 import { apiEndpoint } from '@/frontend/config'
+import { ScrollShadow } from '@nextui-org/react'
+import packageJson from '@/root/package.json'
 
 interface InfoData {
 	browser: string | undefined
@@ -50,9 +52,10 @@ const DebugMenuModal = () => {
 			size={'xl'}
 			onOpenChange={() => setIsOpen(false)}
 			closeButton={false}
+			scrollBehavior={'inside'}
 			classNames={{
 				backdrop: 'bg-[#292f46]/50 backdrop-blur-md z-10',
-				base: 'border-none bg-primary-dark rounded-2xl',
+				base: 'border-none bg-primary-dark rounded-2xl max-h-[80vh]',
 				closeButton: 'hidden right-4 top-4',
 			}}
 		>
@@ -70,26 +73,38 @@ const DebugMenuModal = () => {
 							</Button>
 						</ModalHeader>
 						<ModalBody>
-							<p>How did you get here?</p>
-							<Button onClick={fetchData}>Check Backend</Button>
-							<CustomSwitch
-								title={'Notification Controler'}
-								description={'Turn On / Turn off notification'}
-								isSelected={isSelected}
-								onValueChange={setIsSelected}
-							/>
-							<CustomSwitch
-								title={'test'}
-								description={'test'}
-							/>
-							<CustomSwitch
-								title={'test'}
-								description={'test'}
-							/>
-							{/* <Separator /> */}
-							<Spacer y={2} />
-							<p>Data Table</p>
-							<InfoDisplay info={info} />
+							<ScrollShadow
+								hideScrollBar
+								className='flex h-full flex-col gap-2'
+							>
+								<p>How did you get here?</p>
+								<Spacer y={2} />
+								<Button onClick={fetchData}>
+									Check Backend
+								</Button>
+								<Spacer y={2} />
+								<CustomSwitch
+									title={'Notification Controler'}
+									description={
+										'Turn On / Turn off notification'
+									}
+									isSelected={isSelected}
+									onValueChange={setIsSelected}
+								/>
+								<CustomSwitch
+									title={'test'}
+									description={'test'}
+								/>
+								<CustomSwitch
+									title={'test'}
+									description={'test'}
+								/>
+								{/* <Separator /> */}
+								<Spacer y={2} />
+								<p>Data Table</p>
+								<Spacer y={2} />
+								<InfoDisplay info={info} />
+							</ScrollShadow>
 						</ModalBody>
 						<ModalFooter className='mb-2 flex gap-4'>
 							<Button
@@ -252,6 +267,10 @@ const InfoDisplay: React.FC<InfoProps> = ({ info }) => {
 					<TableCell>IP</TableCell>
 					<TableCell>{info?.ip || 'N/A'}</TableCell>
 				</TableRow>
+				<TableRow key='app_version'>
+					<TableCell>StarOwl Version</TableCell>
+					<TableCell>{packageJson.version || 'N/A'}</TableCell>
+				</TableRow>
 			</TableBody>
 		</Table>
 	)
@@ -267,21 +286,15 @@ const useDebugModal = (
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			setPressedKeys((prev) => new Set([...prev, event.key]))
-
-			if (pressedKeys.has('h')) {
-				//&& pressedKeys.has('p')
-				setIsOpen(true)
-			}
-
-			if (event.altKey && event.key === 'f') {
-				setIsOpen(!isOpen)
-			}
 		}
 
 		const handleKeyUp = (event: KeyboardEvent) => {
 			setPressedKeys((prev) => {
 				const newSet = new Set([...prev])
 				newSet.delete(event.key)
+				if (pressedKeys.has('h') && pressedKeys.has('p')) {
+					setIsOpen(true)
+				}
 				return newSet
 			})
 		}

@@ -24,6 +24,8 @@ interface Props {
 const App: React.FC<Props> = ({ Component, pageProps }) => {
 	const router = useRouter()
 
+	const excludedPaths = ['/particles', '/404', '/welcome']
+
 	return (
 		<React.Fragment>
 			<Head>
@@ -65,8 +67,7 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 						className={`flex pb-24 md:pb-0 xl:justify-center xl:gap-6`}
 					>
 						<NotificationProvider>
-							{router.pathname !== '/particles' &&
-							router.pathname !== '/404' ? (
+							{!excludedPaths.includes(router.pathname) ? (
 								<React.Fragment>
 									<Nav activeItem={router.pathname} />
 									<NavMobile />
@@ -78,8 +79,7 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 							key={router.asPath}
 							{...pageProps}
 						/>
-						{router.pathname !== '/particles' &&
-						router.pathname !== '/404' ? (
+						{!excludedPaths.includes(router.pathname) ? (
 							<Aside />
 						) : null}
 					</div>
