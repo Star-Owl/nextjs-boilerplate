@@ -14,6 +14,7 @@ function seededRandom(seed) {
 
 const CanvasSpace = ({ size, speed, color, count }) => {
 	const appRef = useRef(null)
+	const pixiApp = useRef(null)
 
 	useEffect(() => {
 		const app = new PIXI.Application({
@@ -23,15 +24,24 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 			antialias: true,
 		})
 
-		appRef.current.appendChild(app.view)
+		const handleResize = () => {
+			if (app.renderer) {
+				app.renderer.resize(window.innerWidth, window.innerHeight)
+			}
+		}
 
-		window.addEventListener('resize', () => {
-			app.renderer.resize(window.innerWidth, window.innerHeight)
-		})
+		window.addEventListener('resize', handleResize)
+
+		if (app && app.renderer && appRef.current) {
+			appRef.current.appendChild(app.view)
+		} else {
+			return
+		}
 
 		class Star extends PIXI.Graphics {
-			constructor(x, y) {
+			constructor(x, y, shouldGlow = false) {
 				super()
+				this.shouldGlow = shouldGlow
 				this.initialize(x, y)
 			}
 
@@ -42,7 +52,7 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 				this.speedX = (seededRandom(Date.now() + 2) - 0.5) * speed
 				this.speedY = (seededRandom(Date.now() + 3) - 0.5) * speed
 
-				this.alpha = 0.33
+				this.alpha = this.shouldGlow ? 1 : 0.33
 
 				this.fadeDirection = seededRandom(Date.now()) > 0.5 ? -1 : 1
 				this.fadeMinAlpha = seededRandom(Date.now())
@@ -52,6 +62,18 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 				this.fadeDelay = Math.floor(
 					seededRandom(Date.now()) * this.fadeDelayMax,
 				)
+
+				if (this.shouldGlow) {
+					const glow = new GlowFilter({
+						color: 0xffffff,
+						distance: 15,
+						outerStrength: 5,
+						innerStrength: 1,
+						quality: 1,
+					})
+
+					this.filters = [glow]
+				}
 
 				this.beginFill(color)
 				this.drawCircle(0, 0, this.radius)
@@ -276,7 +298,7 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 		for (let i = 0; i < count; i++) {
 			const x = random(seededRandom(Date.now()), app.screen.width)
 			const y = random(seededRandom(Date.now()), app.screen.height)
-			stars.push(new Star(x, y))
+			stars.push(new Star(x, y, Math.random() > 0.98))
 		}
 
 		app.ticker.add(() => {
@@ -284,6 +306,7 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 		})
 
 		return () => {
+			window.removeEventListener('resize', handleResize)
 			app.destroy(true)
 		}
 	}, [size, speed, color, count])

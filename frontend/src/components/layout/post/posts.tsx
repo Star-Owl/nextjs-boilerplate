@@ -82,7 +82,7 @@ export const SocialCounters = () => {
 									/>
 								</Button>
 								<AnimatedNumber
-									className='transition-transform-colors group-hover:text-warning-200'
+									className='normal-nums transition-transform-colors group-hover:text-warning-200'
 									value={123}
 								/>
 							</div>
@@ -110,7 +110,7 @@ export const SocialCounters = () => {
 									/>
 								</Button>
 								<AnimatedNumber
-									className='transition-transform-colors group-hover:text-accent-600'
+									className='normal-nums transition-transform-colors group-hover:text-accent-600'
 									value={1_234}
 								/>
 							</div>
@@ -139,7 +139,7 @@ export const SocialCounters = () => {
 								</Button>
 								<span>
 									<AnimatedNumber
-										className='transition-transform-colors group-hover:text-success-500'
+										className='normal-nums transition-transform-colors group-hover:text-success-500'
 										value={12_345}
 									/>
 								</span>

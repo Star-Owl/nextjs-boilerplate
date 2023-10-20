@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '../button'
-import { Chip } from '@nextui-org/react'
+import { Avatar, Chip } from '@nextui-org/react'
 import UserInfo from './UserInfo'
 import {
 	ArrowBack,
@@ -132,7 +132,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 							className='flex cursor-pointer flex-col items-center space-y-1 rounded-lg p-2 transition-colors hover:bg-black/[.12]'
 							onClick={showFollowers}
 						>
-							<span className='pointer-events-none font-bold'>
+							<span className='pointer-events-none font-bold normal-nums'>
 								{FormatNumber(followers)}
 							</span>
 							<span className='pointer-events-none text-white/[.60]'>
@@ -143,7 +143,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 							className='flex cursor-pointer flex-col items-center space-y-1 rounded-lg p-2 transition-colors hover:bg-black/[.12]'
 							onClick={showFollowing}
 						>
-							<span className='pointer-events-none font-bold'>
+							<span className='pointer-events-none font-bold normal-nums'>
 								{FormatNumber(following)}
 							</span>
 							<span className='pointer-events-none text-white/[.60]'>
@@ -170,10 +170,18 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 					</div>
 				</nav>
 				<figure className='flex w-max'>
-					<img
+					<Avatar
 						src={profileImage}
 						alt='Profile'
-						className='h-20 w-20 rounded-full'
+						showFallback
+						fallback={
+							<OutlineUser
+								size={32}
+								className={`text-white`}
+								fill='currentColor'
+							/>
+						}
+						className='h-20 w-20 rounded-full bg-black/20 backdrop-blur-lg'
 					/>
 					{/* <div className='flex flex-col'>
 						<UserInfo size='large' />
@@ -182,7 +190,10 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 					</div> */}
 				</figure>
 				<footer className='flex w-full flex-col'>
-					<UserInfo size='large' />
+					<UserInfo
+						size='lg'
+						variant='opacity'
+					/>
 					<div className='mt-2 flex items-baseline justify-between'>
 						<div className='flex space-x-2'>
 							{links?.map((link, index) => {

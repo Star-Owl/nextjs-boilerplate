@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-const { nextui } = require('@nextui-org/react')
+import { nextui } from '@nextui-org/react'
 
 const config: Config = {
 	content: [
@@ -30,11 +30,9 @@ const config: Config = {
 			},
 			colors: {
 				// Background Colors
-				'primary-dark': 'hsl(215, 32%, 10%)',
-				'primary-lighter': 'hsl(213, 32%, 12%)',
-				'primary-badge': 'hsl(213, 30%, 15%)',
-				'primary-badge-opacity': 'hsla(213, 30%, 15%, 0.87)',
-				'primary-lighter-hover': 'hsl(213, 30%, 15%)',
+				'primary-dark': 'hsl(220, 8%, 7%)',
+				'primary-lighter': 'hsl(220, 8%, 9%)',
+				'primary-badge': 'hsl(220, 8%, 11%)',
 				// Text Colors
 				'white-50': 'hsl(0, 0%, 100%)',
 				'white-100': 'hsl(0, 0%, 94%)',
@@ -166,7 +164,7 @@ const config: Config = {
 	},
 	plugins: [
 		//require('@tailwindcss/typography'),
-		require('@tailwindcss/aspect-ratio'),
+		//require('@tailwindcss/aspect-ratio'),
 		nextui({
 			layout: {}, // common layout options
 			themes: {

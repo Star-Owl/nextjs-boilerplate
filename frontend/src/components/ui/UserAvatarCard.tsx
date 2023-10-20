@@ -58,7 +58,7 @@ const UserAvatarCard: FunctionComponent<Props> = ({
 			) : null}
 			<div className='flex flex-1 gap-4 overflow-hidden'>
 				<div className='flex h-full flex-col justify-center overflow-hidden'>
-					<UserInfo />
+					<UserInfo size='xs' />
 				</div>
 			</div>
 		</React.Fragment>

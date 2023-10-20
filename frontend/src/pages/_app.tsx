@@ -15,6 +15,7 @@ import NavMobile from '@/components/layout/nav-mobile'
 import { Toaster } from '@/components/ui/toaster'
 import DebugMenuModal from '@/components/modals/DegbugModal'
 import { NotificationProvider } from 'src/contexts/NotificationContext'
+import CanvasSpace from '@/lib/ConvasSpacev2'
 
 interface Props {
 	Component: React.ComponentType<any>
