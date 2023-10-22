@@ -16,7 +16,6 @@ import { Toaster } from '@/components/molecule/toaster'
 import DebugMenuModal from '@/components/organism/modals/DegbugModal'
 import { NotificationProvider } from 'src/contexts/NotificationContext'
 import { ThemeProvider } from 'src/contexts/ThemeContext'
-import { Provider, connect, ConnectedProps } from 'react-redux'
 
 interface Props {
 	Component: React.ComponentType<any>

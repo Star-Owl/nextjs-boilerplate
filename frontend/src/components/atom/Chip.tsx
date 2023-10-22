@@ -70,10 +70,7 @@ const UserBadge: FunctionComponent<Props> = ({
 		// 	}}
 		// >
 		<a
-			className={cn(
-				badgeBaseVariants({ size, link, variant }),
-				'w-fit text-inherit',
-			)}
+			className={cn(badgeBaseVariants({ size, link, variant }), 'w-fit')}
 			href={url}
 		>
 			{userID}

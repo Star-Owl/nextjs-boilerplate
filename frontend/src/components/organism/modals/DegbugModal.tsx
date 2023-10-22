@@ -89,10 +89,10 @@ const DebugMenuModal = () => {
 								className='flex h-full flex-col gap-2'
 							>
 								<p>How did you get here?</p>
-								<Spacer y={2} />
-								<Button onClick={fetchData}>
+								{/* <Spacer y={2} /> */}
+								{/* <Button onClick={fetchData}>
 									Check Backend
-								</Button>
+								</Button> */}
 								<Spacer y={2} />
 								<CustomSwitch
 									title={'Notification Controller'}
@@ -209,14 +209,14 @@ const CustomSwitch: React.FC<CustomSwitchProps> = ({
 				base: cn(
 					'inline-flex flex-row-reverse w-full max-w-full bg-primary-lighter items-center',
 					'justify-between cursor-pointer rounded-2xl gap-2 p-4 border-2 border-transparent',
-					'data-[selected=true]:border-primary',
+					'data-[selected=true]:border-accent-600',
 				),
 				wrapper: cn(
-					'p-0 h-4 overflow-visible bg-[#273648]',
+					'p-0 h-4 overflow-visible bg-white-500',
 					'group-data-[selected=true]:bg-accent-600',
 				),
 				thumb: cn(
-					'w-6 h-6 border-2 shadow-lg border-[#273648] bg-primary-dark',
+					'w-6 h-6 border-2 shadow-lg border-white-500 bg-primary-dark',
 					'group-data-[hover=true]:border-accent',
 					'group-data-[selected=true]:ml-4 group-data-[selected=true]:border-accent-600',
 					'group-data-[pressed=true]:w-6',

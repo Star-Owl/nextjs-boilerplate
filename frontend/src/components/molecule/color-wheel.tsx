@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC } from 'react'
 
 const HueCircle: FC = () => {
-	const savedHue = localStorage.getItem('savedHue')
+	const savedHue = localStorage.getItem('accentColor-hue')
 	const initialHue = savedHue ? parseInt(savedHue, 10) : 215
 
 	const [hue, setHue] = useState(initialHue)
@@ -31,7 +31,7 @@ const HueCircle: FC = () => {
 			'--accent-hue',
 			hue.toString(),
 		)
-		localStorage.setItem('savedHue', hue.toString())
+		localStorage.setItem('accentColor-hue', Math.round(hue).toString())
 	}
 
 	const handleMouseUp = (e: React.MouseEvent<SVGSVGElement>) => {

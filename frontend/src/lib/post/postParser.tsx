@@ -67,8 +67,8 @@ type SegmentClassesType = {
 
 const segmentClasses: Partial<SegmentClassesType> = {
 	hashtag:
-		'text-blue-500 hover:text-blue-600 hover:underline transition-colors',
-	url: 'text-blue-500 hover:text-blue-600 hover:underline transition-colors',
+		'text-accent-500 hover:text-accent-600 hover:underline transition-colors',
+	url: 'text-accent-500 hover:text-accent-600 hover:underline transition-colors',
 	bold: 'font-bold',
 	italics: 'italic',
 	underline: 'underline',
