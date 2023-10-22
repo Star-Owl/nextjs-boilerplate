@@ -1,4 +1,4 @@
-import Posts from '@/components/layout/post/posts'
+import Posts from '@/components/organism/posts'
 import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
 import { generateSections } from '@/lib/post/generateSections'
 import { getSession } from 'next-auth/react'

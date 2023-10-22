@@ -1,9 +1,12 @@
 import React from 'react'
-import { Button } from '../button'
+import { Button } from '../atom/button'
 import { Avatar, Chip } from '@nextui-org/react'
-import UserInfo from './UserInfo'
+import UserInfo from '../molecule/UserInfo'
 import {
+	Aries,
 	ArrowBack,
+	Cancer,
+	FillStar,
 	OutlineBell,
 	OutlineLink,
 	OutlineMessage,
@@ -16,6 +19,7 @@ import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Tooltip, ScrollShadow } from '@nextui-org/react'
+import { Icon } from 'next/dist/lib/metadata/types/metadata-types'
 
 type SpecialIcon =
 	| 'facebook'
@@ -34,6 +38,20 @@ type SpecialBadgeType =
 	| 'community'
 	| 'zodiac'
 	| 'basic'
+
+type ZodiacSignType =
+	| 'Aries'
+	| 'Taurus'
+	| 'Gemini'
+	| 'Cancer'
+	| 'Leo'
+	| 'Virgo'
+	| 'Libra'
+	| 'Scorpio'
+	| 'Sagittarius'
+	| 'Capricorn'
+	| 'Aquarius'
+	| 'Pisces'
 
 interface LinksProps {
 	url: string
@@ -191,6 +209,8 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 				</figure>
 				<footer className='flex w-full flex-col'>
 					<UserInfo
+						displayName={displayName}
+						userID={userID}
 						size='lg'
 						variant='opacity'
 					/>
@@ -261,8 +281,40 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 }
 
 const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
+	const getZodiacIcon = (zodiacSign: ZodiacSignType) => {
+		switch (zodiacSign) {
+			case 'Aries':
+				return <Aries size={24} />
+			case 'Taurus':
+				return <OutlineLink size={24} />
+			case 'Gemini':
+				return <OutlineLink size={24} />
+			case 'Cancer':
+				return <Cancer size={24} />
+			case 'Leo':
+				return <OutlineLink size={24} />
+			case 'Virgo':
+				return <OutlineLink size={24} />
+			case 'Libra':
+				return <OutlineLink size={24} />
+			case 'Scorpio':
+				return <OutlineLink size={24} />
+			case 'Sagittarius':
+				return <OutlineLink size={24} />
+			case 'Capricorn':
+				return <OutlineLink size={24} />
+			case 'Aquarius':
+				return <OutlineLink size={24} />
+			case 'Pisces':
+				return <OutlineLink size={24} />
+			default:
+				return null
+		}
+	}
+
 	const getSpecialBadgeProperties = (
 		type: SpecialBadgeType,
+		zodiacSign?: ZodiacSignType,
 	): { color?: string; icon?: React.ReactNode } => {
 		switch (type) {
 			case 'bday':
@@ -283,7 +335,7 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
 			case 'staruser':
 				return {
 					color: 'text-warning-200',
-					icon: <OutlineLink size={24} />,
+					icon: <FillStar size={24} />,
 				}
 			case 'community':
 				return {
@@ -292,7 +344,7 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
 				}
 			case 'zodiac':
 				return {
-					icon: <OutlineLink size={24} />,
+					icon: zodiacSign ? getZodiacIcon(zodiacSign) : null,
 				}
 			default:
 				return {}
@@ -308,8 +360,32 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
 				//className='max-h-[300px] max-w-[400px]'
 			>
 				{badges?.map((badge, index) => {
+					const isZodiacSign = (
+						sign: string,
+					): sign is ZodiacSignType => {
+						const zodiacSigns: ZodiacSignType[] = [
+							'Aries',
+							'Taurus',
+							'Gemini',
+							'Cancer',
+							'Leo',
+							'Virgo',
+							'Libra',
+							'Scorpio',
+							'Sagittarius',
+							'Capricorn',
+							'Aquarius',
+							'Pisces',
+						]
+						return zodiacSigns.includes(sign as ZodiacSignType)
+					}
 					const { color, icon } = badge.type
-						? getSpecialBadgeProperties(badge.type)
+						? getSpecialBadgeProperties(
+								badge.type,
+								isZodiacSign(badge.content)
+									? badge.content
+									: undefined,
+						  )
 						: { color: badge.color, icon: null }
 					return (
 						<Chip

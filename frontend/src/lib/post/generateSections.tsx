@@ -60,7 +60,8 @@ export function generateSections(count: number, constantAvatarSrc: string) {
 
 			hashtag: #hoot
 			link: https://starowl.social
-			mention: @starowl_social
+			mention: @starowl_social @test
+			@userID
 			underline: __underline__
 			bold: **bold**
 			italic: *italic*

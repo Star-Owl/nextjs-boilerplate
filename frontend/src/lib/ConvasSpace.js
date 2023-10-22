@@ -16,8 +16,20 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 		const app = new PIXI.Application({
 			width: window.innerWidth,
 			height: window.innerHeight,
-			backgroundColor: 0x000000,
+			backgroundColor: 0x121923,
 			antialias: true,
+		})
+
+		app.ticker.add(() => {
+			const timestamp = Date.now()
+
+			for (let i = 0; i < particles.length; i++) {
+				if (particles[i] instanceof Comet && timestamp % 100 === 0) {
+					// możesz dostosować wartość 100
+					particles[i].respawn()
+				}
+				particles[i].update()
+			}
 		})
 
 		app.view.addEventListener('mousedown', (e) => {
@@ -71,53 +83,84 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 				this.fadeSpeed = random(0.005, 0.02)
 				this.fadeDelayMax = random(1000, 5000) // Opóźnienie mrugania
 				this.fadeDelay = Math.floor(random(0, this.fadeDelayMax))
+				this.spawn(x, y)
 			}
 
-			applyBlackHoleForce() {
-				console.log('Applying black hole force')
-				console.log(isBlackHoleActive)
-				if (!isBlackHoleActive) {
-					this.speedX += (this.originalSpeedX - this.speedX) * 0.05
-					this.speedY += (this.originalSpeedY - this.speedY) * 0.05
-					return
-				}
-
-				const dx = blackHolePosition.x - this.x
-				const dy = blackHolePosition.y - this.y
-				const dist = Math.sqrt(dx * dx + dy * dy)
-
-				if (dist < 1) {
-					this.x = random(0, app.screen.width)
-					this.y = random(0, app.screen.height)
-					return
-				}
-
-				const forceMagnitude = 6 / (dist * dist)
-				const MAX_FORCE = 0.5
-
-				const force = Math.min(forceMagnitude, MAX_FORCE)
-
-				this.speedX += dx * force
-				this.speedY += dy * force
+			spawn(x, y) {
+				this.x = x
+				this.y = y
+				this.size = random(size, size * 0.5)
+				this.speedX = random(-speed, speed)
+				this.speedY = random(-speed, speed)
 			}
+
+			// TODO: Fix black hole functionality
+
+			// applyBlackHoleForce() {
+			// 	console.log('Applying black hole force')
+			// 	console.log(isBlackHoleActive)
+			// 	if (!isBlackHoleActive) {
+			// 		this.speedX += (this.originalSpeedX - this.speedX) * 0.05
+			// 		this.speedY += (this.originalSpeedY - this.speedY) * 0.05
+			// 		return
+			// 	}
+
+			// 	const dx = blackHolePosition.x - this.x
+			// 	const dy = blackHolePosition.y - this.y
+			// 	const dist = Math.sqrt(dx * dx + dy * dy)
+
+			// 	if (dist < 1) {
+			// 		this.x = random(0, app.screen.width)
+			// 		this.y = random(0, app.screen.height)
+			// 		return
+			// 	}
+
+			// 	const forceMagnitude = 6 / (dist * dist)
+			// 	const MAX_FORCE = 0.5
+
+			// 	const force = Math.min(forceMagnitude, MAX_FORCE)
+
+			// 	this.speedX += dx * force
+			// 	this.speedY += dy * force
+			// }
 
 			update() {
 				this.x += this.speedX
 				this.y += this.speedY
 
+				const buffer = 100
+
 				if (
-					this.x < 0 ||
-					this.x > app.screen.width ||
-					this.y < 0 ||
-					this.y > app.screen.height
+					this.x < -buffer ||
+					this.x > app.screen.width + buffer ||
+					this.y < -buffer ||
+					this.y > app.screen.height + buffer
 				) {
-					if (this.x < 0 || this.x > app.screen.width) {
-						this.speedX = -this.speedX
-					}
-					if (this.y < 0 || this.y > app.screen.height) {
-						this.speedY = -this.speedY
-					}
+					this.respawn()
 				}
+
+				const maxSpeed = this instanceof Comet ? 15 : 5
+				const speed = Math.sqrt(this.speedX ** 2 + this.speedY ** 2)
+
+				if (speed > maxSpeed) {
+					this.speedX = (this.speedX / speed) * maxSpeed
+					this.speedY = (this.speedY / speed) * maxSpeed
+				}
+
+				//TODO: bounce from walls
+				// if (
+				// 	this.x < 0 ||
+				// 	this.x > app.screen.width ||
+				// 	this.y < 0 ||
+				// 	this.y > app.screen.height
+				// ) {
+				// 	if (this.x < 0 || this.x > app.screen.width) {
+				// 		this.speedX = -this.speedX
+				// 	}
+				// 	if (this.y < 0 || this.y > app.screen.height) {
+				// 		this.speedY = -this.speedY
+				// 	}
+				// }
 
 				if (this.fadeDelay <= 0) {
 					this.alpha -= this.fadeSpeed
@@ -133,6 +176,17 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 				} else {
 					this.fadeDelay--
 				}
+			}
+
+			respawn() {
+				this.x = random(0, app.screen.width)
+				this.y = random(0, app.screen.height)
+
+				this.speedX = random(-speed, speed)
+				this.speedY = random(-speed, speed)
+
+				this.speedX = this.originalSpeedX
+				this.speedY = this.originalSpeedY
 			}
 
 			switchFadeDirection() {
@@ -172,8 +226,45 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 				// this.filters = [glow]
 			}
 
+			respawn() {
+				const side = Math.floor(random(0, 4))
+				switch (side) {
+					case 0: // left
+						this.x = -100
+						this.y = random(0, app.screen.height)
+						break
+					case 1: // top
+						this.x = random(0, app.screen.width)
+						this.y = -100
+						break
+					case 2: // right
+						this.x = app.screen.width + 100
+						this.y = random(0, app.screen.height)
+						break
+					case 3: // bottom
+						this.x = random(0, app.screen.width)
+						this.y = app.screen.height + 100
+						break
+				}
+
+				this.speedX = random(-5, 5)
+				this.speedY = random(-5, 5)
+
+				this.positions = []
+			}
+
 			update() {
 				super.update()
+
+				const extendedBuffer = 300
+				if (
+					this.x < -extendedBuffer ||
+					this.x > app.screen.width + extendedBuffer ||
+					this.y < -extendedBuffer ||
+					this.y > app.screen.height + extendedBuffer
+				) {
+					this.respawn()
+				}
 
 				this.positions.push({ x: this.x, y: this.y })
 				while (this.positions.length > this.maxTrailLength) {
@@ -213,34 +304,35 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 			particles.push(this)
 		}
 
-		Particle.prototype.applyBlackHoleForce = function () {
-			if (isBlackHoleActive) {
-				const dx = blackHolePosition.x - this.x
-				const dy = blackHolePosition.y - this.y
-				const dist = Math.sqrt(dx * dx + dy * dy)
+		// TODO: black hole functionality
+		// Particle.prototype.applyBlackHoleForce = function () {
+		// 	if (isBlackHoleActive) {
+		// 		const dx = blackHolePosition.x - this.x
+		// 		const dy = blackHolePosition.y - this.y
+		// 		const dist = Math.sqrt(dx * dx + dy * dy)
 
-				const G = 0.3
-				const forceMagnitude = G / (dist * dist)
+		// 		const G = this instanceof Comet ? 0.1 : 0.3
+		// 		const forceMagnitude = G / (dist * dist)
 
-				const ax = forceMagnitude * (dx / dist)
-				const ay = forceMagnitude * (dy / dist)
+		// 		const ax = forceMagnitude * (dx / dist)
+		// 		const ay = forceMagnitude * (dy / dist)
 
-				this.speedX += ax
-				this.speedY += ay
-			} else {
-				// Interpoluj prędkość do pierwotnej wartości
-				this.speedX = this.speedX * 0.9 + this.originalSpeedX * 0.1
-				this.speedY = this.speedY * 0.9 + this.originalSpeedY * 0.1
+		// 		this.speedX += ax
+		// 		this.speedY += ay
+		// 	} else {
+		// 		// Interpoluj prędkość do pierwotnej wartości
+		// 		this.speedX = this.speedX * 0.9 + this.originalSpeedX * 0.1
+		// 		this.speedY = this.speedY * 0.9 + this.originalSpeedY * 0.1
 
-				// Jeśli prędkość jest wystarczająco bliska pierwotnej wartości, ustaw flagę na false
-				if (
-					Math.abs(this.speedX - this.originalSpeedX) < 0.01 &&
-					Math.abs(this.speedY - this.originalSpeedY) < 0.01
-				) {
-					this.isBeingPulled = false
-				}
-			}
-		}
+		// 		// Jeśli prędkość jest wystarczająco bliska pierwotnej wartości, ustaw flagę na false
+		// 		if (
+		// 			Math.abs(this.speedX - this.originalSpeedX) < 0.01 &&
+		// 			Math.abs(this.speedY - this.originalSpeedY) < 0.01
+		// 		) {
+		// 			this.isBeingPulled = false
+		// 		}
+		// 	}
+		// }
 
 		const particles = []
 
@@ -248,7 +340,7 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 			const x = random(0, app.screen.width)
 			const y = random(0, app.screen.height)
 
-			if (Math.random() < 0.015) {
+			if (Math.random() < 0.003) {
 				particles.push(new Comet(x, y))
 			} else {
 				particles.push(new Particle(x, y))
@@ -257,7 +349,6 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 
 		app.ticker.add(() => {
 			for (let i = 0; i < particles.length; i++) {
-				//particles[i].applyBlackHoleForce()
 				particles[i].update()
 			}
 		})
@@ -267,7 +358,12 @@ const CanvasSpace = ({ size, speed, color, count }) => {
 		}
 	}, [size, speed, color, count])
 
-	return <div ref={appRef} />
+	return (
+		<div
+			className='absolute'
+			ref={appRef}
+		/>
+	)
 }
 
 export default CanvasSpace

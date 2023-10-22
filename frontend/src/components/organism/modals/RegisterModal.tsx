@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { toast } from '@/hooks/use-toast'
-import { Button } from '../ui/button'
+import { Button } from '../../atom/button'
 import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
 import {
 	OutlineClose,
@@ -24,7 +24,7 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from '../ui/form'
+} from '../../atom/form'
 import {
 	Modal,
 	ModalContent,

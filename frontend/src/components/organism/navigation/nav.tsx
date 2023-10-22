@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import { useRouter } from 'next/router'
 import { useSession, signIn, signOut } from 'next-auth/react'
-import NavItem from './nav-item'
+import NavItem from '../../molecule/nav-item'
 import LoginModal from '../modals/LoginModal'
 import RegisterModal from '../modals/RegisterModal'
 import {
@@ -28,8 +28,8 @@ import {
 	OutlineUser,
 	OutlineMore,
 } from 'src/icons/Icons'
-import { Button } from '../ui/button'
-import UserInfo from '../ui/user/UserInfo'
+import { Button } from '../../atom/button'
+import UserInfo from '../../molecule/UserInfo'
 import { NotificationContext } from 'src/contexts/NotificationContext'
 
 interface Props {
@@ -146,10 +146,10 @@ const Nav: FunctionComponent<Props> = ({}) => {
 
 	return (
 		<nav
-			className={`h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end justify-between py-[2.5rem] pl-10 pr-6 md:flex lg:ml-0 xl:ml-0 xl:max-w-[16rem] xl:items-start xl:px-0`}
+			className={`h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end justify-between py-[2.5rem] pl-10 pr-6 md:flex lg:ml-0 xl:ml-0 xl:max-w-[17rem] xl:items-start xl:px-0`}
 		>
-			<ScrollShadow className='flex h-full flex-col justify-between overflow-auto px-4 lg:w-full lg:px-0'>
-				<section className='rounded-2x flex w-full flex-col gap-6'>
+			<ScrollShadow className='flex h-full flex-col justify-between overflow-auto px-2 lg:w-full lg:px-0'>
+				<section className='rounded-2x flex w-full flex-col gap-6 px-2'>
 					{/* bg-primary-lighter p-4 */}
 					<ul className='flex flex-col items-end gap-2 xl:px-0'>
 						{NavLinkItem.map(({ active, href, text }, i) => (
@@ -298,7 +298,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 							windowWidth < 1366 ? null : (
 								<React.Fragment>
 									<div className='flex h-full flex-1 flex-col justify-around overflow-hidden'>
-										<UserInfo />
+										<UserInfo userID='@hasiradoo' />
 									</div>
 									<Button
 										variant={'ghost'}

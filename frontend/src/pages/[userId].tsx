@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo'
 import type { FunctionComponent } from 'react'
 import React, { useEffect } from 'react'
 
-import { ProfileCover, ProfileDetails } from '@/components/ui/user/Profile'
+import { ProfileCover, ProfileDetails } from '@/components/template/Profile'
 import useUser from '@/hooks/useUser'
 import { useRouter } from 'next/router'
 import { getSession } from 'next-auth/react'
@@ -74,8 +74,8 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 							profileImage={
 								'https://cdn.discordapp.com/avatars/569975072417251378/2113775a498da6818a3bdf75af82f40c.webp?size=128'
 							}
-							displayName='John Doe'
-							userID='john_doe_123'
+							displayName='Hasira 🥃🪴'
+							userID='@Hasiradoo'
 							coverImage={
 								'https://images.unsplash.com/photo-1671723521246-a6710cfafc70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80'
 							}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from '../button'
+import { Button } from '../../atom/button'
 import { parsePost, renderParsedPost } from '@/lib/post/postParser'
 
 interface Props {

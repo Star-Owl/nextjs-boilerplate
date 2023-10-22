@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/atom/button'
 import CanvasSpace from '@/lib/ConvasSpacev2'
 import React, { useEffect, useState, FunctionComponent } from 'react'
 import { Logo, LogoText } from 'src/icons/Icons'

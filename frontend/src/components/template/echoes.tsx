@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/atom/button'
 import PostHeader from '@/components/ui/post/header'
 import PostContent from '@/components/ui/post/main'
 import { Avatar, AvatarGroup } from '@nextui-org/react'

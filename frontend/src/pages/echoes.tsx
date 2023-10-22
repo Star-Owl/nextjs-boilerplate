@@ -1,4 +1,4 @@
-import Echoes from '@/components/layout/post/echoes'
+import Echoes from '@/components/template/echoes'
 import useDeviceAndBrowser from '@/hooks/useDeviceAndBrowser'
 import { generateSections } from '@/lib/post/generateSections'
 import { getSession } from 'next-auth/react'

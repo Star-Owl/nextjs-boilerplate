@@ -1,31 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react'
-import UAParser from 'ua-parser-js'
-import axios from 'axios'
+import { apiEndpoint } from '@/frontend/config'
+import { toast } from '@/hooks/use-toast'
+import packageJson from '@/root/package.json'
 import {
 	Modal,
-	ModalContent,
-	ModalHeader,
 	ModalBody,
+	ModalContent,
 	ModalFooter,
+	ModalHeader,
 } from '@nextui-org/modal'
-import { Button } from '../ui/button'
-import { OutlineClose } from 'src/icons/Icons'
-import { Switch, cn } from '@nextui-org/react'
-import { NotificationContext } from 'src/contexts/NotificationContext'
-import { Separator } from '@/components/ui/separator'
-import { Spacer } from '@nextui-org/react'
+import { ScrollShadow, Spacer, Switch, cn } from '@nextui-org/react'
 import {
 	Table,
-	TableHeader,
 	TableBody,
-	TableColumn,
-	TableRow,
 	TableCell,
+	TableColumn,
+	TableHeader,
+	TableRow,
 } from '@nextui-org/table'
-import { toast } from '@/hooks/use-toast'
-import { apiEndpoint } from '@/frontend/config'
-import { ScrollShadow } from '@nextui-org/react'
-import packageJson from '@/root/package.json'
+import axios from 'axios'
+import React, { useContext, useEffect, useState } from 'react'
+import { NotificationContext } from 'src/contexts/NotificationContext'
+import { ThemeContext } from 'src/contexts/ThemeContext'
+import { OutlineClose } from 'src/icons/Icons'
+import UAParser from 'ua-parser-js'
+import { Button } from '../../atom/button'
+import HueCircle from '@/components/molecule/color-wheel'
 
 interface InfoData {
 	browser: string | undefined
@@ -37,9 +36,21 @@ interface InfoData {
 
 const DebugMenuModal = () => {
 	const context = useContext(NotificationContext)
-	if (!context) {
-		throw new Error('NotificationContext not provided')
+	if (!context) throw new Error('NotificationContext not provided')
+
+	const themeContext = useContext(ThemeContext)
+	if (!themeContext)
+		throw new Error('YourComponent must be used within a ThemeProvider')
+
+	const { isSecondaryTheme, toggleTheme, accentHue, setAccentHue } =
+		themeContext
+
+	const [tempAccentHue, setTempAccentHue] = useState(accentHue)
+
+	const handleSave = () => {
+		setAccentHue(tempAccentHue)
 	}
+
 	const { isSelected, setIsSelected } = context
 	const [isOpen, setIsOpen] = useState(false)
 	const [info, setInfo] = useState<InfoData | null>(null)
@@ -84,7 +95,7 @@ const DebugMenuModal = () => {
 								</Button>
 								<Spacer y={2} />
 								<CustomSwitch
-									title={'Notification Controler'}
+									title={'Notification Controller'}
 									description={
 										'Turn On / Turn off notification'
 									}
@@ -92,13 +103,26 @@ const DebugMenuModal = () => {
 									onValueChange={setIsSelected}
 								/>
 								<CustomSwitch
-									title={'test'}
-									description={'test'}
+									title={'Toggle Theme'}
+									description={
+										'Switch between primary and secondary themes'
+									}
+									isSelected={isSecondaryTheme}
+									onValueChange={toggleTheme}
 								/>
-								<CustomSwitch
-									title={'test'}
-									description={'test'}
-								/>
+								<div className='flex justify-center p-6'>
+									<HueCircle />
+								</div>
+
+								{/* <label htmlFor='accentHue'>Accent Hue:</label> */}
+								{/* <input
+									id='accentHue'
+									type='number'
+									value={accentHue}
+									onChange={(e) =>
+										setTempAccentHue(Number(e.target.value))
+									}
+								/> */}
 								{/* <Separator /> */}
 								<Spacer y={2} />
 								<p>Data Table</p>
@@ -113,7 +137,14 @@ const DebugMenuModal = () => {
 							>
 								Cancel
 							</Button>
-							<Button onClick={onClose}>Save</Button>
+							<Button
+								onClick={() => {
+									handleSave()
+									onClose()
+								}}
+							>
+								Save
+							</Button>
 						</ModalFooter>
 					</React.Fragment>
 				)}

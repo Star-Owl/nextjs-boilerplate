@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import SEO from 'nextseo.config'
@@ -9,13 +9,14 @@ import { Analytics } from '@vercel/analytics/react'
 import '@/styles/globals.css'
 import { NextWebVitalsMetric } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
-import Nav from '@/components/layout/nav'
-import Aside from '@/components/layout/aside'
-import NavMobile from '@/components/layout/nav-mobile'
-import { Toaster } from '@/components/ui/toaster'
-import DebugMenuModal from '@/components/modals/DegbugModal'
+import Nav from '@/components/organism/navigation/nav'
+import Aside from '@/components/organism/navigation/aside'
+import NavMobile from '@/components/organism/navigation/nav-mobile'
+import { Toaster } from '@/components/molecule/toaster'
+import DebugMenuModal from '@/components/organism/modals/DegbugModal'
 import { NotificationProvider } from 'src/contexts/NotificationContext'
-import CanvasSpace from '@/lib/ConvasSpacev2'
+import { ThemeProvider } from 'src/contexts/ThemeContext'
+import { Provider, connect, ConnectedProps } from 'react-redux'
 
 interface Props {
 	Component: React.ComponentType<any>
@@ -26,6 +27,14 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 	const router = useRouter()
 
 	const excludedPaths = ['/particles', '/404', '/welcome']
+
+	useEffect(() => {
+		const savedHue = localStorage.getItem('savedHue')
+
+		if (savedHue) {
+			document.documentElement.style.setProperty('--accent-hue', savedHue)
+		}
+	}, [])
 
 	return (
 		<React.Fragment>
@@ -64,27 +73,30 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 			<DefaultSeo {...SEO} />
 			<SessionProvider session={pageProps.session}>
 				<NextUIProvider>
-					<div
-						className={`flex pb-24 md:pb-0 xl:justify-center xl:gap-6`}
-					>
-						<NotificationProvider>
+					<ThemeProvider>
+						<div
+							className={`flex pb-24 md:pb-0 xl:justify-center xl:gap-6`}
+						>
+							<NotificationProvider>
+								{!excludedPaths.includes(router.pathname) ? (
+									<React.Fragment>
+										<Nav activeItem={router.pathname} />
+										<NavMobile />
+									</React.Fragment>
+								) : null}
+								<DebugMenuModal />
+							</NotificationProvider>
+							{/* <Provider store={store}></Provider> */}
+							<Component
+								key={router.asPath}
+								{...pageProps}
+							/>
 							{!excludedPaths.includes(router.pathname) ? (
-								<React.Fragment>
-									<Nav activeItem={router.pathname} />
-									<NavMobile />
-								</React.Fragment>
+								<Aside />
 							) : null}
-							<DebugMenuModal />
-						</NotificationProvider>
-						<Component
-							key={router.asPath}
-							{...pageProps}
-						/>
-						{!excludedPaths.includes(router.pathname) ? (
-							<Aside />
-						) : null}
-					</div>
-					<Toaster />
+						</div>
+						<Toaster />
+					</ThemeProvider>
 				</NextUIProvider>
 			</SessionProvider>
 			<Analytics />

@@ -1,6 +1,6 @@
-import Aside from '@/components/layout/aside'
-import Nav from '@/components/layout/nav'
-import NavMobile from '@/components/layout/nav-mobile'
+import Aside from '@/components/organism/navigation/aside'
+import Nav from '@/components/organism/navigation/nav'
+import NavMobile from '@/components/organism/navigation/nav-mobile'
 import Document, {
 	DocumentContext,
 	Head,

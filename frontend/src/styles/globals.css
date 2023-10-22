@@ -12,6 +12,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@450;600;700&family=Urbanist:wght@100;200;300;400;500;600;700;800&display=swap');
 
+:root {
+	--accent-hue: 215;
+}
+
 *,
 *::before,
 *::after {

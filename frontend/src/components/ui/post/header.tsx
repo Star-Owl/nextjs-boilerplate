@@ -1,11 +1,12 @@
-import UserAvatarCard from '@/components/ui/UserAvatarCard'
-import { Button } from '@/components/ui/button'
+import UserAvatarCard from '@/components/molecule/UserAvatarCard'
+import { Button } from '@/components/atom/button'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { FunctionComponent } from 'react'
 import { OutlineMore } from 'src/icons/Icons'
 
 interface Props {}
+
 const PostHeader: FunctionComponent<Props> = ({}) => {
 	return (
 		<header className='flex w-full justify-between gap-4'>

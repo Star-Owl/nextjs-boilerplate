@@ -1,5 +1,5 @@
 import { AnimatedNumber } from '@/components/ui/animated-number'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/atom/button'
 import PostHeader from '@/components/ui/post/header'
 import PostContent from '@/components/ui/post/main'
 import { Avatar, AvatarGroup } from '@nextui-org/react'
@@ -18,7 +18,7 @@ import {
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
-} from '@/components/ui/tooltip'
+} from '@/components/atom/tooltip'
 
 interface AvatarType {
 	id: string
@@ -66,7 +66,7 @@ const Posts: FunctionComponent<Props> = ({ posts }) => {
 export const SocialCounters = () => {
 	return (
 		<div className='flex w-full justify-between'>
-			<div className='flex flex-1 space-x-2'>
+			<div className='flex flex-1 space-x-2 text-white-500'>
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>

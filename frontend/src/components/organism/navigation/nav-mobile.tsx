@@ -3,7 +3,7 @@
 import Typography from '@mui/material/Typography'
 import { Avatar, Badge, Chip, Code, extendVariants } from '@nextui-org/react'
 import React, { FunctionComponent, ReactNode, useEffect, useState } from 'react'
-import { Button } from 'src/components/ui/button'
+import { Button } from '@/components/atom/button'
 
 import {
 	FillBell,
@@ -22,7 +22,7 @@ import {
 	OutlineSettings,
 	OutlineUser,
 } from 'src/icons/Icons'
-import NavItem from './nav-item'
+import NavItem from '../../molecule/nav-item'
 import router, { useRouter } from 'next/router'
 
 const currentUser = true

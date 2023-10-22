@@ -4,7 +4,8 @@ import { Avatar, Badge, Chip } from '@nextui-org/react'
 import React from 'react'
 import { OutlineUser } from 'src/icons/Icons'
 import Twemoji from 'react-twemoji'
-import UserInfo from './user/UserInfo'
+import UserInfo from './UserInfo'
+import { getDisplayName } from 'next/dist/shared/lib/utils'
 
 interface Props {
 	avatar?: boolean
@@ -57,8 +58,13 @@ const UserAvatarCard: FunctionComponent<Props> = ({
 				/>
 			) : null}
 			<div className='flex flex-1 gap-4 overflow-hidden'>
-				<div className='flex h-full flex-col justify-center overflow-hidden'>
-					<UserInfo size='xs' />
+				<div className='flex h-full flex-col justify-evenly overflow-hidden'>
+					<UserInfo
+						displayName='⭐️ StarOwl 🦉 Social'
+						userID={'@starowl.social'}
+						size='sm'
+						link
+					/>
 				</div>
 			</div>
 		</React.Fragment>

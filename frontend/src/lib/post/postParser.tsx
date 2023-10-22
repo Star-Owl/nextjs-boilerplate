@@ -1,5 +1,6 @@
 import React from 'react'
 import { Code } from '@nextui-org/code'
+import UserBadge from '@/components/atom/Chip'
 
 type PostSegmentType =
 	| 'text'
@@ -26,7 +27,7 @@ const parsePost = (text: string): PostSegment[] => {
 	const matches = text.match(regex) || []
 	return matches.map((match): PostSegment => {
 		switch (true) {
-			case match.startsWith('@') && match.length > 1:
+			case match.startsWith('@') && match.length > 4:
 				return { type: 'mention', value: match }
 			case match.startsWith('#') && match.length > 1:
 				return { type: 'hashtag', value: match }
@@ -65,10 +66,9 @@ type SegmentClassesType = {
 }
 
 const segmentClasses: Partial<SegmentClassesType> = {
-	mention:
-		'w-fit cursor-pointer rounded-[.313rem] bg-white/[.06] px-[.376rem] py-[.188rem] text-sm text-white/[.60] transition-colors hover:bg-white/[.12] hover:text-white',
-	hashtag: 'text-blue-600',
-	url: 'text-blue-600',
+	hashtag:
+		'text-blue-500 hover:text-blue-600 hover:underline transition-colors',
+	url: 'text-blue-500 hover:text-blue-600 hover:underline transition-colors',
 	bold: 'font-bold',
 	italics: 'italic',
 	underline: 'underline',
@@ -88,12 +88,11 @@ const renderParsedPost = (
 		switch (type) {
 			case 'mention':
 				bufferElements.push(
-					<a
-						href={`https://example.com/${value.slice(1)}`}
-						className={segmentClasses.mention}
-					>
-						{value}
-					</a>,
+					<UserBadge
+						userID={value}
+						variant='accent'
+						url={`https://example.com/${value.slice(1)}`}
+					/>,
 				)
 				break
 			case 'hashtag':
