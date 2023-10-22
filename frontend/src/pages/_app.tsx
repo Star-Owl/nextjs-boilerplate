@@ -28,7 +28,7 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 	const excludedPaths = ['/particles', '/404', '/welcome']
 
 	useEffect(() => {
-		const savedHue = localStorage.getItem('savedHue')
+		const savedHue = localStorage.getItem('accentColor-hue')
 
 		if (savedHue) {
 			document.documentElement.style.setProperty('--accent-hue', savedHue)
