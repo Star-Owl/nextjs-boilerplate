@@ -126,9 +126,10 @@ const NavMobile: FunctionComponent<Props> = ({}) => {
 										href as keyof typeof inactiveIcons
 								  ]}
 							<span
-								className={`flex-none text-sm lg:text-lg xl:inline-flex ${
-									active ? 'font-bold' : 'font-medium'
-								}`}
+								className={`flex-none text-xs lg:text-lg xl:inline-flex`}
+								// ${
+								// 	active ? 'font-bold' : 'font-medium'
+								// }
 							>
 								{text}
 							</span>

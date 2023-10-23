@@ -15,7 +15,7 @@ interface Props {
 }
 
 const typographyVariants = cva(
-	'w-max overflow-hidden text-ellipsis whitespace-pre font-bold',
+	'w-fit overflow-hidden text-ellipsis whitespace-pre font-bold',
 	{
 		variants: {
 			variant: {

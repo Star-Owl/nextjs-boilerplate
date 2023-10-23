@@ -65,12 +65,12 @@ const Posts: FunctionComponent<Props> = ({ posts }) => {
 
 export const SocialCounters = () => {
 	return (
-		<div className='flex w-full justify-between'>
-			<div className='flex flex-1 space-x-2 text-white-500'>
+		<div className='flex w-full justify-between space-x-2'>
+			<div className='flex w-full flex-1 text-white-500 md:flex-initial'>
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<div className='group flex w-1/4 cursor-pointer items-center justify-start space-x-2 md:w-1/4 xl:w-1/5'>
+							<div className='group flex w-1/3 flex-1 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'>
 								<Button
 									className='transition-transform-colors group-hover:bg-warning-200/[.12]'
 									variant={'ghost'}
@@ -98,7 +98,7 @@ export const SocialCounters = () => {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<div className='group flex w-1/4 cursor-pointer items-center justify-start space-x-2 md:w-1/4 xl:w-1/5'>
+							<div className='group flex w-1/3 flex-1 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'>
 								<Button
 									className='transition-transform-colors group-hover:bg-accent-600/[.12]'
 									variant={'ghost'}
@@ -126,7 +126,7 @@ export const SocialCounters = () => {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<div className='group flex w-1/4 cursor-pointer items-center justify-start space-x-2 md:w-1/4 xl:w-1/5'>
+							<div className='group flex w-1/3 flex-1 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'>
 								<Button
 									className='transition-transform-colors group-hover:bg-success-500/[.12]'
 									variant={'ghost'}

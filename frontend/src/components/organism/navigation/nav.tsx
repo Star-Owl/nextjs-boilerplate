@@ -149,7 +149,7 @@ const Nav: FunctionComponent<Props> = ({}) => {
 			className={`h-device sticky top-0 ml-5 hidden max-w-[8rem] flex-1 flex-col items-end justify-between py-[2.5rem] pl-10 pr-6 md:flex lg:ml-0 xl:ml-0 xl:max-w-[17rem] xl:items-start xl:px-0`}
 		>
 			<ScrollShadow className='flex h-full flex-col justify-between overflow-auto px-2 lg:w-full lg:px-0'>
-				<section className='rounded-2x flex w-full flex-col gap-6 px-2'>
+				<section className='rounded-2x flex w-full flex-col gap-6 px-0 xl:px-2'>
 					{/* bg-primary-lighter p-4 */}
 					<ul className='flex flex-col items-end gap-2 xl:px-0'>
 						{NavLinkItem.map(({ active, href, text }, i) => (

@@ -63,10 +63,10 @@ const NavItem = ({
 					inline: 'max-w-fit justify-center', // max-w-fit Twitter not full width effect
 				},
 				size: {
-					default: `rounded-[.875rem] md:p-[1.125rem] xl:py-[.875rem] xl:pr-6 lg:pl-4`,
+					default: `space-y-1 rounded-[.875rem] md:p-[1.125rem] xl:py-[.875rem] xl:pr-6 lg:pl-4`,
 				},
 				active: {
-					true: 'md:bg-accent-600/[.12] md:text-accent-600',
+					true: 'md:text-white-50',
 					false: 'md:group-hover:bg-white/[.06] group-hover:text-white-50 text-white-500',
 				},
 			},
@@ -111,28 +111,25 @@ const NavItem = ({
 					<Badge className='h-fit'>New</Badge>
 				) : null} */}
 			</Link>
-			{windowWidth !== null ? (
-				windowWidth < 1366 ? null : (
-					<React.Fragment>
-						{href === '/' && hasNotification ? (
-							<Badge
-								className='h-fit rounded-lg !bg-accent-600 px-[.6250rem] py-[.3125rem] !font-regular'
-								variant={'secondary'}
-							>
-								New hoots
-							</Badge>
-						) : null}
-						{href === '/settings' ? (
-							<Badge
-								className='h-fit rounded-lg !bg-accent-600 px-[.6250rem] py-[.3125rem] !font-regular'
-								variant={'secondary'}
-							>
-								New
-							</Badge>
-						) : null}
-					</React.Fragment>
-				)
-			) : null}
+
+			<React.Fragment>
+				{href === '/' && hasNotification ? (
+					<Badge
+						className='hidden h-fit rounded-lg !bg-accent-600 px-[.6250rem] py-[.3125rem] !font-regular xl:flex'
+						variant={'secondary'}
+					>
+						New hoots
+					</Badge>
+				) : null}
+				{href === '/settings' ? (
+					<Badge
+						className='hidden h-fit rounded-lg !bg-accent-600 px-[.6250rem] py-[.3125rem] !font-regular xl:flex'
+						variant={'secondary'}
+					>
+						New
+					</Badge>
+				) : null}
+			</React.Fragment>
 		</li>
 	)
 }

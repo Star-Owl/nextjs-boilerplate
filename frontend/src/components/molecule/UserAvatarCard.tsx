@@ -60,7 +60,7 @@ const UserAvatarCard: FunctionComponent<Props> = ({
 			<div className='flex flex-1 gap-4 overflow-hidden'>
 				<div className='flex h-full flex-col justify-evenly overflow-hidden'>
 					<UserInfo
-						displayName='⭐️ StarOwl 🦉 Social'
+						displayName='⭐️ StarOwl 🦉'
 						userID={'@starowl.social'}
 						size='sm'
 						link
