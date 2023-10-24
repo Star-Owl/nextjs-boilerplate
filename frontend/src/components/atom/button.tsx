@@ -12,9 +12,9 @@ const buttonVariants = cva(
 				default:
 					'text-accent-50 bg-accent-600 hover:bg-accent-700 active:bg-accent-800 disabled:bg-accent-600 focus:outline focus:outline-2 outline-offset-4 outline-accent-50',
 				secondary:
-					'text-accent-300 bg-transparent ring-2 ring-inset ring-accent-300 hover:bg-accent-950 active:bg-accent-900 disabled:bg-transparent',
+					'text-accent-300 bg-transparent ring-1 ring-inset ring-accent-300 hover:bg-accent-950 active:bg-accent-900 disabled:bg-transparent',
 				outline:
-					'bg-transparent ring-2 ring-inset ring-white-50 hover:text-white-300 hover:ring-white-300 hover:bg-white-50/[.06] active:bg-white-50/[.12] disabled:bg-transparent',
+					'bg-transparent ring-1 ring-inset ring-white-50 hover:text-white-300 hover:ring-white-300 hover:bg-white-50/[.06] active:bg-white-50/[.12] disabled:bg-transparent',
 				ghost: 'hover:text-white-300 hover:bg-white-50/[.06] active:bg-white-50/[.12] disabled:bg-transparent',
 				dimmed: 'bg-black/[.12] backdrop-blur-md hover:bg-black/[.24]',
 				link: 'text-accent-600 underline-offset-4 hover:underline',
