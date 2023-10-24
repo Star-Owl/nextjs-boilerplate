@@ -23,7 +23,7 @@ const badgeBaseVariants = cva('transition-colors', {
 			xs: 'text-xs rounded-[.313rem] py-[.156rem] px-[.312rem]',
 			sm: 'text-sm rounded-[.375rem] px-[.376rem] py-[.188rem]',
 			default: 'text-base rounded-[0.875rem] px-[2rem] py-[1rem]',
-			lg: 'text-lg rounded-lg py-[.437rem] px-[.874rem]',
+			lg: 'text-xs py-[.375rem] px-[.750rem] rounded-[.375rem] md:text-lg md:rounded-lg md:py-[.437rem] md:px-[.874rem]',
 			xl: 'text-xl rounded-[1.125rem] px-[3rem] py-[1.5rem]',
 		},
 		link: {

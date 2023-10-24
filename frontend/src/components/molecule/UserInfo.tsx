@@ -25,7 +25,7 @@ const typographyVariants = cva(
 				xs: 'text-base',
 				sm: '',
 				default: '',
-				lg: 'text-xxl',
+				lg: 'text-xl',
 				xl: 'text-xxl',
 			},
 			link: {

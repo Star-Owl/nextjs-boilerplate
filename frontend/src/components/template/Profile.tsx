@@ -140,7 +140,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 				<nav className='flex items-center justify-between space-x-3'>
 					<Button
 						variant={'dimmed'}
-						size={'default-icon'}
+						size={'lg-icon'}
 						onClick={goBack}
 					>
 						<ArrowBack size={24} />
@@ -172,7 +172,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 					<div className='flex flex-col'>
 						<Button
 							variant={'dimmed'}
-							size={'default-icon'}
+							size={'lg-icon'}
 						>
 							<OutlineMore size={24} />
 						</Button>
@@ -180,7 +180,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 							<Button
 								variant={'dimmed'}
 								className='absolute top-[4.5rem]'
-								size={'default-icon'}
+								size={'lg-icon'}
 							>
 								<OutlineBell size={24} />
 							</Button>
@@ -199,7 +199,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 								fill='currentColor'
 							/>
 						}
-						className='h-20 w-20 rounded-full bg-black/20 backdrop-blur-lg'
+						className='h-16 w-16 rounded-full bg-black/20 backdrop-blur-lg md:h-20 md:w-20'
 					/>
 					{/* <div className='flex flex-col'>
 						<UserInfo size='large' />
@@ -229,11 +229,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 									>
 										<Button
 											variant={'ghost'}
-											size={
-												deviceType === 'mobile'
-													? 'xs-icon'
-													: 'sm-icon'
-											}
+											size={'default-icon'}
 											asChild
 										>
 											<Link
@@ -250,19 +246,13 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 						<div className='flex space-x-4'>
 							<Button
 								variant={'outline'}
-								size={
-									deviceType === 'mobile'
-										? 'sm-icon'
-										: 'default-icon'
-								}
+								size={'default-icon'}
 							>
 								<OutlineMessage size={24} />
 							</Button>
 							<Button
 								variant={'outline'}
-								size={
-									deviceType === 'mobile' ? 'sm' : 'default'
-								}
+								size={'default'}
 							>
 								Following
 							</Button>
@@ -391,8 +381,8 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
 						<Chip
 							key={index}
 							classNames={{
-								base: `group py-[.75rem] px-[1.5rem] !h-auto rounded-[.75rem] cursor-pointer transition-colors bg-primary-lighter hover:bg-primary-badge`,
-								content: `text-white/[.60] ${color} p-0 flex items-center gap-2 text-lg overflow-hidden text-ellipsis whitespace-pre leading-tight`,
+								base: `group rounded-[.625rem] py-[.5rem] px-[1rem] md:py-[.75rem] md:px-[1.5rem] !h-auto md:rounded-[.75rem] cursor-pointer transition-colors bg-primary-lighter hover:bg-primary-badge`,
+								content: `text-white/[.60] ${color} p-0 flex items-center gap-2 text-sm md:text-base overflow-hidden text-ellipsis whitespace-pre leading-tight`,
 							}}
 						>
 							{icon}

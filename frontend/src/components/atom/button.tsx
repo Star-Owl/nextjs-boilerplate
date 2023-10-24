@@ -5,12 +5,12 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'src/lib/utils'
 
 const buttonVariants = cva(
-	'inline-flex items-center justify-center capitalize font-base gap-[0.75rem] leading-normal font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
+	'inline-flex items-center justify-center capitalize gap-[0.75rem] leading-normal font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
 	{
 		variants: {
 			variant: {
 				default:
-					'text-accent-50 bg-accent-600 hover:bg-accent-700 active:bg-accent-800 disabled:bg-accent-600 focus:outline focus:outline-2 outline-offset-4  outline-accent-50',
+					'text-accent-50 bg-accent-600 hover:bg-accent-700 active:bg-accent-800 disabled:bg-accent-600 focus:outline focus:outline-2 outline-offset-4 outline-accent-50',
 				secondary:
 					'text-accent-300 bg-transparent ring-2 ring-inset ring-accent-300 hover:bg-accent-950 active:bg-accent-900 disabled:bg-transparent',
 				outline:
@@ -31,13 +31,16 @@ const buttonVariants = cva(
 				link: 'p-0',
 				xs: 'rounded-[0.5rem] px-[1rem] py-[.5rem]',
 				sm: 'rounded-[0.625rem] px-[1.5rem] py-[.75rem]',
-				default: 'rounded-[0.875rem] px-[2rem] py-[1rem]',
+				default:
+					'text-sm rounded-[.625rem] px-[1.624rem] py-[.812rem] md:text-base md:rounded-[0.875rem] md:px-[2rem] md:py-[1rem]',
 				lg: 'rounded-2xl px-[2.5rem] py-[1.25rem]',
 				xl: 'rounded-[1.125rem] px-[3rem] py-[1.5rem]',
 				'xs-icon': 'rounded-[0.5rem] p-[.5rem]',
 				'sm-icon': 'rounded-[0.625rem] p-[.75rem]',
-				'default-icon': 'rounded-[0.875rem] p-[1rem]',
-				'lg-icon': 'rounded-2xl p-[1.125rem]',
+				'default-icon':
+					'rounded-[.625rem] p-[.5rem] md:rounded-[.875rem] md:p-[1rem]',
+				'lg-icon':
+					'rounded-[.75rem] p-[.75rem] md:rounded-2xl md:p-[1.125rem]',
 				'xl-icon': 'rounded-[1.125rem] p-[1.5rem]',
 			},
 		},
