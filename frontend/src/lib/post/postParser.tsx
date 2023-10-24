@@ -178,7 +178,7 @@ const convertBufferToElements = (
 					<p
 						key={result.length}
 						className={`${
-							result.length === 0 ? 'mb-3 mt-0' : 'my-3'
+							result.length === 0 ? 'mb-3 mt-0' : 'mt-3'
 						} text-sm md:text-base`}
 					>
 						{splitTexts[i].replace('\n', '<br />')}
@@ -226,7 +226,7 @@ const createParagraphFromBuffer = (
 		<p
 			key={Math.random()}
 			className={`${
-				isFirstParagraph ? 'mb-3 mt-0' : 'my-3'
+				isFirstParagraph ? 'mb-3 mt-0' : 'mt-3'
 			} text-sm md:text-base`}
 		>
 			{content}
