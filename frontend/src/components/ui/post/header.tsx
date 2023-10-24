@@ -37,7 +37,15 @@ const PostHeader: FunctionComponent<Props> = ({}) => {
 					variant={'ghost'}
 					size={'xs-icon'}
 				>
-					<OutlineMore size={windowWidth ? 18 : 24} />
+					<OutlineMore
+						size={
+							windowWidth !== null
+								? windowWidth < 678
+									? 18
+									: 24
+								: undefined
+						}
+					/>
 				</Button>
 				{/* <OutlineMore
 					className='cursor-pointer transition-colors hover:text-accent-600'
