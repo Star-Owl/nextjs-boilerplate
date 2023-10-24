@@ -3,7 +3,7 @@ import { Button } from '@/components/atom/button'
 import PostHeader from '@/components/ui/post/header'
 import PostContent from '@/components/ui/post/main'
 import { Avatar, AvatarGroup } from '@nextui-org/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FunctionComponent } from 'react'
 import {
 	FillUser,
@@ -64,6 +64,20 @@ const Posts: FunctionComponent<Props> = ({ posts }) => {
 }
 
 export const SocialCounters = () => {
+	const [windowWidth, setWindowWidth] = useState<number | null>(null)
+
+	useEffect(() => {
+		setWindowWidth(window.innerWidth)
+
+		const handleResize = () => {
+			setWindowWidth(window.innerWidth)
+		}
+		window.addEventListener('resize', handleResize)
+
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [])
 	return (
 		<div className='flex w-full justify-between space-x-2'>
 			<div className='flex w-full flex-1 text-white-500 md:flex-initial'>
@@ -78,11 +92,11 @@ export const SocialCounters = () => {
 								>
 									<OutlineStar
 										className='transition-transform-colors group-hover:text-warning-200'
-										size={24}
+										size={windowWidth ? 18 : 24}
 									/>
 								</Button>
 								<AnimatedNumber
-									className='normal-nums transition-transform-colors group-hover:text-warning-200'
+									className='text-sm normal-nums transition-transform-colors group-hover:text-warning-200 md:text-base'
 									value={123}
 								/>
 							</div>
@@ -106,11 +120,11 @@ export const SocialCounters = () => {
 								>
 									<OutlineMessage
 										className='transition-transform-colors group-hover:text-accent-600'
-										size={24}
+										size={windowWidth ? 18 : 24}
 									/>
 								</Button>
 								<AnimatedNumber
-									className='normal-nums transition-transform-colors group-hover:text-accent-600'
+									className='text-sm normal-nums transition-transform-colors group-hover:text-accent-600 md:text-base'
 									value={1_234}
 								/>
 							</div>
@@ -134,12 +148,12 @@ export const SocialCounters = () => {
 								>
 									<OutlineRepost
 										className='transition-transform-colors group-hover:text-success-500'
-										size={24}
+										size={windowWidth ? 18 : 24}
 									/>
 								</Button>
 								<span>
 									<AnimatedNumber
-										className='normal-nums transition-transform-colors group-hover:text-success-500'
+										className='text-sm normal-nums transition-transform-colors group-hover:text-success-500 md:text-base'
 										value={12_345}
 									/>
 								</span>
@@ -158,7 +172,7 @@ export const SocialCounters = () => {
 				variant={'ghost'}
 				size={'xs-icon'}
 			>
-				<OutlineBookmark size={24} />
+				<OutlineBookmark size={windowWidth ? 18 : 24} />
 			</Button>
 		</div>
 	)
