@@ -95,7 +95,7 @@ export const SocialCounters = () => {
 										size={
 											windowWidth !== null
 												? windowWidth < 678
-													? 18
+													? 20
 													: 24
 												: undefined
 										}
@@ -129,7 +129,7 @@ export const SocialCounters = () => {
 										size={
 											windowWidth !== null
 												? windowWidth < 678
-													? 18
+													? 20
 													: 24
 												: undefined
 										}
@@ -163,7 +163,7 @@ export const SocialCounters = () => {
 										size={
 											windowWidth !== null
 												? windowWidth < 678
-													? 18
+													? 20
 													: 24
 												: undefined
 										}
@@ -188,13 +188,13 @@ export const SocialCounters = () => {
 			</div>
 			<Button
 				variant={'ghost'}
-				size={'xs-icon'}
+				size={'sm-icon'}
 			>
 				<OutlineBookmark
 					size={
 						windowWidth !== null
 							? windowWidth < 678
-								? 18
+								? 20
 								: 24
 							: undefined
 					}

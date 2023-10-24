@@ -25,23 +25,19 @@ const PostHeader: FunctionComponent<Props> = ({}) => {
 	return (
 		<header className='flex w-full justify-between gap-4'>
 			<UserAvatarCard avatar />
-			<Stack
-				className='flex items-center'
-				direction='row'
-				spacing={2}
-			>
+			<div className='flex items-center space-x-2'>
 				<span className='cursor-pointer text-sm text-white-500 hover:underline md:text-base'>
 					N time ago
 				</span>
 				<Button
 					variant={'ghost'}
-					size={'xs-icon'}
+					size={'sm-icon'}
 				>
 					<OutlineMore
 						size={
 							windowWidth !== null
 								? windowWidth < 678
-									? 18
+									? 20
 									: 24
 								: undefined
 						}
@@ -51,7 +47,7 @@ const PostHeader: FunctionComponent<Props> = ({}) => {
 					className='cursor-pointer transition-colors hover:text-accent-600'
 					size={24}
 				/> */}
-			</Stack>
+			</div>
 		</header>
 	)
 }
