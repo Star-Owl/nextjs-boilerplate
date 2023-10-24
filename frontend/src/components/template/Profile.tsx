@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from '../atom/button'
 import { Avatar, Chip } from '@nextui-org/react'
 import UserInfo from '../molecule/UserInfo'
@@ -93,7 +93,6 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 	isOwnProfile = false,
 	links,
 }) => {
-	const { deviceType, os, browser } = useDeviceAndBrowser()
 	const router = useRouter()
 
 	const goBack = () => {
@@ -271,32 +270,48 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 }
 
 const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
+	const [windowWidth, setWindowWidth] = useState<number | null>(null)
+
+	useEffect(() => {
+		setWindowWidth(window.innerWidth)
+
+		const handleResize = () => {
+			setWindowWidth(window.innerWidth)
+		}
+		window.addEventListener('resize', handleResize)
+
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [])
+	let iconSize =
+		windowWidth !== null ? (windowWidth < 678 ? 20 : 24) : undefined
 	const getZodiacIcon = (zodiacSign: ZodiacSignType) => {
 		switch (zodiacSign) {
 			case 'Aries':
-				return <Aries size={24} />
+				return <Aries size={iconSize} />
 			case 'Taurus':
-				return <OutlineLink size={24} />
+				return <OutlineLink size={iconSize} />
 			case 'Gemini':
-				return <OutlineLink size={24} />
+				return <OutlineLink size={iconSize} />
 			case 'Cancer':
-				return <Cancer size={24} />
+				return <Cancer size={iconSize} />
 			case 'Leo':
-				return <OutlineLink size={24} />
+				return <OutlineLink size={iconSize} />
 			case 'Virgo':
-				return <OutlineLink size={24} />
+				return <OutlineLink size={iconSize} />
 			case 'Libra':
-				return <OutlineLink size={24} />
+				return <OutlineLink size={iconSize} />
 			case 'Scorpio':
-				return <OutlineLink size={24} />
+				return <OutlineLink size={iconSize} />
 			case 'Sagittarius':
-				return <OutlineLink size={24} />
+				return <OutlineLink size={iconSize} />
 			case 'Capricorn':
-				return <OutlineLink size={24} />
+				return <OutlineLink size={iconSize} />
 			case 'Aquarius':
-				return <OutlineLink size={24} />
+				return <OutlineLink size={iconSize} />
 			case 'Pisces':
-				return <OutlineLink size={24} />
+				return <OutlineLink size={iconSize} />
 			default:
 				return null
 		}
@@ -310,27 +325,27 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
 			case 'bday':
 				return {
 					color: 'text-accent-500',
-					icon: <OutlineLink size={24} />,
+					icon: <OutlineLink size={iconSize} />,
 				}
 			case 'staff':
 				return {
 					color: 'text-white',
-					icon: <OutlineLink size={24} />,
+					icon: <OutlineLink size={iconSize} />,
 				}
 			case 'backer':
 				return {
 					color: 'text-accent-500',
-					icon: <OutlineLink size={24} />,
+					icon: <OutlineLink size={iconSize} />,
 				}
 			case 'staruser':
 				return {
 					color: 'text-warning-200',
-					icon: <FillStar size={24} />,
+					icon: <FillStar size={iconSize} />,
 				}
 			case 'community':
 				return {
 					color: 'text-accent-500',
-					icon: <OutlineLink size={24} />,
+					icon: <OutlineLink size={iconSize} />,
 				}
 			case 'zodiac':
 				return {
@@ -381,7 +396,7 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
 						<Chip
 							key={index}
 							classNames={{
-								base: `group rounded-[.625rem] py-[.5rem] px-[1rem] md:py-[.75rem] md:px-[1.5rem] !h-auto md:rounded-[.75rem] cursor-pointer transition-colors bg-primary-lighter hover:bg-primary-badge`,
+								base: `group rounded-[.625rem] py-[.625rem] px-[1.250rem] md:py-[.75rem] md:px-[1.5rem] !h-auto md:rounded-[.75rem] cursor-pointer transition-colors bg-primary-lighter hover:bg-primary-badge`,
 								content: `text-white/[.60] ${color} p-0 flex items-center gap-2 text-sm md:text-base overflow-hidden text-ellipsis whitespace-pre leading-tight`,
 							}}
 						>
