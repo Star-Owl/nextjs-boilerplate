@@ -122,7 +122,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 	}
 
 	return (
-		<section className='relative overflow-hidden rounded-b-2xl p-4 lg:rounded-2xl lg:p-6'>
+		<section className='relative overflow-hidden rounded-b-2xl p-4 md:rounded-2xl md:p-6'>
 			{/* Cover with mask */}
 			<figure
 				className='absolute left-0 top-0 h-full w-full'

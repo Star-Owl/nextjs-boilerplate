@@ -33,20 +33,20 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 }
 
 // Przykład użycia kontekstu w komponencie
-const ThemedComponent: React.FC = () => {
-	const themeContext = useContext(ThemeContext)
+// const ThemedComponent: React.FC = () => {
+// 	const themeContext = useContext(ThemeContext)
 
-	if (!themeContext) {
-		throw new Error('ThemedComponent must be used within a ThemeProvider')
-	}
+// 	if (!themeContext) {
+// 		throw new Error('ThemedComponent must be used within a ThemeProvider')
+// 	}
 
-	const { isSecondaryTheme, accentHue } = themeContext
+// 	const { isSecondaryTheme, accentHue } = themeContext
 
-	// Użyj wartości isSecondaryTheme i accentHue, aby dostosować style komponentu
+// 	// Użyj wartości isSecondaryTheme i accentHue, aby dostosować style komponentu
 
-	return (
-		<div style={{ color: `hsl(${accentHue}, 75%, 97%)` }}>
-			{/* Reszta komponentu */}
-		</div>
-	)
-}
+// 	return (
+// 		<div style={{ color: `hsl(${accentHue}, 75%, 97%)` }}>
+// 			{/* Reszta komponentu */}
+// 		</div>
+// 	)
+// }

@@ -68,7 +68,7 @@ const EchoPage: FunctionComponent<Props> = ({ posts }) => {
 				]}
 			/>
 			<main
-				className={`flex w-full flex-col gap-6 py-[2.5rem] leading-none dark ${
+				className={`flex w-full flex-col gap-6 leading-none dark md:py-[2.5rem] ${
 					deviceType !== 'mobile' ? ' md:max-w-xl' : ''
 				} lg:max-w-lg xl:max-w-xl`}
 			>
