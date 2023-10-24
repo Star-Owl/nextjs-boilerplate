@@ -22,9 +22,9 @@ const typographyVariants = cva(
 				default: '',
 			},
 			size: {
-				xs: 'text-base',
-				sm: '',
-				default: '',
+				xs: 'text-sm',
+				sm: 'text-base',
+				default: 'text-xl',
 				lg: 'text-xl',
 				xl: 'text-xxl',
 			},

@@ -50,11 +50,11 @@ const UserAvatarCard: FunctionComponent<Props> = ({
 					showFallback
 					fallback={
 						<OutlineUser
-							className={`h-6 w-6 text-default-500`}
+							className={`h-4 w-4 text-default-500 md:h-6 md:w-6`}
 							fill='currentColor'
 						/>
 					}
-					className='h-12 w-12 cursor-pointer bg-white/[.06] text-sm transition-opacity hover:opacity-60'
+					className='h-10 w-10 cursor-pointer bg-white/[.06] text-sm transition-opacity hover:opacity-60 md:h-12 md:w-12'
 				/>
 			) : null}
 			<div className='flex flex-1 gap-4 overflow-hidden'>
@@ -62,7 +62,7 @@ const UserAvatarCard: FunctionComponent<Props> = ({
 					<UserInfo
 						displayName='⭐️ StarOwl 🦉'
 						userID={'@starowl.social'}
-						size='sm'
+						size='xs'
 						link
 					/>
 				</div>

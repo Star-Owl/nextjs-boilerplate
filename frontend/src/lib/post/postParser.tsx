@@ -91,6 +91,7 @@ const renderParsedPost = (
 					<UserBadge
 						userID={value}
 						variant='accent'
+						size='xs'
 						url={`https://example.com/${value.slice(1)}`}
 					/>,
 				)
@@ -176,7 +177,9 @@ const convertBufferToElements = (
 				result.push(
 					<p
 						key={result.length}
-						className={result.length === 0 ? 'mb-3 mt-0' : 'my-3'}
+						className={`${
+							result.length === 0 ? 'mb-3 mt-0' : 'my-3'
+						} text-sm md:text-base`}
 					>
 						{splitTexts[i].replace('\n', '<br />')}
 					</p>,
@@ -222,7 +225,9 @@ const createParagraphFromBuffer = (
 	return (
 		<p
 			key={Math.random()}
-			className={isFirstParagraph ? 'mb-3 mt-0' : 'my-3'}
+			className={`${
+				isFirstParagraph ? 'mb-3 mt-0' : 'my-3'
+			} text-sm md:text-base`}
 		>
 			{content}
 		</p>

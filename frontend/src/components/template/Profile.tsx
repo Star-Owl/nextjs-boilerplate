@@ -343,7 +343,7 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
 
 	return (
 		<section className='px-5'>
-			<p>{bio}</p>
+			<p className='text-sm md:text-base'>{bio}</p>
 			<ScrollShadow
 				orientation='horizontal'
 				className='scroll mt-3 flex max-w-full space-x-4 overflow-x-auto pb-5'
