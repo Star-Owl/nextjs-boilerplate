@@ -91,7 +91,7 @@ const NavItem = ({
 	}
 	return (
 		<li
-			className='group flex cursor-pointer items-center justify-between lg:w-full'
+			className='group flex w-1/5 flex-1 cursor-pointer items-center justify-center md:w-auto md:justify-between lg:w-full'
 			onClick={handleNavigation}
 		>
 			<Link
