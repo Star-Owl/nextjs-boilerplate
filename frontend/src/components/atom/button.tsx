@@ -39,7 +39,7 @@ const buttonVariants = cva(
 				'default-icon':
 					'rounded-[.625rem] p-[.5rem] md:rounded-[.875rem] md:p-[1rem]',
 				'lg-icon':
-					'rounded-[.75rem] p-[.75rem] md:rounded-2xl md:p-[.875rem]',
+					'rounded-[.75rem] p-[.75rem] md:rounded-[.875rem] md:p-[1rem]',
 			},
 		},
 		defaultVariants: {

@@ -63,7 +63,7 @@ const NavItem = ({
 					inline: 'max-w-fit justify-center', // max-w-fit Twitter not full width effect
 				},
 				size: {
-					default: `space-y-1 rounded-[.875rem] md:p-[.875rem] xl:py-[.875rem] xl:pr-6`,
+					default: `space-y-1 rounded-[.875rem] md:p-[1rem] xl:py-[1rem] xl:pr-6`,
 				},
 				active: {
 					true: 'md:text-white-50',
