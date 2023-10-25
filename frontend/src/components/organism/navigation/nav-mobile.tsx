@@ -90,22 +90,22 @@ const NavMobile: FunctionComponent<Props> = ({}) => {
 	]
 
 	const activeIcons = {
-		'/': <FillHome size={28} />,
-		'/explore': <FillSearch size={28} />,
-		'/echoes': <FillBell size={28} />,
-		'/messages': <FillMessage size={28} />,
-		'/bookmarks': <FillBookmark size={28} />,
-		'/settings': <FillSettings size={28} />,
+		'/': <FillHome size={24} />,
+		'/explore': <FillSearch size={24} />,
+		'/echoes': <FillBell size={24} />,
+		'/messages': <FillMessage size={24} />,
+		'/bookmarks': <FillBookmark size={24} />,
+		'/settings': <FillSettings size={24} />,
 	}
 
 	const inactiveIcons = {
-		'/': <OutlineHome size={28} />,
-		'/explore': <OutlineSearch size={28} />,
-		'/echoes': <OutlineBell size={28} />,
-		'/messages': <OutlineMessage size={28} />,
-		'/bookmarks': <OutlineBookmark size={28} />,
-		'/settings': <OutlineSettings size={28} />,
-		'': <OutlineLogOut size={28} />,
+		'/': <OutlineHome size={24} />,
+		'/explore': <OutlineSearch size={24} />,
+		'/echoes': <OutlineBell size={24} />,
+		'/messages': <OutlineMessage size={24} />,
+		'/bookmarks': <OutlineBookmark size={24} />,
+		'/settings': <OutlineSettings size={24} />,
+		'': <OutlineLogOut size={24} />,
 	}
 
 	return (
