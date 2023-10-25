@@ -33,15 +33,13 @@ const buttonVariants = cva(
 				sm: 'rounded-[0.625rem] px-[1.5rem] py-[.75rem]',
 				default:
 					'text-sm rounded-[.625rem] px-[1.624rem] py-[.812rem] md:text-base md:rounded-[0.875rem] md:px-[2rem] md:py-[1rem]',
-				lg: 'rounded-2xl px-[2.5rem] py-[1.25rem]',
-				xl: 'rounded-[1.125rem] px-[3rem] py-[1.5rem]',
+				lg: 'rounded-[.875rem] px-[2rem] py-[1rem]',
 				'xs-icon': 'rounded-[0.5rem] p-[.5rem]',
 				'sm-icon': 'rounded-[0.625rem] p-[.625rem] md:p-[.75rem]',
 				'default-icon':
 					'rounded-[.625rem] p-[.5rem] md:rounded-[.875rem] md:p-[1rem]',
 				'lg-icon':
-					'rounded-[.75rem] p-[.75rem] md:rounded-2xl md:p-[1.125rem]',
-				'xl-icon': 'rounded-[1.125rem] p-[1.5rem]',
+					'rounded-[.75rem] p-[.75rem] md:rounded-2xl md:p-[.875rem]',
 			},
 		},
 		defaultVariants: {

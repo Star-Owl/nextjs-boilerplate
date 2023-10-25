@@ -63,7 +63,7 @@ const NavItem = ({
 					inline: 'max-w-fit justify-center', // max-w-fit Twitter not full width effect
 				},
 				size: {
-					default: `space-y-1 rounded-[.875rem] md:p-[1.125rem] xl:py-[.875rem] xl:pr-6 lg:pl-4`,
+					default: `space-y-1 rounded-[.875rem] md:p-[.875rem] xl:py-[.875rem] xl:pr-6`,
 				},
 				active: {
 					true: 'md:text-white-50',
@@ -91,7 +91,7 @@ const NavItem = ({
 	}
 	return (
 		<li
-			className='group flex w-1/5 flex-1 cursor-pointer items-center justify-center md:w-auto md:justify-between lg:w-full'
+			className='group flex w-1/5 flex-1 cursor-pointer items-center justify-center md:w-auto md:justify-center lg:w-full xl:justify-between'
 			onClick={handleNavigation}
 		>
 			<Link
