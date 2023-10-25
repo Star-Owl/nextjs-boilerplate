@@ -92,14 +92,14 @@ const renderParsedPost = (
 						userID={value}
 						variant='accent'
 						size='xs'
-						url={`https://example.com/${value.slice(1)}`}
+						url={`https://starowl.social/${value.slice(1)}`}
 					/>,
 				)
 				break
 			case 'hashtag':
 				bufferElements.push(
 					<a
-						href={`https://example.com/tags/${value.slice(1)}`}
+						href={`https://starowl.social/tags/${value.slice(1)}`}
 						className={segmentClasses.hashtag}
 					>
 						{value}
