@@ -178,7 +178,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 						{!isOwnProfile && (
 							<Button
 								variant={'dimmed'}
-								className='absolute top-[4.25rem] md:top-[4.5rem]'
+								className='absolute top-[4rem] md:top-[4.5rem]'
 								size={'lg-icon'}
 							>
 								<OutlineBell size={24} />
