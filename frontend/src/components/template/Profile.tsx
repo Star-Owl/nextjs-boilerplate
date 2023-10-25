@@ -144,7 +144,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 					>
 						<ArrowBack size={24} />
 					</Button>
-					<div className='flex gap-4 text-sm md:text-base'>
+					<div className='flex gap-0 text-sm md:gap-4 md:text-base'>
 						<button
 							className='flex cursor-pointer flex-col items-center space-y-1 rounded-lg p-2 transition-colors hover:bg-black/[.12]'
 							onClick={showFollowers}
