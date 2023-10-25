@@ -66,7 +66,7 @@ const NavItem = ({
 					default: `space-y-1 rounded-[.875rem] md:p-[1rem] xl:py-[1rem] xl:pr-6`,
 				},
 				active: {
-					true: 'md:text-white-50',
+					true: 'md:text-white-50 md:group-hover:bg-white/[.06]',
 					false: 'md:group-hover:bg-white/[.06] group-hover:text-white-50 text-white-500',
 				},
 			},
