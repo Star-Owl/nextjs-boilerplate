@@ -67,7 +67,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({ posts }) => {
 					},
 				]}
 			/>
-			<main className='flex w-full flex-col gap-6 leading-none dark md:max-w-xl md:py-[2.5rem] lg:max-w-lg xl:max-w-xl'>
+			<main className='flex w-full flex-col gap-4 leading-none dark md:max-w-xl md:gap-6 md:py-[2.5rem] lg:max-w-lg xl:max-w-xl'>
 				{!fetchedUser ? (
 					<React.Fragment>
 						<ProfileCover

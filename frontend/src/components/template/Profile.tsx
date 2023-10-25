@@ -144,7 +144,7 @@ const ProfileCover: React.FC<ProfileCoverProps> = ({
 					>
 						<ArrowBack size={24} />
 					</Button>
-					<div className='flex gap-4'>
+					<div className='flex gap-4 text-sm md:text-base'>
 						<button
 							className='flex cursor-pointer flex-col items-center space-y-1 rounded-lg p-2 transition-colors hover:bg-black/[.12]'
 							onClick={showFollowers}
@@ -357,7 +357,7 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ bio, badges }) => {
 	}
 
 	return (
-		<section className='px-5'>
+		<section className='space-y-4 px-5'>
 			<p className='text-sm md:text-base'>{bio}</p>
 			<ScrollShadow
 				orientation='horizontal'
