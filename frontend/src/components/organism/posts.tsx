@@ -238,7 +238,7 @@ export const SocialCounters = () => {
 				</TooltipProvider>
 			</div>
 			<Button
-				variant={'counter'}
+				variant={'ghost'}
 				size={'sm-icon'}
 				onClick={reloadCounter}
 			>
