@@ -1,12 +1,13 @@
+import '@/styles/globals.css'
+
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import SEO from 'nextseo.config'
 import { NextUIProvider } from '@nextui-org/react'
 import { Analytics } from '@vercel/analytics/react'
 
-import '@/styles/globals.css'
 import { NextWebVitalsMetric } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
 import Nav from '@/components/organism/navigation/nav'
@@ -29,9 +30,43 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 
 	useEffect(() => {
 		const savedHue = localStorage.getItem('accentColor-hue')
+		const savedTheme = localStorage.getItem('selectedTheme')
 
 		if (savedHue) {
 			document.documentElement.style.setProperty('--accent-hue', savedHue)
+		}
+
+		if (savedTheme) {
+			let primaryDark, primaryLighter, primaryBadge
+
+			if (savedTheme === 'secondary') {
+				primaryDark = 'hsl(215, 32%, 10%)'
+				primaryLighter = 'hsl(215, 32%, 12%)'
+				primaryBadge = 'hsl(215, 32%, 14%)'
+			} else if (savedTheme === 'third') {
+				primaryDark = 'hsl(220, 8%, 7%)'
+				primaryLighter = 'hsl(220, 8%, 9%)'
+				primaryBadge = 'hsl(220, 8%, 11%)'
+			} else {
+				primaryDark = 'hsl(206, 42%, 7%)'
+				primaryLighter = 'hsl(206, 42%, 10%)'
+				primaryBadge = 'hsl(206, 42%, 13%)'
+			}
+
+			document.documentElement.style.setProperty(
+				'--primary-dark',
+				primaryDark,
+			)
+			document.documentElement.style.setProperty(
+				'--primary-lighter',
+				primaryLighter,
+			)
+			document.documentElement.style.setProperty(
+				'--primary-badge',
+				primaryBadge,
+			)
+
+			localStorage.setItem('selectedTheme', savedTheme)
 		}
 	}, [])
 
@@ -74,7 +109,7 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
 				<NextUIProvider>
 					<ThemeProvider>
 						<div
-							className={`flex pb-24 md:pb-0 xl:justify-center xl:gap-6`}
+							className={`starOwl flex pb-24 md:pb-0 xl:justify-center xl:gap-6`}
 						>
 							<NotificationProvider>
 								{!excludedPaths.includes(router.pathname) ? (

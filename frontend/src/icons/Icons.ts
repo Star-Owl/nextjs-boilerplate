@@ -49,6 +49,8 @@ export { OutlineClose } from './assets/OutlineClose'
 export { Share } from './assets/Share'
 export { Views } from './assets/Views'
 
+export { ArrowRefesh } from './assets/ArrowRefresh'
+
 // Zodiacs
 export { Cancer } from './assets/zodiacs/Cancer'
 export { Aries } from './assets/zodiacs/Aries'

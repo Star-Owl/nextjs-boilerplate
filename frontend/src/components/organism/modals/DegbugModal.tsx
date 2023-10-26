@@ -25,6 +25,7 @@ import { OutlineClose } from 'src/icons/Icons'
 import UAParser from 'ua-parser-js'
 import { Button } from '../../atom/button'
 import HueCircle from '@/components/molecule/color-wheel'
+import { RadioGroup, Radio } from '@nextui-org/react'
 
 interface InfoData {
 	browser: string | undefined
@@ -94,6 +95,8 @@ const DebugMenuModal = () => {
 									Check Backend
 								</Button> */}
 								<Spacer y={2} />
+								<ThemeChanger label={'Select your theme'} />
+								<Spacer y={2} />
 								<CustomSwitch
 									title={'Notification Controller'}
 									description={
@@ -113,7 +116,6 @@ const DebugMenuModal = () => {
 								<div className='flex justify-center p-6'>
 									<HueCircle />
 								</div>
-
 								{/* <label htmlFor='accentHue'>Accent Hue:</label> */}
 								{/* <input
 									id='accentHue'
@@ -192,6 +194,75 @@ async function fetchData() {
 			})
 		}
 	}
+}
+
+interface ThemeChangerProps {
+	isSelected?: boolean
+	onValueChange?: (value: boolean) => void
+	label?: string
+}
+
+const ThemeChanger: React.FC<ThemeChangerProps> = ({ label = null }) => {
+	const [theme, setTheme] = useState(
+		localStorage.getItem('selectedTheme') || 'primary',
+	)
+
+	useEffect(() => {
+		changeTheme(theme)
+	}, [theme])
+
+	const changeTheme = (theme: string) => {
+		let primaryDark, primaryLighter, primaryBadge
+
+		if (theme === 'secondary') {
+			primaryDark = 'hsl(215, 32%, 10%)'
+			primaryLighter = 'hsl(215, 32%, 12%)'
+			primaryBadge = 'hsl(215, 32%, 14%)'
+		} else if (theme === 'third') {
+			primaryDark = 'hsl(220, 8%, 7%)'
+			primaryLighter = 'hsl(220, 8%, 9%)'
+			primaryBadge = 'hsl(220, 8%, 11%)'
+		} else {
+			primaryDark = 'hsl(206, 42%, 7%)'
+			primaryLighter = 'hsl(206, 42%, 10%)'
+			primaryBadge = 'hsl(206, 42%, 13%)'
+		}
+
+		document.documentElement.style.setProperty(
+			'--primary-dark',
+			primaryDark,
+		)
+		document.documentElement.style.setProperty(
+			'--primary-lighter',
+			primaryLighter,
+		)
+		document.documentElement.style.setProperty(
+			'--primary-badge',
+			primaryBadge,
+		)
+
+		localStorage.setItem('selectedTheme', theme)
+	}
+
+	useEffect(() => {
+		const savedTheme = localStorage.getItem('selectedTheme')
+		if (savedTheme) {
+			changeTheme(savedTheme)
+		}
+	}, [])
+
+	return (
+		<RadioGroup
+			label={label}
+			orientation='horizontal'
+			value={theme}
+			onValueChange={(value) => setTheme(value)}
+		>
+			<Radio value='primary'>Deep Space</Radio>
+			<Radio value='secondary'>Stellar Blue</Radio>
+			<Radio value='third'>Cosmic Gray</Radio>
+		</RadioGroup>
+	)
 }
 
 const CustomSwitch: React.FC<CustomSwitchProps> = ({

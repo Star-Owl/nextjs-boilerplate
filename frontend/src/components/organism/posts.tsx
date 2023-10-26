@@ -6,6 +6,7 @@ import { Avatar, AvatarGroup } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import { FunctionComponent } from 'react'
 import {
+	ArrowRefesh,
 	FillUser,
 	OutlineBookmark,
 	OutlineMessage,
@@ -63,8 +64,19 @@ const Posts: FunctionComponent<Props> = ({ posts }) => {
 	)
 }
 
+interface Counters {
+	stars: number
+	comments: number
+	rehoots: number
+}
+
 export const SocialCounters = () => {
 	const [windowWidth, setWindowWidth] = useState<number | null>(null)
+	const [counters, setCounters] = useState<Counters>({
+		stars: getRandomNum(0, 9_999),
+		comments: getRandomNum(0, 99_999),
+		rehoots: getRandomNum(0, 999_999),
+	})
 
 	useEffect(() => {
 		setWindowWidth(window.innerWidth)
@@ -78,13 +90,46 @@ export const SocialCounters = () => {
 			window.removeEventListener('resize', handleResize)
 		}
 	}, [])
+
+	const reloadCounter = (event: React.MouseEvent<HTMLDivElement>) => {
+		const counterName = event.currentTarget.getAttribute('data-counter') as
+			| keyof Counters
+			| null
+
+		setCounters((prevCounters) => {
+			if (counterName) {
+				return {
+					...prevCounters,
+					[counterName]: getRandomNum(
+						0,
+						counterName === 'stars' ? 9_999 : 99_999,
+					),
+				}
+			} else {
+				return {
+					stars: getRandomNum(0, 9_999),
+					comments: getRandomNum(0, 99_999),
+					rehoots: getRandomNum(0, 999_999),
+				}
+			}
+		})
+	}
+
+	function getRandomNum(min: number, max: number): number {
+		return Math.floor(Math.random() * (max - min + 1)) + min
+	}
+
 	return (
 		<div className='flex w-full justify-between space-x-2'>
-			<div className='flex w-full space-x-2 text-white-500 md:flex-initial'>
+			<div className='flex w-full space-x-2 text-white-500 md:flex-initial md:space-x-8'>
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<div className='group flex w-1/4 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'>
+							<div
+								className='group flex w-1/4 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'
+								data-counter='stars'
+								onClick={reloadCounter}
+							>
 								<Button
 									className='transition-transform-colors group-hover:bg-warning-200/[.12]'
 									variant={'ghost'}
@@ -103,7 +148,7 @@ export const SocialCounters = () => {
 								</Button>
 								<AnimatedNumber
 									className='text-sm normal-nums transition-transform-colors group-hover:text-warning-200 md:text-base'
-									value={123}
+									value={counters.stars}
 								/>
 							</div>
 						</TooltipTrigger>
@@ -118,7 +163,11 @@ export const SocialCounters = () => {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<div className='group flex w-1/4 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'>
+							<div
+								className='group flex w-1/4 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'
+								data-counter='comments'
+								onClick={reloadCounter}
+							>
 								<Button
 									className='transition-transform-colors group-hover:bg-accent-600/[.12]'
 									variant={'ghost'}
@@ -137,7 +186,7 @@ export const SocialCounters = () => {
 								</Button>
 								<AnimatedNumber
 									className='text-sm normal-nums transition-transform-colors group-hover:text-accent-600 md:text-base'
-									value={1_234}
+									value={counters.comments}
 								/>
 							</div>
 						</TooltipTrigger>
@@ -152,7 +201,11 @@ export const SocialCounters = () => {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<div className='group flex w-1/4 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'>
+							<div
+								className='group flex w-1/4 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'
+								data-counter='rehoots'
+								onClick={reloadCounter}
+							>
 								<Button
 									className='transition-transform-colors group-hover:bg-success-500/[.12]'
 									variant={'ghost'}
@@ -172,7 +225,7 @@ export const SocialCounters = () => {
 								<span>
 									<AnimatedNumber
 										className='text-sm normal-nums transition-transform-colors group-hover:text-success-500 md:text-base'
-										value={12_345}
+										value={counters.rehoots}
 									/>
 								</span>
 							</div>
@@ -186,6 +239,21 @@ export const SocialCounters = () => {
 					</Tooltip>
 				</TooltipProvider>
 			</div>
+			<Button
+				variant={'ghost'}
+				size={'sm-icon'}
+				onClick={reloadCounter}
+			>
+				<ArrowRefesh
+					size={
+						windowWidth !== null
+							? windowWidth < 678
+								? 20
+								: 24
+							: undefined
+					}
+				/>
+			</Button>
 			<Button
 				variant={'ghost'}
 				size={'sm-icon'}

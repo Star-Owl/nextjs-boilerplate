@@ -1,5 +1,5 @@
 import { motion, useSpring, useTransform } from 'framer-motion'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { FormatNumber } from '@/lib/numberFormat'
 
 type AnimatedNumberProps = {
@@ -8,14 +8,32 @@ type AnimatedNumberProps = {
 }
 
 export function AnimatedNumber({ value, className }: AnimatedNumberProps) {
-	let spring = useSpring(value, { mass: 0.8, stiffness: 75, damping: 15 })
+	const [displayValue, setDisplayValue] = useState(false)
+
+	let spring = useSpring(0, {
+		mass: 0.8,
+		stiffness: 75,
+		damping: 15,
+	})
 	let display = useTransform(spring, (currentValue: number) =>
 		FormatNumber(Math.round(currentValue)),
 	)
 
 	useEffect(() => {
+		value !== 0 && setDisplayValue(true)
+
 		spring.set(value)
 	}, [spring, value])
 
-	return <motion.span className={className}>{display}</motion.span>
+	useEffect(() => {
+		return spring.onChange((v) => {
+			v === 0 && setDisplayValue(false)
+		})
+	}, [spring])
+
+	return (
+		displayValue && (
+			<motion.span className={className}>{display}</motion.span>
+		)
+	)
 }

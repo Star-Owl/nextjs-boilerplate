@@ -30,12 +30,18 @@ const config: Config = {
 			},
 			colors: {
 				// Background Colors
-				'primary-dark': 'hsl(220, 8%, 7%)',
-				'primary-lighter': 'hsl(220, 8%, 9%)',
-				'primary-badge': 'hsl(220, 8%, 11%)',
-				'secondary-dark': 'hsl(215, 32%, 10%)',
-				'secondary-lighter': 'hsl(215, 32%, 12%)',
-				'secondary-badge': 'hsl(215, 32%, 14%)',
+				'primary-dark': 'var(--primary-dark)',
+				'primary-lighter': 'var(--primary-lighter)',
+				'primary-badge': 'var(--primary-badge)',
+				// 'primary-dark': 'hsl(206, 42%, 7%)',
+				// 'primary-lighter': 'hsl(206, 42%, 10%)',
+				// 'primary-badge': 'hsl(206, 42%, 13%)',
+				// 'secondary-dark': 'hsl(215, 32%, 10%)',
+				// 'secondary-lighter': 'hsl(215, 32%, 12%)',
+				// 'secondary-badge': 'hsl(215, 32%, 14%)',
+				// 'third-dark': 'hsl(220, 8%, 7%)',
+				// 'third-lighter': 'hsl(220, 8%, 9%)',
+				// 'third-badge': 'hsl(220, 8%, 11%)',
 				// Text Colors
 				'white-50': 'hsl(0, 0%, 100%)',
 				'white-100': 'hsl(0, 0%, 94%)',
@@ -172,12 +178,34 @@ const config: Config = {
 			layout: {}, // common layout options
 			themes: {
 				light: {
+					colors: {},
 					layout: {}, // light theme layout options
 					// ...
 				},
 				dark: {
+					colors: {},
 					layout: {}, // dark theme layout options
 					// ...
+				},
+				starOwl: {
+					colors: {
+						background: '#0D001A',
+						foreground: '#ffffff',
+						primary: {
+							50: `hsl(var(--accent-hue), 75%, 97%)`,
+							100: `hsl(var(--accent-hue), 73%, 93%)`,
+							200: `hsl(var(--accent-hue), 75%, 87%)`,
+							300: `hsl(var(--accent-hue), 76%, 78%)`,
+							400: `hsl(var(--accent-hue), 74%, 68%)`,
+							500: `hsl(var(--accent-hue), 72%, 60%)`,
+							600: `hsl(var(--accent-hue), 66%, 54%)`,
+							700: `hsl(var(--accent-hue), 60%, 48%)`,
+							800: `hsl(var(--accent-hue), 56%, 40%)`,
+							900: `hsl(var(--accent-hue), 51%, 33%)`,
+							DEFAULT: `hsl(var(--accent-hue), 72%, 60%)`,
+							foreground: `hsl(var(--accent-hue), 72%, 60%)`,
+						},
+					},
 				},
 			},
 		}),

@@ -14,6 +14,9 @@
 
 :root {
 	--accent-hue: 215;
+	--primary-dark: hsl(206, 42%, 7%);
+	--primary-lighter: hsl(206, 42%, 10%);
+	--primary-badge: hsl(206, 42%, 13%);
 }
 
 *,
