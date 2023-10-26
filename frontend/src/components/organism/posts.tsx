@@ -91,7 +91,7 @@ export const SocialCounters = () => {
 		}
 	}, [])
 
-	const reloadCounter = (event: React.MouseEvent<HTMLDivElement>) => {
+	const reloadCounter = (event: React.MouseEvent<HTMLButtonElement>) => {
 		const counterName = event.currentTarget.getAttribute('data-counter') as
 			| keyof Counters
 			| null
@@ -102,7 +102,11 @@ export const SocialCounters = () => {
 					...prevCounters,
 					[counterName]: getRandomNum(
 						0,
-						counterName === 'stars' ? 9_999 : 99_999,
+						counterName === 'stars'
+							? 9_999
+							: counterName === 'comments'
+							? 99_999
+							: 999_999,
 					),
 				}
 			} else {
@@ -125,16 +129,14 @@ export const SocialCounters = () => {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<div
+							<Button
 								className='group flex w-1/4 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'
+								variant={'counter'}
+								size={'counter'}
 								data-counter='stars'
 								onClick={reloadCounter}
 							>
-								<Button
-									className='transition-transform-colors group-hover:bg-warning-200/[.12]'
-									variant={'ghost'}
-									size={'xs-icon'}
-								>
+								<div className='rounded-[0.625rem] p-[.625rem] transition-transform-colors group-hover:bg-warning-200/[.12] md:p-[.75rem]'>
 									<OutlineStar
 										className='transition-transform-colors group-hover:text-warning-200'
 										size={
@@ -145,12 +147,12 @@ export const SocialCounters = () => {
 												: undefined
 										}
 									/>
-								</Button>
+								</div>
 								<AnimatedNumber
 									className='text-sm normal-nums transition-transform-colors group-hover:text-warning-200 md:text-base'
 									value={counters.stars}
 								/>
-							</div>
+							</Button>
 						</TooltipTrigger>
 						<TooltipContent
 							side='bottom'
@@ -163,16 +165,14 @@ export const SocialCounters = () => {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<div
+							<Button
 								className='group flex w-1/4 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'
+								variant={'counter'}
+								size={'counter'}
 								data-counter='comments'
 								onClick={reloadCounter}
 							>
-								<Button
-									className='transition-transform-colors group-hover:bg-accent-600/[.12]'
-									variant={'ghost'}
-									size={'xs-icon'}
-								>
+								<div className='rounded-[0.625rem] p-[.625rem] transition-transform-colors group-hover:bg-accent-600/[.12] md:p-[.75rem]'>
 									<OutlineMessage
 										className='transition-transform-colors group-hover:text-accent-600'
 										size={
@@ -183,12 +183,12 @@ export const SocialCounters = () => {
 												: undefined
 										}
 									/>
-								</Button>
+								</div>
 								<AnimatedNumber
 									className='text-sm normal-nums transition-transform-colors group-hover:text-accent-600 md:text-base'
 									value={counters.comments}
 								/>
-							</div>
+							</Button>
 						</TooltipTrigger>
 						<TooltipContent
 							side='bottom'
@@ -201,16 +201,14 @@ export const SocialCounters = () => {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<div
+							<Button
 								className='group flex w-1/4 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'
+								size={'counter'}
+								variant={'counter'}
 								data-counter='rehoots'
 								onClick={reloadCounter}
 							>
-								<Button
-									className='transition-transform-colors group-hover:bg-success-500/[.12]'
-									variant={'ghost'}
-									size={'xs-icon'}
-								>
+								<div className='rounded-[0.625rem] p-[.625rem] transition-transform-colors group-hover:bg-success-500/[.12] md:p-[.75rem]'>
 									<OutlineRepost
 										className='transition-transform-colors group-hover:text-success-500'
 										size={
@@ -221,14 +219,14 @@ export const SocialCounters = () => {
 												: undefined
 										}
 									/>
-								</Button>
+								</div>
 								<span>
 									<AnimatedNumber
 										className='text-sm normal-nums transition-transform-colors group-hover:text-success-500 md:text-base'
 										value={counters.rehoots}
 									/>
 								</span>
-							</div>
+							</Button>
 						</TooltipTrigger>
 						<TooltipContent
 							side='bottom'
@@ -240,7 +238,7 @@ export const SocialCounters = () => {
 				</TooltipProvider>
 			</div>
 			<Button
-				variant={'ghost'}
+				variant={'counter'}
 				size={'sm-icon'}
 				onClick={reloadCounter}
 			>
