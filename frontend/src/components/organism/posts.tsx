@@ -125,12 +125,12 @@ export const SocialCounters = () => {
 
 	return (
 		<div className='flex w-full justify-between space-x-2'>
-			<div className='flex w-full space-x-2 text-white-500 md:flex-initial md:space-x-8'>
+			<div className='flex w-full space-x-3 text-white-500 md:flex-initial md:space-x-8'>
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
 							<Button
-								className='group flex w-1/4 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'
+								className='group flex w-1/4 cursor-pointer items-center justify-start md:w-1/5 md:flex-initial md:space-x-2'
 								variant={'counter'}
 								size={'counter'}
 								data-counter='stars'
@@ -166,7 +166,7 @@ export const SocialCounters = () => {
 					<Tooltip>
 						<TooltipTrigger asChild>
 							<Button
-								className='group flex w-1/4 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'
+								className='group flex w-1/4 cursor-pointer items-center justify-start md:w-1/5 md:flex-initial md:space-x-2'
 								variant={'counter'}
 								size={'counter'}
 								data-counter='comments'
@@ -202,7 +202,7 @@ export const SocialCounters = () => {
 					<Tooltip>
 						<TooltipTrigger asChild>
 							<Button
-								className='group flex w-1/4 cursor-pointer items-center justify-start space-x-1 md:w-1/5 md:flex-initial md:space-x-2'
+								className='group flex w-1/4 cursor-pointer items-center justify-start md:w-1/5 md:flex-initial md:space-x-2'
 								size={'counter'}
 								variant={'counter'}
 								data-counter='rehoots'
@@ -237,35 +237,37 @@ export const SocialCounters = () => {
 					</Tooltip>
 				</TooltipProvider>
 			</div>
-			<Button
-				variant={'ghost'}
-				size={'sm-icon'}
-				onClick={reloadCounter}
-			>
-				<ArrowRefesh
-					size={
-						windowWidth !== null
-							? windowWidth < 678
-								? 20
-								: 24
-							: undefined
-					}
-				/>
-			</Button>
-			<Button
-				variant={'ghost'}
-				size={'sm-icon'}
-			>
-				<OutlineBookmark
-					size={
-						windowWidth !== null
-							? windowWidth < 678
-								? 20
-								: 24
-							: undefined
-					}
-				/>
-			</Button>
+			<div className='flex space-x-1'>
+				<Button
+					variant={'ghost'}
+					size={'sm-icon'}
+					onClick={reloadCounter}
+				>
+					<ArrowRefesh
+						size={
+							windowWidth !== null
+								? windowWidth < 678
+									? 20
+									: 24
+								: undefined
+						}
+					/>
+				</Button>
+				<Button
+					variant={'ghost'}
+					size={'sm-icon'}
+				>
+					<OutlineBookmark
+						size={
+							windowWidth !== null
+								? windowWidth < 678
+									? 20
+									: 24
+								: undefined
+						}
+					/>
+				</Button>
+			</div>
 		</div>
 	)
 }
