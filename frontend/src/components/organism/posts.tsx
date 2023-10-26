@@ -125,12 +125,12 @@ export const SocialCounters = () => {
 
 	return (
 		<div className='flex w-full justify-between space-x-2'>
-			<div className='flex w-full space-x-3 text-white-500 md:flex-initial md:space-x-8'>
+			<div className='flex w-full space-x-3 text-white-500 md:flex-initial'>
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
 							<Button
-								className='group flex w-1/4 cursor-pointer items-center justify-start md:w-1/5 md:flex-initial md:space-x-2'
+								className='group flex w-1/4 cursor-pointer items-center justify-start md:flex-initial md:space-x-2'
 								variant={'counter'}
 								size={'counter'}
 								data-counter='stars'
@@ -166,7 +166,7 @@ export const SocialCounters = () => {
 					<Tooltip>
 						<TooltipTrigger asChild>
 							<Button
-								className='group flex w-1/4 cursor-pointer items-center justify-start md:w-1/5 md:flex-initial md:space-x-2'
+								className='group flex w-1/4 cursor-pointer items-center justify-start md:flex-initial md:space-x-2'
 								variant={'counter'}
 								size={'counter'}
 								data-counter='comments'
@@ -202,7 +202,7 @@ export const SocialCounters = () => {
 					<Tooltip>
 						<TooltipTrigger asChild>
 							<Button
-								className='group flex w-1/4 cursor-pointer items-center justify-start md:w-1/5 md:flex-initial md:space-x-2'
+								className='group flex w-1/4 cursor-pointer items-center justify-start md:flex-initial md:space-x-2'
 								size={'counter'}
 								variant={'counter'}
 								data-counter='rehoots'
